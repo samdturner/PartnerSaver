@@ -1,0 +1,9 @@
+<h2>Using React + Redux + React Router + Rails Backend (using the
+  <a href="https://github.com/shakacode/react_on_rails">react_on_rails gem</a>)</h2>
+<%= render "header" %>
+
+<%= react_component('App',
+                    render(template: "/tasks/index.json.jbuilder"),
+                    generator_function: true,
+                    prerender: false,
+                    raise_on_prerender_error: true) %>

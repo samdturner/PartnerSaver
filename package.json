@@ -1,0 +1,42 @@
+{
+  "name": "react-webpack-rails-tutorial",
+  "version": "1.1.1",
+  "description": "Code from the React Webpack tutorial.",
+  "main": "server-express.js",
+  "engines": {
+    "node": "5.0.0",
+    "npm": "3.3.6"
+  },
+  "scripts": {
+    "postinstall": "cd client && npm install",
+    "test": "rspec && npm run test:client && npm run lint",
+    "test:client": "(cd client && npm run test --silent)",
+    "lint": "(cd client && npm run lint --silent)",
+    "build:clean": "rm app/assets/webpack/*",
+    "build:client": "(cd client && npm run build:client --silent)",
+    "build:server": "(cd client && npm run build:server --silent)",
+    "build:dev:client": "(cd client && npm run build:dev:client --silent)",
+    "build:dev:server": "(cd client && npm run build:dev:server --silent)",
+    "build:test:client": "(cd client && npm run build:test:client --silent)",
+    "start": "(cd client && npm run start --silent)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shakacode/react-webpack-rails-tutorial.git"
+  },
+  "keywords": [
+    "react",
+    "tutorial",
+    "comment",
+    "example"
+  ],
+  "author": "justin808",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shakacode/react-webpack-rails-tutorial/issues"
+  },
+  "homepage": "https://github.com/shakacode/react-webpack-rails-tutorial",
+  "dependencies": {
+    "jquery": "^2.2.0"
+  }
+}

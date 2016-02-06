@@ -1,0 +1,7 @@
+<h2>Partner Saver</h2>
+
+<%= react_component('App', 
+                    render(template: "/tasks/index.json.jbuilder"),
+                    generator_function: true,
+                    prerender: false,
+                    raise_on_prerender_error: true) %>
