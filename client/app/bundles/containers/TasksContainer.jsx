@@ -18,7 +18,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 export default class TasksContainer extends BaseComponent {
   static propTypes = {
-    $$tasks: PropTypes.object.isRequired,
+    $$store: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
     location: PropTypes.shape({
       state: PropTypes.object,
