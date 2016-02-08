@@ -7,7 +7,7 @@ ReactOnRails.configure do |config|
   config.server_bundle_js_file = "app/assets/webpack/server-bundle.js" # This is the default
 
   # Below options can be overriden by passing to the helper method.
-  config.prerender = true # default is false
+  config.prerender = false # default is false
   config.generator_function = true # default is false, meaning that you expose ReactComponents directly
   config.trace = Rails.env.development? # default is true for development, off otherwise
 

@@ -1,6 +1,7 @@
 class Api::TasksController < ApplicationController
   def index
-    render json: Task.all
+    @tasks = Task.all
+    render 'tasks/index.json'
   end
 
   def create
@@ -32,7 +33,7 @@ class Api::TasksController < ApplicationController
   end
 
   private
-  
+
     def task_params
       params.permit(:id, :title, :deadline, :task_type)
     end

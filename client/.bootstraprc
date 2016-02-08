@@ -52,7 +52,7 @@ preBootstrapCustomizations: ./app/assets/styles/bootstrap-pre-customizations.scs
 # your sass files separately, you will not have access to the bootstrap variables, mixins, clases, etc.
 # Usually this endpoint-file contains list of @imports of your application styles.
 # But since we use CSS Modules, we don't need it - every module gets imported from JS component.
-# appStyles: ./app/styles/app.scss
+# appStyles: ./app/assets/styles/bs-theme.scss
 
 ### Bootstrap styles
 styles:
@@ -108,16 +108,4 @@ styles:
   responsive-utilities: true
 
 ### Bootstrap scripts
-scripts:
-  transition: true
-  alert: true
-  button: true
-  carousel: true
-  collapse: true
-  dropdown: true
-  modal: true
-  tooltip: true
-  popover: true
-  scrollspy: true
-  tab: true
-  affix: true
+scripts: false

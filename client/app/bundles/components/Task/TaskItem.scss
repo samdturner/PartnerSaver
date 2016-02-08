@@ -1,0 +1,31 @@
+.taskItem {
+  padding: $padding-small-vertical $padding-small-horizontal;
+  border-bottom: solid 1px #CCCCCC;
+}
+
+.taskItemOverdue {
+  composes: taskItem;
+  color: $brand-danger;
+}
+
+.taskAttribute {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskPartner {
+  composes: taskAttribute;
+  width: 12%;
+}
+
+.taskDeadline {
+  composes: taskAttribute;
+  width: 12%;
+}
+
+.taskDescription {
+  composes: taskAttribute;
+  width: 76%;
+}

@@ -3,6 +3,7 @@ import Immutable from 'immutable';
 import _ from 'lodash';
 
 import BaseComponent from 'libs/components/BaseComponent';
+import css from './TaskList.scss';
 import TaskItem from './TaskItem';
 
 export default class TaskList extends BaseComponent {
@@ -24,7 +25,7 @@ export default class TaskList extends BaseComponent {
 
   render() {
     return (
-      <ul>
+      <ul className={css.taskList}>
         {this.getTasks()}
       </ul>
     )

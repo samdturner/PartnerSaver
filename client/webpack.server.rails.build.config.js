@@ -12,8 +12,7 @@ module.exports = {
   context: __dirname,
   entry: [
     'react',
-    'react-dom/server',
-    './app/bundles/comments/startup/serverGlobals',
+    'react-dom/server'
   ],
   output: {
     filename: 'server-bundle.js',
@@ -56,6 +55,5 @@ module.exports = {
     ],
   },
 
-  sassResources: ['./app/assets/styles/app-variables.scss'],
-
+  sassResources: ['./app/assets/styles/_variables.scss']
 };

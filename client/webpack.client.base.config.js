@@ -23,7 +23,7 @@ module.exports = {
 
     // This will contain the app entry points defined by webpack.hot.config and webpack.rails.config
     app: [
-      './app/bundles/comments/startup/clientGlobals',
+      './app/bundles/startup/clientGlobals',
     ],
   },
   resolve: {
@@ -67,12 +67,7 @@ module.exports = {
       { test: require.resolve('jquery'), loader: 'expose?$' },
 
       // Use one of these to serve jQuery for Bootstrap scripts:
-
-      // Bootstrap 3
-      { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' },
-
-      // Bootstrap 4
-      { test: /bootstrap\/dist\/js\/umd\//, loader: 'imports?jQuery=jquery' },
+      { test: /bootstrap-sass\/assets\/javascripts\//, loader: 'imports?jQuery=jquery' }
     ],
   },
 
@@ -83,6 +78,5 @@ module.exports = {
   // And sass-resources-loader will load them in every CSS Module (SASS file) for you
   // (so don't need to @import them explicitly)
   // https://github.com/shakacode/sass-resources-loader
-  sassResources: ['./app/assets/styles/app-variables.scss'],
-
+  sassResources: ['./app/assets/styles/_variables.scss']
 };

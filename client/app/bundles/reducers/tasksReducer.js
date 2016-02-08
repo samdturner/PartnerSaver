@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 import redux from 'redux';
 
-import * as actionTypes from '../constants/commentsConstants';
+import * as actionTypes from '../constants/tasksConstants';
 
 export const $$initialState = Immutable.fromJS({
   $$tasks: [],

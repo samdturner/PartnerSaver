@@ -1,7 +1,5 @@
-// import App from './ClientApp';
 import App from './ClientRouterApp';
-// import SimpleCommentScreen from '../components/SimpleCommentScreen/SimpleCommentScreen';
+import Header from './ClientHeader';
 
-// window.App = App;
 window.App = App;
-// window.SimpleCommentScreen = SimpleCommentScreen;
+window.Header = Header;

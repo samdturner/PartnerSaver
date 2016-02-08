@@ -1,5 +1,5 @@
 import requestsManager from 'libs/requestsManager';
-import * as actionTypes from '../constants/commentsConstants';
+import * as actionTypes from '../constants/tasksConstants';
 
 export function setIsFetching() {
   return {

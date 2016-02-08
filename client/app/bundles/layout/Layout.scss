@@ -1,10 +1,6 @@
 // This way we turn CSS Modules off and apply these css rules globaly
 :global {
 
-  body {
-    padding-top: 20px;
-  }
-
   .active:visited,
   .active {
     color: purple;
