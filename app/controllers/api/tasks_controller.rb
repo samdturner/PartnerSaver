@@ -1,6 +1,6 @@
 class Api::TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(params[:selectedSortType])
     render 'tasks/index.json'
   end
 
@@ -35,6 +35,6 @@ class Api::TasksController < ApplicationController
   private
 
     def task_params
-      params.permit(:id, :title, :deadline, :task_type)
+      params.permit(:id, :title, :deadline, :task_type, :selectedSortType)
     end
 end

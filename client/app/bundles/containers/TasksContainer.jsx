@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash';
 
 import * as tasksActionCreators from '../actions/tasksActionCreators';
 import TaskList from '../components/Task/TaskList';
@@ -17,6 +18,11 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 export default class TasksContainer extends BaseComponent {
+  constructor(props, context) {
+    super(props, context);
+    _.bindAll(this, 'sortTasks', 'getFetchParams');
+  }
+
   static propTypes = {
     $$store: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
@@ -25,10 +31,29 @@ export default class TasksContainer extends BaseComponent {
     }).isRequired
   };
 
+  componentDidMount() {
+    const { taskActions } = this.props;
+    taskActions.fetchTasks(this.getFetchParams());
+  }
+
   render() {
     return (
-      <TaskList {...this.props} />
+      <TaskList {...this.props}
+                sortTasks={this.sortTasks} />
     );
+  }
+
+  sortTasks(newSortType) {
+    const { taskActions } = this.props;
+    const newParams = { selectedSortType: newSortType };
+    taskActions.sortTasks(this.getFetchParams(newParams));
+  }
+
+  getFetchParams(newParams) {
+    const { taskActions, $$store } = this.props;
+    const selectedSortType = $$store.getIn(['$$tasks', 'selectedSortType']);
+    const currentParams = { selectedSortType: selectedSortType };
+    return _.assign(currentParams, newParams);
   }
 }
 

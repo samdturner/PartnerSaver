@@ -11,7 +11,7 @@ Task.delete_all
 10.times do
   title = Faker::Lorem.sentence(3, false, 4)
   description = Faker::Lorem.paragraph(2, true, 4)
-  deadline = Faker::Date.between(1.days.ago, Date.today)
+  deadline = Faker::Date.between(5.days.ago, Date.today)
   random = rand(0..1)
   task_type = random < 0.5 ? "0" : "1"
   Task.create!(title: title, description: description, deadline: deadline, task_type: task_type)

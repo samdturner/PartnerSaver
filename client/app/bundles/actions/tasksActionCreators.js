@@ -27,12 +27,32 @@ export function fetchTasksFailure(error) {
   }
 }
 
-export function fetchTasks() {
+export function setSortType(newSortType) {
+  return {
+    type: actionTypes.SET_SORT_TYPE,
+    newSortType
+  }
+}
+
+export function fetchTasks(params) {
   return dispatch => {
     dispatch(setIsFetching());
     return (
       requestsManager
-        .fetchTasks()
+        .fetchTasks(params)
+        .then(res => dispatch(fetchTasksSuccess(res.data)))
+        .catch(res => dispatch(fetchTasksFailure(res.data)))
+    )
+  }
+}
+
+export function sortTasks(params) {
+  return dispatch => {
+    dispatch(setIsFetching());
+    dispatch(setSortType(params.selectedSortType));
+    return(
+      requestsManager
+        .fetchTasks(params)
         .then(res => dispatch(fetchTasksSuccess(res.data)))
         .catch(res => dispatch(fetchTasksFailure(res.data)))
     )

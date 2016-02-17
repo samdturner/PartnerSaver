@@ -5,7 +5,7 @@ class Task < ActiveRecord::Base
 
   after_initialize :add_overdue_status
 
-  attr_accessor :isOverdue
+  attr_accessor :is_overdue
 
   def deadline_cannot_be_in_the_past
     errors.add(:deadline, "can't be in the past") if
@@ -13,6 +13,6 @@ class Task < ActiveRecord::Base
   end
 
   def add_overdue_status
-    self.isOverdue = deadline < Date.today
+    self.is_overdue = deadline >= Date.today
   end
 end

@@ -1,3 +1,7 @@
 .taskList {
   list-style-type: none;
 }
+
+.taskListHeaderRow {
+  composes: taskItem from './TaskItem.scss';
+}

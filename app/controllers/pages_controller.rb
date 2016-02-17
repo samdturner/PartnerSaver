@@ -5,8 +5,8 @@ class PagesController < ApplicationController
   end
 
   private
-  
+
     def set_tasks
-      @tasks = Task.all.order("id DESC")
+      @tasks = Task.all.order(:deadline)
     end
 end

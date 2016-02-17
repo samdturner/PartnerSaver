@@ -7,8 +7,8 @@ import css from './TaskItem.scss';
 
 export default class extends BaseComponent {
   getTaskItemCss() {
-    var isOverdue = this.props.$$task.get('isOverdue');
-    return isOverdue ? css.taskItem : css.taskItemOverdue;
+    var is_overdue = this.props.$$task.get('is_overdue');
+    return is_overdue ? css.taskItem : css.taskItemOverdue;
   }
 
   render() {
