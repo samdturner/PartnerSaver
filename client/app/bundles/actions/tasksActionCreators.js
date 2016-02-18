@@ -34,17 +34,6 @@ export function setSortType(newSortType) {
   }
 }
 
-export function fetchTasks(params) {
-  return dispatch => {
-    dispatch(setIsFetching());
-    return (
-      requestsManager
-        .fetchTasks(params)
-        .then(res => dispatch(fetchTasksSuccess(res.data)))
-        .catch(res => dispatch(fetchTasksFailure(res.data)))
-    )
-  }
-}
 
 export function sortTasks(params) {
   return dispatch => {

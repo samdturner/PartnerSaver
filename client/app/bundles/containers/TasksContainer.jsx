@@ -33,7 +33,7 @@ export default class TasksContainer extends BaseComponent {
 
   componentDidMount() {
     const { taskActions } = this.props;
-    taskActions.fetchTasks(this.getFetchParams());
+    taskActions.sortTasks(this.getFetchParams());
   }
 
   render() {
@@ -51,7 +51,7 @@ export default class TasksContainer extends BaseComponent {
 
   getFetchParams(newParams) {
     const { taskActions, $$store } = this.props;
-    const selectedSortType = $$store.getIn(['$$tasks', 'selectedSortType']);
+    const selectedSortType = $$store.getIn(['selectedSortType']);
     const currentParams = { selectedSortType: selectedSortType };
     return _.assign(currentParams, newParams);
   }
