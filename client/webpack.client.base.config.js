@@ -55,9 +55,9 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
-      { test: /\.(ttf|eot)$/, loader: 'file' },
-      { test: /\.(jpe?g|png|gif|svg|ico)$/, loader: 'url?limit=10000' },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000' },
+      { test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file' },
+      { test: /\.(jpe?g|png|gif|svg|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000' },
 
       // React is necessary for the client rendering
       { test: require.resolve('react'), loader: 'expose?React' },
@@ -78,5 +78,6 @@ module.exports = {
   // And sass-resources-loader will load them in every CSS Module (SASS file) for you
   // (so don't need to @import them explicitly)
   // https://github.com/shakacode/sass-resources-loader
-  sassResources: ['./app/assets/styles/_variables.scss']
+  sassResources: ['./app/assets/styles/_variables.scss',
+                  './app/assets/styles/_custom_variables.scss']
 };

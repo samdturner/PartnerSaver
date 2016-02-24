@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import * as tasksActionCreators from '../actions/tasksActionCreators';
 import TaskList from '../components/Task/TaskList';
+import CreateTask from '../components/Task/CreateTask';
 import BaseComponent from 'libs/components/BaseComponent';
 
 function mapStateToProps(state, ownProps) {
@@ -38,8 +39,11 @@ export default class TasksContainer extends BaseComponent {
 
   render() {
     return (
-      <TaskList {...this.props}
-                sortTasks={this.sortTasks} />
+      <div>
+        <TaskList {...this.props}
+                  sortTasks={this.sortTasks} />
+        <CreateTask />
+      </div>
     );
   }
 

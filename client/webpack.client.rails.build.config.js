@@ -9,7 +9,7 @@ const config = require('./webpack.client.base.config');
 const devBuild = process.env.NODE_ENV !== 'production';
 
 config.output = {
-  filename: '[name]-bundle.js',
+  filename: '[name]-bundle.[hash].js',
   path: '../app/assets/webpack',
 };
 
@@ -29,21 +29,39 @@ config.module.loaders.push(
   { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
   {
     test: /\.css$/,
+    exclude: /node_modules/,
     loader: ExtractTextPlugin.extract(
       'style',
       'css?minimize&modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]' +
       '!postcss'
-    ),
+    )
   },
   {
     test: /\.scss$/,
+    exclude: /node_modules/,
     loader: ExtractTextPlugin.extract(
       'style',
       'css?minimize&modules&importLoaders=3&localIdentName=[name]__[local]__[hash:base64:5]' +
       '!postcss' +
       '!sass' +
       '!sass-resources'
-    ),
+    )
+  },
+  {
+    test: /(node_modules).*(\.css$)/,
+    loader: ExtractTextPlugin.extract(
+      'style',
+      '!postcss'
+    )
+  },
+  {
+    test: /(node_modules).*(\.scss$)/,
+    loader: ExtractTextPlugin.extract(
+      'style',
+      '!postcss',
+      '!sass',
+      '!sass-resources'
+    )
   },
   {
     test: require.resolve('react'),
@@ -52,7 +70,7 @@ config.module.loaders.push(
 );
 
 config.plugins.push(
-  new ExtractTextPlugin('[name]-bundle.css', { allChunks: true }),
+  new ExtractTextPlugin('[name]-bundle.[hash].css', { allChunks: true }),
   new webpack.optimize.DedupePlugin()
 );
 

@@ -36,17 +36,33 @@ module.exports = {
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
       {
         test: /\.css$/,
+        exclude: /node_modules/,
         loaders: [
           'css/locals?modules&importLoaders=0&localIdentName=[name]__[local]__[hash:base64:5]',
-        ],
+        ]
       },
       {
         test: /\.scss$/,
+        exclude: /node_modules/,
         loaders: [
           'css/locals?modules&importLoaders=2&localIdentName=[name]__[local]__[hash:base64:5]',
           'sass',
-          'sass-resources',
-        ],
+          'sass-resources'
+        ]
+      },
+      {
+        test: /(node_modules).*(\.css$)/,
+        loaders: [
+          'css'
+        ]
+      },
+      {
+        test: /(node_modules).*(\.scss$)/,
+        loaders: [
+          'css',
+          '!sass' +
+          '!sass-resources'
+        ]
       },
 
       // React is necessary for the client rendering:

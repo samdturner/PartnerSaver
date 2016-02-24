@@ -1,0 +1,54 @@
+.newTaskContainer {
+  height: 420px;
+  width: 35%;
+  margin-top: 39px;
+  padding: 6px 12px;
+  background-color: $table-bg-accent;
+  float: right;
+  box-shadow: 0px 0px 4px #AAAAAA;
+  border-radius: 2px;
+
+  .header {
+    width: 100%;
+    border-bottom: 1px solid $gray-lighter;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+  }
+}
+
+.partnerSelectorContainer {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.businessIconContainer {
+  @include icon-circle($gray-light);
+  margin-right: 10px;
+
+  .businessIcon {
+    @include icon-circle-font($gray-light, 18px);
+  }
+}
+
+.businessTitleDisplay {
+  @include light-blue;
+}
+
+
+.deadlineSelectorContainer {
+  display: inline-block;
+}
+
+.taskTypeToggleContainer {
+  width: 180px;
+  font-weight: 300;
+  float: left;
+}
+
+.taskTypeToggleContainer:hover {
+  cursor: pointer;
+}
+
+.deleteTaskBtn {
+  float: right;
+}

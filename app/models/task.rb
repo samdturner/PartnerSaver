@@ -7,6 +7,12 @@ class Task < ActiveRecord::Base
 
   attr_accessor :is_overdue
 
+  TYPES = %w{ INCOMPLETE IN_PROGRESS COMPLETE }
+
+  TYPES.each_with_index do |method, index|
+    define_method("#{method}?") { type == index }
+  end
+
   def deadline_cannot_be_in_the_past
     errors.add(:deadline, "can't be in the past") if
       !deadline.blank? && deadline < Date.today

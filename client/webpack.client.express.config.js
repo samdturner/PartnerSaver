@@ -18,7 +18,7 @@ config.entry.app.push(
 config.output = {
 
   // this file is served directly by webpack
-  filename: '[name]-bundle.js',
+  filename: '[name]-bundle.[hash].js',
   path: __dirname,
 };
 config.plugins.unshift(
@@ -52,6 +52,7 @@ config.module.loaders.push(
   },
   {
     test: /\.css$/,
+    exclude: /node_modules/,
     loaders: [
       'style',
       'css?modules&importLoaders=1&localIdentName=[name]__[local]__[hash:base64:5]',
@@ -60,14 +61,34 @@ config.module.loaders.push(
   },
   {
     test: /\.scss$/,
+    exclude: /node_modules/,
     loaders: [
       'style',
       'css?modules&importLoaders=3&localIdentName=[name]__[local]__[hash:base64:5]',
       'postcss',
       'sass',
       'sass-resources',
+      ],
+  },
+  {
+    test: /(node_modules).*(\.scss$)/,
+    loaders: [
+      'style',
+      'postcss',
+      'sass',
+      'sass-resources'
     ],
-  }
+  },
+  {
+    test: /(node_modules).*(\.css$)/,
+    loaders: [
+      'style',
+      'postcss'
+    ],
+  },
+  { test: /\.(woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?|svg)$/, loader: 'url?limit=10000' },
+  { test: /\.(ttf|eot)$/, loader: 'file' },
+  { test: /\.(jpe?g|png|gif|svg|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url?limit=10000' }
 );
 
 module.exports = config;
