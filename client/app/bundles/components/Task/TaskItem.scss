@@ -1,11 +1,28 @@
-.taskItem {
+.taskRow {
   padding: $padding-small-vertical $padding-small-horizontal;
   border-bottom: solid 1px #CCCCCC;
 }
 
-.taskItemOverdue {
-  composes: taskItem;
+.taskItem {
+  composes: taskRow;
   color: $brand-danger;
+  background-color: $table-bg-accent;
+  font-size: 12px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.taskItemOverdue {
+  composes: taskRow;
+  color: $brand-danger;
+  background-color: $table-bg-accent;
+  font-size: 12px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .taskAttribute {

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
@@ -21,11 +22,19 @@ function mapDispatchToProps(dispatch, ownProps) {
 export default class TasksContainer extends BaseComponent {
   constructor(props, context) {
     super(props, context);
-    _.bindAll(this, 'sortTasks', 'getFetchParams');
+    _.bindAll(this,
+      'getTaskWindow',
+      'getSelectedTask',
+      'sortTasks',
+      'getFetchParams',
+      'selectTask',
+      'closeTaskWindow'
+    );
+    this.state = { selectedTaskId: null };
   }
 
   static propTypes = {
-    $$store: PropTypes.object.isRequired,
+    $$store: ImmutablePropTypes.map.isRequired,
     taskActions: PropTypes.object.isRequired,
     location: PropTypes.shape({
       state: PropTypes.object,
@@ -38,13 +47,44 @@ export default class TasksContainer extends BaseComponent {
   }
 
   render() {
+    const { $$store, location } = this.props;
+
     return (
       <div>
-        <TaskList {...this.props}
-                  sortTasks={this.sortTasks} />
-        <CreateTask />
+        <TaskList $$store={$$store}
+                  location={location}
+                  sortTasks={this.sortTasks}
+                  selectedTask={this.getSelectedTask()}
+                  selectTask={this.selectTask}
+        />
+        {this.getTaskWindow()}
       </div>
     );
+  }
+
+  getTaskWindow() {
+    const selectedTask = this.getSelectedTask();
+    if(!selectedTask) {
+      return null;
+    }
+
+    return(
+      <CreateTask selectedTask={selectedTask}
+                  closeTaskWindow={this.closeTaskWindow}
+      />
+    )
+  }
+
+  getSelectedTask() {
+    const { selectedTaskId } = this.state;
+    if(!selectedTaskId) {
+      return null;
+    }
+
+    const $$tasks = this.props.$$store.get('$$tasks');
+    return $$tasks.find(function($$task) {
+      return selectedTaskId === $$task.get('id');
+    });
   }
 
   sortTasks(newSortType) {
@@ -58,6 +98,14 @@ export default class TasksContainer extends BaseComponent {
     const selectedSortType = $$store.getIn(['selectedSortType']);
     const currentParams = { selectedSortType: selectedSortType };
     return _.assign(currentParams, newParams);
+  }
+
+  selectTask(taskId) {
+    this.setState({ selectedTaskId: taskId });
+  }
+
+  closeTaskWindow() {
+    this.setState({ selectedTaskId: null });
   }
 }
 

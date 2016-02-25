@@ -1,11 +1,16 @@
 @mixin icon-circle($borderColor) {
   display: inline-block;
+  position: relative;
   width: 36px;
   height: 36px;
   border-radius: 18px;
   border: 1px solid $borderColor;
   background-color: #fff;
   text-align: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 @mixin icon-circle-font($fontColor, $size) {

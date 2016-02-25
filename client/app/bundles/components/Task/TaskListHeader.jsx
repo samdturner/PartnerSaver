@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import Immutable from 'immutable';
 import _ from 'lodash';
 
@@ -11,6 +12,16 @@ export default class TaskListHeader extends BaseComponent {
 
     _.bindAll(this, 'getClassName', 'handleSortClick');
   }
+
+  static propTypes = {
+    $$store: ImmutablePropTypes.map.isRequired,
+    location: PropTypes.shape({
+      state: PropTypes.object
+    }).isRequired,
+    sortTasks: PropTypes.func.isRequired,
+    sortType: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  };
 
   render() {
     return (

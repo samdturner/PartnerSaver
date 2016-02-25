@@ -1,10 +1,10 @@
 .taskList {
   list-style-type: none;
   float: left;
-  width: 65%;
+  width: 62%;
   padding: 0px;
 }
 
 .taskListHeaderRow {
-  composes: taskItem from './TaskItem.scss';
+  composes: taskRow from './TaskItem.scss';
 }
