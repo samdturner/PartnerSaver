@@ -1,11 +1,13 @@
+require 'stamp'
+
 class Task < ActiveRecord::Base
   validates :title, :length => { :maximum => 500 }
   validates :description, :length => { :maximum => 2000 }
   # validate :deadline_cannot_be_in_the_past
 
-  after_initialize :add_overdue_status
+  after_initialize :add_overdue_status, :format_deadline
 
-  attr_accessor :is_overdue
+  attr_accessor :is_overdue, :pretty_deadline
 
   TYPES = %w{ INCOMPLETE IN_PROGRESS COMPLETE }
 
@@ -20,5 +22,9 @@ class Task < ActiveRecord::Base
 
   def add_overdue_status
     self.is_overdue = deadline >= Date.today
+  end
+
+  def format_deadline
+    self.pretty_deadline = deadline.stamp("12/31/2016")
   end
 end

@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import * as tasksActionCreators from '../actions/tasksActionCreators';
 import TaskList from '../components/Task/TaskList';
-import CreateTask from '../components/Task/CreateTask';
+import TaskEditor from '../components/Task/TaskEditor';
 import BaseComponent from 'libs/components/BaseComponent';
 
 function mapStateToProps(state, ownProps) {
@@ -28,7 +28,8 @@ export default class TasksContainer extends BaseComponent {
       'sortTasks',
       'getFetchParams',
       'selectTask',
-      'closeTaskWindow'
+      'closeTaskWindow',
+      'updateTask'
     );
     this.state = { selectedTaskId: null };
   }
@@ -54,7 +55,7 @@ export default class TasksContainer extends BaseComponent {
         <TaskList $$store={$$store}
                   location={location}
                   sortTasks={this.sortTasks}
-                  selectedTask={this.getSelectedTask()}
+                  $$selectedTask={this.getSelectedTask()}
                   selectTask={this.selectTask}
         />
         {this.getTaskWindow()}
@@ -63,14 +64,15 @@ export default class TasksContainer extends BaseComponent {
   }
 
   getTaskWindow() {
-    const selectedTask = this.getSelectedTask();
-    if(!selectedTask) {
+    const $$selectedTask = this.getSelectedTask();
+    if(!$$selectedTask) {
       return null;
     }
 
     return(
-      <CreateTask selectedTask={selectedTask}
+      <TaskEditor $$selectedTask={$$selectedTask}
                   closeTaskWindow={this.closeTaskWindow}
+                  updateTask={this.updateTask}
       />
     )
   }
@@ -106,6 +108,11 @@ export default class TasksContainer extends BaseComponent {
 
   closeTaskWindow() {
     this.setState({ selectedTaskId: null });
+  }
+
+  updateTask($$task) {
+    const { taskActions } = this.props;
+    taskActions.updateTask($$task);
   }
 }
 

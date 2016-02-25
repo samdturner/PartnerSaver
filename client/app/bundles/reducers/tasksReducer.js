@@ -43,6 +43,21 @@ export default function tasksReducer($$state = $$initialState, action = null) {
         selectedSortType: action.newSortType
       });
 
+    case actionTypes.UPDATE_TASK:
+      const $$updatedTask = action.$$task;
+      const updatedTaskId = $$updatedTask.get('id');
+      const $$updatedTasks = $$state.get('$$tasks').map(function($$task) {
+        if(updatedTaskId === $$task.get('id')) {
+          return $$updatedTask;
+        }
+
+        return $$task;
+      });
+
+      return $$state.merge({
+        $$tasks: $$updatedTasks
+      });
+
     default: {
       return $$state;
     }

@@ -21,7 +21,7 @@ export default class TaskList extends BaseComponent {
       state: PropTypes.object
     }).isRequired,
     sortTasks: PropTypes.func.isRequired,
-    selectedTask: ImmutablePropTypes.map,
+    $$selectedTask: ImmutablePropTypes.map,
     selectTask: PropTypes.func.isRequired
   };
 
@@ -71,13 +71,13 @@ export default class TaskList extends BaseComponent {
 
   getTasks() {
     const $$tasks = this.props.$$store.get('$$tasks');
-    const { selectedTask, selectTask } = this.props;
+    const { $$selectedTask, selectTask } = this.props;
 
     return(
       $$tasks.map($$task => {
         return(
           <TaskItem $$task={$$task}
-                    selectedTask={selectedTask}
+                    $$selectedTask={$$selectedTask}
                     selectTask={selectTask}
                     key={"taskItem" + $$task.get('id')}
           />

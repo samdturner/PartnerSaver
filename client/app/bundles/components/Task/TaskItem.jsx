@@ -17,7 +17,7 @@ export default class extends BaseComponent {
 
   static propTypes = {
     $$task: ImmutablePropTypes.map.isRequired,
-    selectedTask: ImmutablePropTypes.map
+    $$selectedTask: ImmutablePropTypes.map
   };
 
   render() {

@@ -34,7 +34,6 @@ export function setSortType(newSortType) {
   }
 }
 
-
 export function sortTasks(params) {
   return dispatch => {
     dispatch(setIsFetching());
@@ -45,5 +44,12 @@ export function sortTasks(params) {
         .then(res => dispatch(fetchTasksSuccess(res.data)))
         .catch(res => dispatch(fetchTasksFailure(res.data)))
     )
+  }
+}
+
+export function updateTask($$task) {
+  return {
+    type: actionTypes.UPDATE_TASK,
+    $$task
   }
 }

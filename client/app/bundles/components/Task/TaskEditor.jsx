@@ -4,17 +4,30 @@ import Immutable from 'immutable';
 import _ from 'lodash';
 
 import BaseComponent from 'libs/components/BaseComponent';
-import css from './CreateTask.scss';
+import css from './TaskEditor.scss';
 import Icon from 'react-fa'
 
 export default class extends BaseComponent {
+  constructor(props, context) {
+    super(props, context);
+    _.bindAll(this,
+      'getPartnerSelector',
+      'getDeadlineSelector',
+      'getTaskTypeToggle',
+      'getTaskStatusBtn',
+      'getTaskTitleInput',
+      'getTaskDescriptionInput',
+      'handleUpdateTask'
+    );
+  }
+
   static propTypes = {
-    selectedTask: ImmutablePropTypes.map.isRequired,
+    $$selectedTask: ImmutablePropTypes.map.isRequired,
     closeTaskWindow: PropTypes.func.isRequired
   };
 
   render() {
-    const { $$task } = this.props;
+    const { $$selectedTask } = this.props;
 
     return(
       <div className={css.newTaskContainer}>
@@ -56,7 +69,9 @@ export default class extends BaseComponent {
         <div className={css.iconContainer}>
           <Icon name="calendar" className={css.icon} />
         </div>
-        <span className={css.businessTitleDisplay}>13/06/2014</span>
+        <span className={css.businessTitleDisplay}>
+          {this.props.$$selectedTask.get('pretty_deadline')}
+        </span>
       </div>
     )
   }
@@ -94,18 +109,37 @@ export default class extends BaseComponent {
   }
 
   getTaskTitleInput() {
+    const title = this.props.$$selectedTask.get('title');
+
     return(
       <textarea className={`${css.taskTitle}` + " form-control"}
+                value={title}
+                onChange={this.handleUpdateTask}
+                name="title"
                 placeholder="Task title"
                 rows="3"></textarea>
     )
   }
 
   getTaskDescriptionInput() {
+    const description = this.props.$$selectedTask.get('description');
+
     return(
       <textarea className={`${css.taskDescription}` + " form-control"}
+                value={description}
+                onChange={this.handleUpdateTask}
+                name="description"
                 placeholder="Task description"
                 rows="3"></textarea>
     )
+  }
+
+  handleUpdateTask(event) {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    const { $$selectedTask } = this.props;
+    const $$updatedTask = $$selectedTask.set(name, value);
+    this.props.updateTask($$updatedTask);
   }
 };
