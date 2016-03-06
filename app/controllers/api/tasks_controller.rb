@@ -7,7 +7,7 @@ class Api::TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      render json: @task
+      render 'tasks/index.json'
     else
       render json: @task.errors.full_messages, status: :unprocessable_entity
     end
@@ -16,7 +16,7 @@ class Api::TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.update_attributes(task_params)
-      render json: @task
+      render 'tasks/index.json'
     else
       render json: @task.errors.full_messages, status: :unprocessable_entity
     end
@@ -35,6 +35,14 @@ class Api::TasksController < ApplicationController
   private
 
     def task_params
-      params.permit(:id, :title, :deadline, :task_type, :selectedSortType)
+      params.permit(
+                :id,
+                :title,
+                :description,
+                :deadline,
+                :category,
+                :status,
+                :selectedSortType
+                )
     end
 end

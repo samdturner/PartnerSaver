@@ -10,7 +10,27 @@ export default {
       method: 'GET',
       url: TASKS_URL,
       params: params,
-      responseType: 'json',
+      responseType: 'json'
+    });
+  },
+
+  updateTask(params) {
+    const putUrl = TASKS_URL + "/" + params.id;
+    return request({
+      method: 'PUT',
+      url: putUrl,
+      params: params,
+      responseType: 'json'
+    });
+  },
+
+  deleteTask(params) {
+    const deleteUrl = TASKS_URL + "/" + params.id;
+    return request({
+      method: 'DELETE',
+      url: deleteUrl,
+      params: params,
+      responseType: 'json'
     });
   }
 

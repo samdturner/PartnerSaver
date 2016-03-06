@@ -12,7 +12,22 @@ Task.delete_all
   title = Faker::Lorem.sentence(3, false, 4)
   description = Faker::Lorem.paragraph(2, true, 4)
   deadline = Faker::Date.between(5.days.ago, Date.today)
-  random = rand(0..1)
-  task_type = random < 0.5 ? "0" : "1"
-  Task.create!(title: title, description: description, deadline: deadline, task_type: task_type)
+  catRandom = rand(0..1)
+  category = catRandom < 0.5 ? 0 : 1
+
+  statusRandom = rand(0..1)
+  status = 0
+  if statusRandom > 0.6
+    status = 2
+  elsif statusRandom > 0.3
+    status = 1
+  end
+
+  Task.create!(
+    title: title,
+    description: description,
+    deadline: deadline,
+    category: category,
+    status: status
+  )
 end

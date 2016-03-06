@@ -6,3 +6,4 @@ export const FETCH_TASKS_FAILURE = 'FETCH_COMMENTS_FAILURE';
 
 export const SET_SORT_TYPE = 'SET_SORT_TYPE';
 export const UPDATE_TASK = 'UPDATE_TASK';
+export const REMOVE_TASK = 'REMOVE_TASK';

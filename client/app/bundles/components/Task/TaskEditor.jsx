@@ -7,23 +7,34 @@ import BaseComponent from 'libs/components/BaseComponent';
 import css from './TaskEditor.scss';
 import Icon from 'react-fa'
 
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
+
 export default class extends BaseComponent {
   constructor(props, context) {
     super(props, context);
     _.bindAll(this,
       'getPartnerSelector',
       'getDeadlineSelector',
-      'getTaskTypeToggle',
+      'getCategoryToggle',
       'getTaskStatusBtn',
       'getTaskTitleInput',
       'getTaskDescriptionInput',
-      'handleUpdateTask'
+      'handleUpdateTask',
+      'updateTask',
+      'putTask',
+      'handleDeleteTask'
     );
+    this.putTask = _.debounce(this.putTask, 200);
   }
 
   static propTypes = {
     $$selectedTask: ImmutablePropTypes.map.isRequired,
-    closeTaskWindow: PropTypes.func.isRequired
+    closeTaskWindow: PropTypes.func.isRequired,
+    updateTask: PropTypes.func.isRequired,
+    putTask: PropTypes.func.isRequired,
+    deleteTask: PropTypes.func.isRequired
   };
 
   render() {
@@ -38,8 +49,11 @@ export default class extends BaseComponent {
           {this.getDeadlineSelector()}
         </div>
         <div className={`${css.secondHeader}` + " clearfix"}>
-          {this.getTaskTypeToggle()}
-          <a href="#" className={`${css.deleteTaskBtn}` + " btn btn-danger btn-xs"}>Delete</a>
+          {this.getCategoryToggle()}
+          <a className={`${css.deleteTaskBtn}` + " btn btn-danger btn-xs"}
+             onClick={this.handleDeleteTask}>
+            Delete
+          </a>
         </div>
         <div className={`${css.thirdHeader}` + " clearfix"}>
           {this.getTaskStatusBtn()}
@@ -58,7 +72,7 @@ export default class extends BaseComponent {
         <div className={css.iconContainer}>
           <Icon name="briefcase" className={css.icon} />
         </div>
-        <span className={css.businessTitleDisplay}>Royal Bank of Canada</span>
+        <span className={css.iconLabel}>Royal Bank of Canada</span>
       </div>
     )
   }
@@ -69,36 +83,72 @@ export default class extends BaseComponent {
         <div className={css.iconContainer}>
           <Icon name="calendar" className={css.icon} />
         </div>
-        <span className={css.businessTitleDisplay}>
+        <span className={css.iconLabel}>
           {this.props.$$selectedTask.get('pretty_deadline')}
         </span>
       </div>
     )
   }
 
-  getTaskTypeToggle() {
+  getCategoryToggle() {
+    const { $$selectedTask } = this.props;
+
+    let deliverableClass;
+    let rewardClass;
+    if($$selectedTask.get('category') === 0) {
+      deliverableClass = ' btn-success';
+      rewardClass = ' btn-default';
+    } else {
+      deliverableClass = ' btn-default';
+      rewardClass = ' btn-success';
+    }
+
     return(
-      <div className={`${css.taskTypeToggleContainer}` + " btn-group btn-group-justified"}>
-        <a href="#" className={`${css.taskTypeBtn}` + " btn btn-default btn-xs"}>Deliverable</a>
-        <a href="#" className={`${css.taskTypeBtn}` + " btn btn-success btn-xs"}>Reward</a>
+      <div className={`${css.categoryToggleContainer}` + " btn-group btn-group-justified"}>
+        <a className={`${css.categoryBtn}` + deliverableClass + " btn btn-xs"}
+           onClick={this.updateTask.bind(this, "category", 0)}
+           name="category"
+        >
+          Deliverable
+        </a>
+        <a  className={`${css.categoryBtn}` + rewardClass + " btn btn-xs"}
+            onClick={this.updateTask.bind(this, "category", 1)}
+            name="category"
+        >
+          Reward
+        </a>
       </div>
     )
   }
 
   getTaskStatusBtn() {
+    const status = this.props.$$selectedTask.get('status');
+    let iconName = "times";
+    if(status === 1) {
+      iconName = "tasks";
+    } else if(status === 2) {
+      iconName = "check";
+    }
+
     return(
       <div className={css.taskStatusIconContainer}>
-        <Icon name="times" className={css.taskStatusIcon} />
-        <div className={css.taskTypeTooltip}>
-          <div className={css.taskType}>
+        <Icon name={iconName} className={css.taskStatusIcon} />
+        <div className={css.categoryTooltip}>
+          <div className={css.category}
+               onClick={this.updateTask.bind(this, "status", 0)}
+          >
             <span>Incomplete</span>
             <Icon name="times" />
           </div>
-          <div className={css.taskType}>
+          <div className={css.category}
+               onClick={this.updateTask.bind(this, "status", 1)}
+          >
             <span>In Progress</span>
             <Icon name="tasks" />
           </div>
-          <div className={css.taskType}>
+          <div className={css.category}
+               onClick={this.updateTask.bind(this, "status", 2)}
+          >
             <span>Complete</span>
             <Icon name="check" />
           </div>
@@ -135,11 +185,29 @@ export default class extends BaseComponent {
   }
 
   handleUpdateTask(event) {
+    event.persist();
     const name = event.target.name;
     const value = event.target.value;
 
+    this.updateTask(name, value);
+  }
+
+  updateTask(name, value) {
     const { $$selectedTask } = this.props;
     const $$updatedTask = $$selectedTask.set(name, value);
+
     this.props.updateTask($$updatedTask);
+    this.putTask($$updatedTask);
+  }
+
+  putTask($$updatedTask) {
+    this.props.putTask($$updatedTask);
+  }
+
+  handleDeleteTask() {
+    debugger;
+    const { $$selectedTask } = this.props;
+    this.props.closeTaskWindow();
+    this.props.deleteTask($$selectedTask);
   }
 };

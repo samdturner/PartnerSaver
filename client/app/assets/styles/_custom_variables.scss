@@ -1,3 +1,16 @@
+@mixin icon-container-dropdown {
+  color: $gray-light;
+  padding: 5px;
+  border: 2px solid transparent;
+  border-radius: 35px;
+
+  &:hover {
+    cursor: pointer;
+    color: $brand-info;
+    border: 2px solid $brand-info;
+  }
+}
+
 @mixin icon-circle($borderColor) {
   display: inline-block;
   position: relative;
@@ -7,10 +20,6 @@
   border: 1px solid $borderColor;
   background-color: #fff;
   text-align: center;
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 @mixin icon-circle-font($fontColor, $size) {
@@ -19,8 +28,8 @@
   line-height: 34px;
 }
 
-@mixin light-blue {
-  color: $brand-info;
+@mixin icon-label($fontColor) {
+  color: $fontColor;
   font-size: 12px;
   font-weight: 300;
 }

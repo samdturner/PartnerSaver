@@ -33,7 +33,7 @@ export default class extends BaseComponent {
           <span>{$$task.get('deadline')}</span>
         </div>
         <div className={css.taskDescription}>
-          <span>{$$task.get('description')}</span>
+          <span>{$$task.get('title')}</span>
         </div>
       </li>
     )

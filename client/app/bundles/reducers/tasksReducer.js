@@ -44,7 +44,7 @@ export default function tasksReducer($$state = $$initialState, action = null) {
       });
 
     case actionTypes.UPDATE_TASK:
-      const $$updatedTask = action.$$task;
+      const $$updatedTask = Immutable.fromJS(action.task);
       const updatedTaskId = $$updatedTask.get('id');
       const $$updatedTasks = $$state.get('$$tasks').map(function($$task) {
         if(updatedTaskId === $$task.get('id')) {
@@ -56,6 +56,16 @@ export default function tasksReducer($$state = $$initialState, action = null) {
 
       return $$state.merge({
         $$tasks: $$updatedTasks
+      });
+
+    case actionTypes.REMOVE_TASK:
+      const deletedTaskId = action.task.id;
+      const $$remainingTasks = $$state.get('$$tasks').filterNot(function($$task) {
+        return deletedTaskId === $$task.get('id')
+      });
+
+      return $$state.merge({
+        $$tasks: $$remainingTasks
       });
 
     default: {

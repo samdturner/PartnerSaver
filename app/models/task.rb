@@ -6,13 +6,20 @@ class Task < ActiveRecord::Base
   # validate :deadline_cannot_be_in_the_past
 
   after_initialize :add_overdue_status, :format_deadline
+  # before_save :parse_deadline
 
   attr_accessor :is_overdue, :pretty_deadline
 
-  TYPES = %w{ INCOMPLETE IN_PROGRESS COMPLETE }
+  STATUS_LIST = %w{ INCOMPLETE IN_PROGRESS COMPLETE }
 
-  TYPES.each_with_index do |method, index|
-    define_method("#{method}?") { type == index }
+  STATUS_LIST.each_with_index do |method, index|
+    define_method("#{method}?") { status == index }
+  end
+
+  CATEGORY_LIST = %w{ DELIVERABLE REWARD }
+
+  CATEGORY_LIST.each_with_index do |method, index|
+    define_method("#{method}?") { category == index }
   end
 
   def deadline_cannot_be_in_the_past

@@ -19,7 +19,7 @@
   width: 12%;
 }
 
-.descriptionHeader {
+.titleHeader {
   composes: taskListHeader;
   width: 76%;
 }
@@ -33,9 +33,9 @@
     content: "";
     display: inline-block;
     position: relative;
-    width: 8px;
-    height: 8px;
-    right: -5px;
+    width: 6px;
+    height: 6px;
+    right: -3px;
     transform: rotate(45deg);
   }
 }
@@ -44,8 +44,8 @@
   composes: headerSelected;
   composes: sortArrow;
   &:after {
-    border-right: solid 3px $brand-primary;
-    border-bottom: solid 3px $brand-primary;
+    border-right: solid 2px $brand-primary;
+    border-bottom: solid 2px $brand-primary;
     top: -2px;
   }
 }
@@ -54,8 +54,8 @@
   composes: headerSelected;
   composes: sortArrow;
   &:after {
-    border-left: solid 3px $brand-primary;
-    border-top: solid 3px $brand-primary;
+    border-left: solid 2px $brand-primary;
+    border-top: solid 2px $brand-primary;
     top: 1px;
   }
 }

@@ -8,4 +8,4 @@ rails: rails s
 # Run the hot reload server for client development
 rails-assets: sh -c 'rm app/assets/webpack/* || true && HOT_RAILS_PORT=3500 npm run build:dev:client'
 # Keep the JS fresh for server rendering. Remove if not server rendering
-rails-server-assets: sh -c 'npm run build:dev:server'
+# rails-server-assets: sh -c 'npm run build:dev:server'

@@ -44,8 +44,8 @@ export default class TaskListHeader extends BaseComponent {
       case 'deadline':
         className = `${css.dueDateHeader}`;
         break;
-      case 'description':
-        className = `${css.descriptionHeader}`;
+      case 'title':
+        className = `${css.titleHeader}`;
         break;
       default:
         className = `${css.dueDateHeader}`;

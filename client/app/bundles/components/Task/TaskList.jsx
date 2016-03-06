@@ -49,7 +49,7 @@ export default class TaskList extends BaseComponent {
         label: 'Due Date'
       },
       {
-        sortType: 'description',
+        sortType: 'title',
         label: 'Task'
       }
     ];

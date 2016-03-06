@@ -16,38 +16,59 @@
   margin-bottom: 15px;
 }
 
-.partnerSelectorContainer {
+.iconSelectorContainer {
+  @include icon-container-dropdown;
   display: inline-block;
-  margin-right: 20px;
-}
 
-.iconContainer {
-  @include icon-circle($gray-light);
-  margin-right: 10px;
+  .iconContainer {
+    @include icon-circle($gray-light);
+    margin-right: 10px;
 
-  .icon {
-    @include icon-circle-font($gray-light, 18px);
+    .icon {
+      @include icon-circle-font($gray-light, 18px);
+    }
+  }
+
+  .iconLabel {
+    @include icon-label($gray-light);
   }
 }
 
-.businessTitleDisplay {
-  @include light-blue;
+.iconSelectorContainer:hover {
+  cursor: pointer;
+
+  .iconContainer {
+    @include icon-circle($brand-info);
+
+    .icon {
+      @include icon-circle-font($brand-info, 18px);
+    }
+  }
+
+  .iconLabel {
+    @include icon-label($brand-info);
+  }
+}
+
+.partnerSelectorContainer {
+  composes: iconSelectorContainer;
+  margin-right: 20px;
 }
 
 .deadlineSelectorContainer {
-  display: inline-block;
+  composes: iconSelectorContainer;
 }
 
 .secondHeader {
   margin-bottom: 15px;
 }
 
-.taskTypeToggleContainer {
+.categoryToggleContainer {
   width: 180px;
   float: left;
 }
 
-.taskTypeToggleContainer:hover {
+.categoryToggleContainer:hover {
   cursor: pointer;
 }
 
@@ -60,7 +81,7 @@
   margin-bottom: 15px;
 }
 
-.taskTypeBtn {
+.categoryBtn {
   font-weight: 300;
   float: left;
 }
@@ -72,13 +93,22 @@
   .taskStatusIcon {
     @include icon-circle-font($gray-light, 18px);
   }
+}
 
-  &:hover .taskTypeTooltip {
+.taskStatusIconContainer:hover {
+  cursor: pointer;
+  @include icon-circle($brand-info);
+
+  .taskStatusIcon {
+    @include icon-circle-font($brand-info, 18px);
+  }
+
+  .categoryTooltip {
     display: block;
   }
 }
 
-.taskTypeTooltip {
+.categoryTooltip {
   display: none;
   width: 100px;
   border: 1px solid $brand-primary;
@@ -89,7 +119,7 @@
   transform: translateY(-50%);
   background-color: white;
 
-  .taskType {
+  .category {
     padding: 4px 8px;
 
     span:first-child {
@@ -105,7 +135,7 @@
     }
   }
 
-  .taskType:hover {
+  .category:hover {
     cursor: pointer;
     background-color: $brand-primary;
 

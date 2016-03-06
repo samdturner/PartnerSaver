@@ -34,6 +34,20 @@ export function setSortType(newSortType) {
   }
 }
 
+export function updateTask(task) {
+  return {
+    type: actionTypes.UPDATE_TASK,
+    task
+  }
+}
+
+export function removeTask(task) {
+  return {
+    type: actionTypes.REMOVE_TASK,
+    task
+  }
+}
+
 export function sortTasks(params) {
   return dispatch => {
     dispatch(setIsFetching());
@@ -47,9 +61,23 @@ export function sortTasks(params) {
   }
 }
 
-export function updateTask($$task) {
-  return {
-    type: actionTypes.UPDATE_TASK,
-    $$task
+export function putTask(task) {
+  return dispatch => {
+    return(
+      requestsManager
+        .updateTask(task)
+        .then(res => dispatch(updateTask(res.data)))
+    )
+  }
+}
+
+export function deleteTask(task) {
+  return dispatch => {
+    dispatch(removeTask(task));
+    return(
+      requestsManager
+        .deleteTask(task)
+        .then(res => dispatch(removeTask(res.data)))
+    )
   }
 }

@@ -29,7 +29,9 @@ export default class TasksContainer extends BaseComponent {
       'getFetchParams',
       'selectTask',
       'closeTaskWindow',
-      'updateTask'
+      'updateTask',
+      'putTask',
+      'deleteTask'
     );
     this.state = { selectedTaskId: null };
   }
@@ -73,6 +75,8 @@ export default class TasksContainer extends BaseComponent {
       <TaskEditor $$selectedTask={$$selectedTask}
                   closeTaskWindow={this.closeTaskWindow}
                   updateTask={this.updateTask}
+                  putTask={this.putTask}
+                  deleteTask={this.deleteTask}
       />
     )
   }
@@ -112,7 +116,20 @@ export default class TasksContainer extends BaseComponent {
 
   updateTask($$task) {
     const { taskActions } = this.props;
-    taskActions.updateTask($$task);
+    const task = $$task.toJS();
+    taskActions.updateTask(task);
+  }
+
+  putTask($$task) {
+    const { taskActions } = this.props;
+    const task = $$task.toJS();
+    taskActions.putTask(task);
+  }
+
+  deleteTask($$task) {
+    const { taskActions } = this.props;
+    const task = $$task.toJS();
+    taskActions.deleteTask(task);
   }
 }
 
