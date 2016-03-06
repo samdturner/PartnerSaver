@@ -1,12 +1,10 @@
-require 'stamp'
-
 class Task < ActiveRecord::Base
   validates :title, :length => { :maximum => 500 }
   validates :description, :length => { :maximum => 2000 }
-  # validate :deadline_cannot_be_in_the_past
+  #validate :deadline_cannot_be_in_the_past
 
   after_initialize :add_overdue_status
-  # before_save :parse_deadline
+  after_save :add_overdue_status
 
   attr_accessor :is_overdue
 
@@ -28,6 +26,6 @@ class Task < ActiveRecord::Base
   end
 
   def add_overdue_status
-    self.is_overdue = deadline >= Date.today
+    self.is_overdue = deadline < Date.today
   end
 end

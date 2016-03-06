@@ -16,7 +16,7 @@ class Api::TasksController < ApplicationController
   def update
     @task = Task.find_by(id: params[:id])
     if @task.update_attributes(task_params)
-      render 'tasks/index.json'
+      render 'tasks/_task.json', locals: { task: @task }
     else
       render json: @task.errors.full_messages, status: :unprocessable_entity
     end

@@ -47,6 +47,6 @@ export default class extends BaseComponent {
 
   getTaskItemCss() {
     var is_overdue = this.props.$$task.get('is_overdue');
-    return is_overdue ? css.taskItem : css.taskItemOverdue;
+    return is_overdue ? css.taskItemOverdue : css.taskItem;
   }
 };

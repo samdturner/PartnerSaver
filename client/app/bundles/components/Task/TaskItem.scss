@@ -5,7 +5,6 @@
 
 .taskItem {
   composes: taskRow;
-  color: $brand-danger;
   background-color: $table-bg-accent;
   font-size: 12px;
 
