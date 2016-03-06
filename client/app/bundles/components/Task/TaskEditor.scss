@@ -57,6 +57,17 @@
 
 .deadlineSelectorContainer {
   composes: iconSelectorContainer;
+
+  :global {
+    .datepicker__input-container {
+      display: inline-block;
+    }
+
+    .datepicker__input {
+      display: inline-block;
+      width: 108px;
+    }
+  }
 }
 
 .secondHeader {

@@ -21,7 +21,8 @@ export default class extends BaseComponent {
       'getTaskStatusBtn',
       'getTaskTitleInput',
       'getTaskDescriptionInput',
-      'handleUpdateTask',
+      'handleUpdateDate',
+      'handleUpdateText',
       'updateTask',
       'putTask',
       'handleDeleteTask'
@@ -78,13 +79,22 @@ export default class extends BaseComponent {
   }
 
   getDeadlineSelector() {
+    const deadline = this.props.$$selectedTask.get('deadline');
+    const dateObj = moment(deadline, "YYYY-MM-DD");
+
     return(
-      <div className={css.deadlineSelectorContainer}>
+      <div className={css.deadlineSelectorContainer}
+            onClick={this.showDatePicker}>
         <div className={css.iconContainer}>
           <Icon name="calendar" className={css.icon} />
         </div>
         <span className={css.iconLabel}>
-          {this.props.$$selectedTask.get('pretty_deadline')}
+          <DatePicker
+              dateFormat="MM/DD/YYYY"
+              selected={dateObj}
+              onChange={this.handleUpdateDate}
+              minDate={moment()}
+          />
         </span>
       </div>
     )
@@ -162,12 +172,14 @@ export default class extends BaseComponent {
     const title = this.props.$$selectedTask.get('title');
 
     return(
-      <textarea className={`${css.taskTitle}` + " form-control"}
-                value={title}
-                onChange={this.handleUpdateTask}
-                name="title"
-                placeholder="Task title"
-                rows="3"></textarea>
+      <textarea
+            className={`${css.taskTitle}` + " form-control"}
+            value={title}
+            onChange={this.handleUpdateText}
+            name="title"
+            placeholder="Task title"
+            rows="3"
+      ></textarea>
     )
   }
 
@@ -175,16 +187,23 @@ export default class extends BaseComponent {
     const description = this.props.$$selectedTask.get('description');
 
     return(
-      <textarea className={`${css.taskDescription}` + " form-control"}
-                value={description}
-                onChange={this.handleUpdateTask}
-                name="description"
-                placeholder="Task description"
-                rows="3"></textarea>
+      <textarea
+            className={`${css.taskDescription}` + " form-control"}
+            value={description}
+            onChange={this.handleUpdateText}
+            name="description"
+            placeholder="Task description"
+            rows="3"
+      ></textarea>
     )
   }
 
-  handleUpdateTask(event) {
+  handleUpdateDate(newDate) {
+    const newDateStr = newDate.format("YYYY-MM-DD");
+    this.updateTask("deadline", newDateStr);
+  }
+
+  handleUpdateText(event) {
     event.persist();
     const name = event.target.name;
     const value = event.target.value;
@@ -205,7 +224,6 @@ export default class extends BaseComponent {
   }
 
   handleDeleteTask() {
-    debugger;
     const { $$selectedTask } = this.props;
     this.props.closeTaskWindow();
     this.props.deleteTask($$selectedTask);
