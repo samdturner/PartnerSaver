@@ -6,12 +6,16 @@ import _ from 'lodash';
 import BaseComponent from 'libs/components/BaseComponent';
 import css from './TaskItem.scss';
 
+import StatusSelector from './StatusSelector';
+
 export default class extends BaseComponent {
   constructor(props, context) {
     super(props, context);
     _.bindAll(this,
       'handleItemClick',
-      'getTaskItemCss'
+      'getTaskItemCss',
+      'updateTask',
+      'putTask'
     );
   }
 
@@ -26,6 +30,12 @@ export default class extends BaseComponent {
     return(
       <li className={this.getTaskItemCss()}
           onClick={this.handleItemClick}>
+        <div className={css.taskStatus}>
+          <StatusSelector
+                      $$task={this.props.$$task}
+                      onSelect={this.updateTask}
+          />
+        </div>
         <div className={css.taskPartner}>
           <span>Cenovus</span>
         </div>
@@ -48,5 +58,17 @@ export default class extends BaseComponent {
   getTaskItemCss() {
     var is_overdue = this.props.$$task.get('is_overdue');
     return is_overdue ? css.taskItemOverdue : css.taskItem;
+  }
+
+  updateTask(name, value) {
+    const { $$selectedTask } = this.props;
+    const $$updatedTask = $$selectedTask.set(name, value);
+
+    this.props.updateTask($$updatedTask);
+    this.putTask($$updatedTask);
+  }
+
+  putTask($$updatedTask) {
+    this.props.putTask($$updatedTask);
   }
 };

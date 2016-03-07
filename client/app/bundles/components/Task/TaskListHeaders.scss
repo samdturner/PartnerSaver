@@ -1,27 +1,44 @@
+.taskListHeaders {
+  display: flex;
+  align-content: space-around;
+  margin-bottom: 17px;
+}
+
 .taskListHeader {
-  display: inline-block;
+  margin: 0 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 700;
+  flex-basis: 0;
+
   &:hover {
     cursor: pointer;
   }
 }
 
+.placeholderHeader {
+  margin: 0 6px;
+  flex-grow: 1;
+  min-width: 36px;
+  flex-basis: 0;
+}
+
 .partnerHeader {
   composes: taskListHeader;
-  width: 12%;
+  flex-grow: 2;
+  min-width: 60px;
 }
 
 .dueDateHeader {
   composes: taskListHeader;
-  width: 12%;
+  flex-grow: 2;
+  min-width: 75px;
 }
 
 .titleHeader {
   composes: taskListHeader;
-  width: 76%;
+  flex-grow: 14;
 }
 
 .headerSelected {

@@ -1,5 +1,7 @@
 .taskRow {
-  padding: $padding-small-vertical $padding-small-horizontal;
+  display: flex;
+  align-content: space-around;
+  padding: 3px 0;
   border-bottom: solid 1px #CCCCCC;
 }
 
@@ -25,23 +27,35 @@
 }
 
 .taskAttribute {
-  display: inline-block;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
+  flex-basis: 0;
+  margin: 0 6px;
+
+  > span {
+    line-height: 35px;
+  }
+}
+
+.taskStatus {
+  composes: taskAttribute;
+  flex-grow: 1;
+  min-width: 36px;
 }
 
 .taskPartner {
   composes: taskAttribute;
-  width: 12%;
+  flex-grow: 2;
+  min-width: 60px;
 }
 
 .taskDeadline {
   composes: taskAttribute;
-  width: 12%;
+  flex-grow: 2;
+  min-width: 75px;
 }
 
 .taskDescription {
   composes: taskAttribute;
-  width: 76%;
+  flex-grow: 14;
 }

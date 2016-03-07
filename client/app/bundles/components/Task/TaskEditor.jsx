@@ -11,6 +11,8 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
+import StatusSelector from './StatusSelector';
+
 export default class extends BaseComponent {
   constructor(props, context) {
     super(props, context);
@@ -18,7 +20,6 @@ export default class extends BaseComponent {
       'getPartnerSelector',
       'getDeadlineSelector',
       'getCategoryToggle',
-      'getTaskStatusBtn',
       'getTaskTitleInput',
       'getTaskDescriptionInput',
       'handleUpdateDate',
@@ -57,7 +58,10 @@ export default class extends BaseComponent {
           </a>
         </div>
         <div className={`${css.thirdHeader}` + " clearfix"}>
-          {this.getTaskStatusBtn()}
+          <StatusSelector
+                    $$task={this.props.$$selectedTask}
+                    onSelect={this.updateTask}
+          />
           {this.getTaskTitleInput()}
         </div>
         <div>
@@ -127,48 +131,6 @@ export default class extends BaseComponent {
         >
           Reward
         </a>
-      </div>
-    )
-  }
-
-  getTaskStatusBtn() {
-    const status = this.props.$$selectedTask.get('status');
-    const statusOptions = [
-      {
-        statusLabel: "Incomplete",
-        icon: "times"
-      },
-      {
-        statusLabel: "In Progress",
-        icon: "tasks"
-      },
-      {
-        statusLabel: "Complete",
-        icon: "check"
-      }
-    ];
-
-
-
-    return(
-      <div className={css.taskStatusIconContainer}>
-        <div className={css.categoriesContainer}>
-          <div className={css.categories}>
-            {statusOptions.map((option, idx) => {
-                return(
-                  <div className={css.category}
-                       onClick={this.updateTask.bind(this, "status", idx)}
-                       key={idx}>
-                    <div className={css.categoryLabelContainer}>
-                        <span>{option.statusLabel}</span>
-                    </div>
-                    <Icon name={option.icon} />
-                  </div>
-                )
-              })}
-          </div>
-        </div>
-        <Icon name={statusOptions[status]["icon"]} className={css.taskStatusIcon} />
       </div>
     )
   }

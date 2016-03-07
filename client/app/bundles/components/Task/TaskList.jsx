@@ -6,7 +6,7 @@ import _ from 'lodash';
 import BaseComponent from 'libs/components/BaseComponent';
 import css from './TaskList.scss';
 import TaskItem from './TaskItem';
-import TaskListHeader from './TaskListHeader';
+import TaskListHeaders from './TaskListHeaders';
 
 export default class TaskList extends BaseComponent {
   constructor(props, context) {
@@ -26,47 +26,19 @@ export default class TaskList extends BaseComponent {
   };
 
   render() {
+    const { $$store, location, sortTasks } = this.props;
+
     return (
       <div>
         <ul className={css.taskList}>
-          <li className={css.taskListHeaderRow}>
-            {this.getTaskHeaders()}
-          </li>
+          <TaskListHeaders $$store={$$store}
+                          location={location}
+                          sortTasks={sortTasks}
+          />
           {this.getTasks()}
         </ul>
       </div>
     )
-  }
-
-  getTaskHeaders() {
-    const headerAttrs = [
-      {
-        sortType: 'partner',
-        label: 'Partner'
-      },
-      {
-        sortType: 'deadline',
-        label: 'Due Date'
-      },
-      {
-        sortType: 'title',
-        label: 'Task'
-      }
-    ];
-
-    const { $$store, location, sortTasks } = this.props;
-
-    return headerAttrs.map((header, idx) => {
-      return(
-        <TaskListHeader $$store={$$store}
-                        location={location}
-                        sortTasks={sortTasks}
-                        sortType={header.sortType}
-                        label={header.label}
-                        key={"taskListHeader" + idx}
-        />
-      )
-    })
   }
 
   getTasks() {
