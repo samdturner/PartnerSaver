@@ -133,13 +133,6 @@ export default class extends BaseComponent {
 
   getTaskStatusBtn() {
     const status = this.props.$$selectedTask.get('status');
-    let iconName = "times";
-    if(status === 1) {
-      iconName = "tasks";
-    } else if(status === 2) {
-      iconName = "check";
-    }
-
     const statusOptions = [
       {
         statusLabel: "Incomplete",
@@ -164,7 +157,8 @@ export default class extends BaseComponent {
             {statusOptions.map((option, idx) => {
                 return(
                   <div className={css.category}
-                       onClick={this.updateTask.bind(this, "status", idx)}>
+                       onClick={this.updateTask.bind(this, "status", idx)}
+                       key={idx}>
                     <div className={css.categoryLabelContainer}>
                         <span>{option.statusLabel}</span>
                     </div>
@@ -174,7 +168,7 @@ export default class extends BaseComponent {
               })}
           </div>
         </div>
-        <Icon name={iconName} className={css.taskStatusIcon} />
+        <Icon name={statusOptions[status]["icon"]} className={css.taskStatusIcon} />
       </div>
     )
   }
