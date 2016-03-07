@@ -140,30 +140,41 @@ export default class extends BaseComponent {
       iconName = "check";
     }
 
+    const statusOptions = [
+      {
+        statusLabel: "Incomplete",
+        icon: "times"
+      },
+      {
+        statusLabel: "In Progress",
+        icon: "tasks"
+      },
+      {
+        statusLabel: "Complete",
+        icon: "check"
+      }
+    ];
+
+
+
     return(
       <div className={css.taskStatusIconContainer}>
-        <Icon name={iconName} className={css.taskStatusIcon} />
-        <div className={css.categoryTooltip}>
-          <div className={css.category}
-               onClick={this.updateTask.bind(this, "status", 0)}
-          >
-            <span>Incomplete</span>
-            <Icon name="times" />
+        <div className={css.categoriesContainer}>
+          <div className={css.categories}>
+            {statusOptions.map((option, idx) => {
+                return(
+                  <div className={css.category}
+                       onClick={this.updateTask.bind(this, "status", idx)}>
+                    <div className={css.categoryLabelContainer}>
+                        <span>{option.statusLabel}</span>
+                    </div>
+                    <Icon name={option.icon} />
+                  </div>
+                )
+              })}
           </div>
-          <div className={css.category}
-               onClick={this.updateTask.bind(this, "status", 1)}
-          >
-            <span>In Progress</span>
-            <Icon name="tasks" />
-          </div>
-          <div className={css.category}
-               onClick={this.updateTask.bind(this, "status", 2)}
-          >
-            <span>Complete</span>
-            <Icon name="check" />
-          </div>
-          <div className={css.tooltipArrow} />
         </div>
+        <Icon name={iconName} className={css.taskStatusIcon} />
       </div>
     )
   }
