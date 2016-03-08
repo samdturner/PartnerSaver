@@ -59,6 +59,8 @@ export default class TasksContainer extends BaseComponent {
                   sortTasks={this.sortTasks}
                   $$selectedTask={this.getSelectedTask()}
                   selectTask={this.selectTask}
+                  updateTask={this.updateTask}
+                  putTask={this.putTask}
         />
         {this.getTaskWindow()}
       </div>

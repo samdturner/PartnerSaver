@@ -35,7 +35,8 @@ export default class extends BaseComponent {
     ];
 
     return(
-      <div className={css.taskStatusIconContainer}>
+      <div className={css.taskStatusIconContainer}
+           onClick={this.handleContainerClick}>
         <div className={css.categoriesContainer}>
           <div className={css.categories}>
             {statusOptions.map((option, idx) => {
@@ -55,5 +56,9 @@ export default class extends BaseComponent {
         <Icon name={statusOptions[status]["icon"]} className={css.taskStatusIcon} />
       </div>
     )
+  }
+
+  handleContainerClick(event) {
+    event.stopPropagation();
   }
 };

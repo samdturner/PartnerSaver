@@ -21,7 +21,9 @@ export default class extends BaseComponent {
 
   static propTypes = {
     $$task: ImmutablePropTypes.map.isRequired,
-    $$selectedTask: ImmutablePropTypes.map
+    $$selectedTask: ImmutablePropTypes.map,
+    updateTask: PropTypes.func.isRequired,
+    putTask: PropTypes.func.isRequired
   };
 
   render() {
@@ -61,8 +63,8 @@ export default class extends BaseComponent {
   }
 
   updateTask(name, value) {
-    const { $$selectedTask } = this.props;
-    const $$updatedTask = $$selectedTask.set(name, value);
+    const { $$task } = this.props;
+    const $$updatedTask = $$task.set(name, value);
 
     this.props.updateTask($$updatedTask);
     this.putTask($$updatedTask);

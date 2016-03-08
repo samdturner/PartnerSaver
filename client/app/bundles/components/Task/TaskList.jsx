@@ -22,7 +22,9 @@ export default class TaskList extends BaseComponent {
     }).isRequired,
     sortTasks: PropTypes.func.isRequired,
     $$selectedTask: ImmutablePropTypes.map,
-    selectTask: PropTypes.func.isRequired
+    selectTask: PropTypes.func.isRequired,
+    updateTask: PropTypes.func.isRequired,
+    putTask: PropTypes.func.isRequired
   };
 
   render() {
@@ -52,6 +54,8 @@ export default class TaskList extends BaseComponent {
                     $$selectedTask={$$selectedTask}
                     selectTask={selectTask}
                     key={"taskItem" + $$task.get('id')}
+                    updateTask={this.props.updateTask}
+                    putTask={this.props.putTask}
           />
         )
       })
