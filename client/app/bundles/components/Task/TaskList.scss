@@ -1,6 +1,16 @@
 .taskList {
   list-style-type: none;
   float: left;
-  width: 62%;
   padding: 0px;
+  transition: width 0.3s linear;
+}
+
+.taskListCompact {
+  composes: taskList;
+  width: 62%;
+}
+
+.taskListExpanded {
+  composes: taskList;
+  width: 100%;
 }

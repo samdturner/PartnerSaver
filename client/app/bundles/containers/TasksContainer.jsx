@@ -9,6 +9,8 @@ import TaskList from '../components/Task/TaskList';
 import TaskEditor from '../components/Task/TaskEditor';
 import BaseComponent from 'libs/components/BaseComponent';
 
+import css from './TasksContainer.scss';
+
 function mapStateToProps(state, ownProps) {
   return { $$store: state.$$store }
 }
@@ -53,7 +55,7 @@ export default class TasksContainer extends BaseComponent {
     const { $$store, location } = this.props;
 
     return (
-      <div>
+      <div className={`${css.tasksContainer} clearfix`}>
         <TaskList $$store={$$store}
                   location={location}
                   sortTasks={this.sortTasks}
@@ -69,9 +71,6 @@ export default class TasksContainer extends BaseComponent {
 
   getTaskWindow() {
     const $$selectedTask = this.getSelectedTask();
-    if(!$$selectedTask) {
-      return null;
-    }
 
     return(
       <TaskEditor $$selectedTask={$$selectedTask}
@@ -79,6 +78,7 @@ export default class TasksContainer extends BaseComponent {
                   updateTask={this.updateTask}
                   putTask={this.putTask}
                   deleteTask={this.deleteTask}
+                  key="taskEditor"
       />
     )
   }

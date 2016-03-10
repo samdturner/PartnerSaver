@@ -19,21 +19,20 @@
 
 .placeholderHeader {
   margin: 0 6px;
-  flex-grow: 1;
-  min-width: 36px;
-  flex-basis: 0;
+  flex: none;
+  width: 36px;
 }
 
 .partnerHeader {
   composes: taskListHeader;
-  flex-grow: 2;
-  min-width: 60px;
+  flex: none;
+  width: 60px;
 }
 
 .dueDateHeader {
   composes: taskListHeader;
-  flex-grow: 2;
-  min-width: 75px;
+  flex: none;
+  width: 75px;
 }
 
 .titleHeader {

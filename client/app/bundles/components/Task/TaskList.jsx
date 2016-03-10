@@ -12,7 +12,7 @@ export default class TaskList extends BaseComponent {
   constructor(props, context) {
     super(props, context);
 
-    _.bindAll(this, 'getTasks');
+    _.bindAll(this, 'getTasks', 'getTaskListCss');
   }
 
   static propTypes = {
@@ -32,7 +32,7 @@ export default class TaskList extends BaseComponent {
 
     return (
       <div>
-        <ul className={css.taskList}>
+        <ul className={this.getTaskListCss()}>
           <TaskListHeaders $$store={$$store}
                           location={location}
                           sortTasks={sortTasks}
@@ -60,5 +60,11 @@ export default class TaskList extends BaseComponent {
         )
       })
     )
+  }
+
+  getTaskListCss() {
+    const { $$selectedTask } = this.props;
+
+    return $$selectedTask ? css.taskListCompact : css.taskListExpanded;
   }
 };

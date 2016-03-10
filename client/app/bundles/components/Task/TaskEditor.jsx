@@ -12,6 +12,7 @@ import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import StatusSelector from './StatusSelector';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class extends BaseComponent {
   constructor(props, context) {
@@ -42,30 +43,53 @@ export default class extends BaseComponent {
   render() {
     const { $$selectedTask } = this.props;
 
+    return this.getEditorContent();
+  }
+
+  getEditorContent() {
     return(
-      <div className={css.newTaskContainer}>
-        <div className={css.header}>
-          <a className="close"
-             onClick={this.props.closeTaskWindow}>&times;</a>
-          {this.getPartnerSelector()}
-          {this.getDeadlineSelector()}
-        </div>
-        <div className={`${css.secondHeader}` + " clearfix"}>
-          {this.getCategoryToggle()}
-          <a className={`${css.deleteTaskBtn}` + " btn btn-danger btn-xs"}
-             onClick={this.handleDeleteTask}>
-            Delete
-          </a>
-        </div>
-        <div className={`${css.thirdHeader}` + " clearfix"}>
-          <StatusSelector
-                    $$task={this.props.$$selectedTask}
-                    onSelect={this.updateTask}
-          />
-          {this.getTaskTitleInput()}
-        </div>
-        <div>
-          {this.getTaskDescriptionInput()}
+      <ReactCSSTransitionGroup
+                        transitionName="new-task-wrapper"
+                        transitionEnterTimeout={300}
+                        transitionLeaveTimeout={300}>
+        {this.getEditor()}
+      </ReactCSSTransitionGroup>
+    )
+  }
+
+  getEditor() {
+    if (!this.props.$$selectedTask) {
+      return null;
+    }
+
+    return(
+      <div className={css.newTaskWrapper}
+           key="new-task-wrapper">
+        <div key="new-task-container"
+             className={css.newTaskContainer}>
+          <div className={css.header}>
+            <a className="close"
+               onClick={this.props.closeTaskWindow}>&times;</a>
+            {this.getPartnerSelector()}
+            {this.getDeadlineSelector()}
+          </div>
+          <div className={`${css.secondHeader}` + " clearfix"}>
+            {this.getCategoryToggle()}
+            <a className={`${css.deleteTaskBtn}` + " btn btn-danger btn-xs"}
+               onClick={this.handleDeleteTask}>
+              Delete
+            </a>
+          </div>
+          <div className={`${css.thirdHeader}` + " clearfix"}>
+            <StatusSelector
+                      $$task={this.props.$$selectedTask}
+                      onSelect={this.updateTask}
+            />
+            {this.getTaskTitleInput()}
+          </div>
+          <div>
+            {this.getTaskDescriptionInput()}
+          </div>
         </div>
       </div>
     )

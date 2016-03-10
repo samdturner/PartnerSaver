@@ -1,12 +1,65 @@
+:global {
+  div.new-task-wrapper-enter {
+    overflow: hidden;
+    right: -35%;
+
+    > div {
+      left: -100%;
+    }
+  }
+
+  div.new-task-wrapper-enter.new-task-wrapper-enter-active {
+    overflow: hidden;
+    right: 0px;
+    transition: all 0.3s linear;
+
+    > div {
+      left: 0px;
+      transition: all 0.3s linear;
+    }
+  }
+
+  div.new-task-wrapper-leave {
+    overflow: hidden;
+    right: 0px;
+
+    > div {
+      left: 0px;
+    }
+  }
+
+  div.new-task-wrapper-leave.new-task-wrapper-leave-active {
+    overflow: hidden;
+    right: -35%;
+    transition: all 0.3s linear;
+
+    > div {
+      left: -100%;
+      transition: all 0.3s linear;
+    }
+  }
+}
+
+.newTaskWrapper {
+  position: absolute;
+  width: 35%;
+  height: 420px;
+  float: right;
+  border: 1px transparent;
+  margin-top: 34px;
+  padding: 6px 12px;
+  right: 0px;
+}
+
 .newTaskContainer {
   height: 420px;
-  width: 35%;
-  margin-top: 39px;
-  padding: 6px 12px;
+  width: 100%;
+  position: absolute;
+  right: 0;
   background-color: $table-bg-accent;
-  float: right;
   box-shadow: 0px 0px 4px #AAAAAA;
   border-radius: 2px;
+  padding: 6px 12px;
 }
 
 .header {

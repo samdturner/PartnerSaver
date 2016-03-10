@@ -1,29 +1,24 @@
 .taskRow {
   display: flex;
-  align-content: space-around;
   padding: 3px 0;
+  align-content: space-around;
   border-bottom: solid 1px #CCCCCC;
-}
-
-.taskItem {
-  composes: taskRow;
   background-color: $table-bg-accent;
   font-size: 12px;
+  z-index: 100;
 
   &:hover {
     cursor: pointer;
   }
+}
+
+.taskItem {
+  composes: taskRow;
 }
 
 .taskItemOverdue {
   composes: taskRow;
   color: $brand-danger;
-  background-color: $table-bg-accent;
-  font-size: 12px;
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 .taskAttribute {
@@ -39,20 +34,20 @@
 
 .taskStatus {
   composes: taskAttribute;
-  flex-grow: 1;
-  min-width: 36px;
+  flex: none;
+  width: 36px;
 }
 
 .taskPartner {
   composes: taskAttribute;
-  flex-grow: 2;
-  min-width: 60px;
+  flex: none;
+  width: 60px;
 }
 
 .taskDeadline {
   composes: taskAttribute;
-  flex-grow: 2;
-  min-width: 75px;
+  flex: none;
+  width: 75px;
 }
 
 .taskDescription {

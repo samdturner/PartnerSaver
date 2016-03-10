@@ -63,6 +63,7 @@
     "node-uuid": "^1.4.7",
     "postcss-loader": "^0.8.0",
     "react": "^0.14.7",
+    "react-addons-css-transition-group": "^0.14.7",
     "react-addons-pure-render-mixin": "^0.14.3",
     "react-bootstrap": "^0.28.2",
     "react-datepicker": "^0.23.2",
