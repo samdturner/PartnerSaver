@@ -1,6 +1,7 @@
 .taskStatusIconContainer {
   @include icon-circle($gray-light);
   margin-right: 10px;
+  z-index: 100;
 
   .taskStatusIcon {
     @include icon-circle-font($gray-light, 18px);

@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 
 import * as tasksActionCreators from '../actions/tasksActionCreators';
+import TaskFilters from '../components/Task/TaskFilters';
 import TaskList from '../components/Task/TaskList';
 import TaskEditor from '../components/Task/TaskEditor';
 import BaseComponent from 'libs/components/BaseComponent';
@@ -27,13 +28,14 @@ export default class TasksContainer extends BaseComponent {
     _.bindAll(this,
       'getTaskWindow',
       'getSelectedTask',
-      'sortTasks',
-      'getFetchParams',
+      'setSortType',
       'selectTask',
       'closeTaskWindow',
       'updateTask',
       'putTask',
-      'deleteTask'
+      'deleteTask',
+      'updateFilter',
+      'getFetchParams'
     );
     this.state = { selectedTaskId: null };
   }
@@ -46,27 +48,42 @@ export default class TasksContainer extends BaseComponent {
     }).isRequired
   };
 
-  componentDidMount() {
-    const { taskActions } = this.props;
-    taskActions.sortTasks(this.getFetchParams());
-  }
-
   render() {
     const { $$store, location } = this.props;
 
     return (
-      <div className={`${css.tasksContainer} clearfix`}>
-        <TaskList $$store={$$store}
-                  location={location}
-                  sortTasks={this.sortTasks}
-                  $$selectedTask={this.getSelectedTask()}
-                  selectTask={this.selectTask}
-                  updateTask={this.updateTask}
-                  putTask={this.putTask}
-        />
-        {this.getTaskWindow()}
+      <div>
+        <div className={`${css.tasksFiltersContainer} clearfix`}>
+          <TaskFilters
+                  updateFilter={this.updateFilter}
+          />
+        </div>
+        <div className={`${css.tasksContainer} clearfix`}>
+          <TaskList $$store={$$store}
+                    location={location}
+                    setSortType={this.setSortType}
+                    $$selectedTask={this.getSelectedTask()}
+                    selectTask={this.selectTask}
+                    updateTask={this.updateTask}
+                    putTask={this.putTask}
+          />
+          {this.getTaskWindow()}
+        </div>
       </div>
     );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { $$store, taskActions } = this.props;
+    const $$params = $$store.get('$$params');
+
+    const $$nextParams = nextProps.$$store.get('$$params');
+
+    debugger;
+
+    if($$params !== $$nextParams) {
+      taskActions.getTasks(this.getFetchParams($$nextParams));
+    }
   }
 
   getTaskWindow() {
@@ -95,17 +112,9 @@ export default class TasksContainer extends BaseComponent {
     });
   }
 
-  sortTasks(newSortType) {
+  setSortType(newSortType) {
     const { taskActions } = this.props;
-    const newParams = { selectedSortType: newSortType };
-    taskActions.sortTasks(this.getFetchParams(newParams));
-  }
-
-  getFetchParams(newParams) {
-    const { taskActions, $$store } = this.props;
-    const selectedSortType = $$store.getIn(['selectedSortType']);
-    const currentParams = { selectedSortType: selectedSortType };
-    return _.assign(currentParams, newParams);
+    taskActions.setSortType(newSortType);
   }
 
   selectTask(taskId) {
@@ -132,6 +141,19 @@ export default class TasksContainer extends BaseComponent {
     const { taskActions } = this.props;
     const task = $$task.toJS();
     taskActions.deleteTask(task);
+  }
+
+  updateFilter(name, value) {
+    const { taskActions } = this.props;
+    taskActions.updateFilter(name, value);
+  }
+
+  getFetchParams($$nextParams) {
+    const $$filters = $$nextParams.get('$$filters');
+
+    return $$nextParams.set('filters', $$filters)
+                       .delete('$$filters')
+                       .toJS();
   }
 }
 

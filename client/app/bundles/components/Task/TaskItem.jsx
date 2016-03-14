@@ -13,6 +13,7 @@ export default class extends BaseComponent {
     super(props, context);
     _.bindAll(this,
       'handleItemClick',
+      'getPointer',
       'getTaskItemCss',
       'updateTask',
       'putTask'
@@ -47,6 +48,7 @@ export default class extends BaseComponent {
         <div className={css.taskDescription}>
           <span>{$$task.get('title')}</span>
         </div>
+        {this.getPointer()}
       </li>
     )
   }
@@ -55,6 +57,17 @@ export default class extends BaseComponent {
     const taskId = this.props.$$task.get('id');
 
     this.props.selectTask(taskId);
+  }
+
+  getPointer() {
+    const { $$selectedTask, $$task } = this.props;
+
+    if($$selectedTask &&
+          $$task.get('id') === $$selectedTask.get('id')) {
+      return <div className={css.selectedTaskPointer} />;
+    }
+
+    return null;
   }
 
   getTaskItemCss() {

@@ -1,6 +1,15 @@
 class Api::TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(params[:selectedSortType])
+    selectedSortType = params[:selectedSortType]
+    if selectedSortType == ""
+      selectedSortType = "deadline"
+    end
+
+    category_params = JSON.parse(params[:filters])["category"]
+
+    @tasks = Task.all
+                 .order(selectedSortType)
+                 .where(category: category_params)
     render 'tasks/index.json'
   end
 
@@ -40,9 +49,9 @@ class Api::TasksController < ApplicationController
                 :title,
                 :description,
                 :deadline,
-                :category,
                 :status,
-                :selectedSortType
+                :selectedSortType,
+                :filters => [ :category ]
                 )
     end
 end

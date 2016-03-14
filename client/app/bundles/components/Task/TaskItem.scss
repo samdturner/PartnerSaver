@@ -1,4 +1,5 @@
 .taskRow {
+  position: relative;
   display: flex;
   padding: 3px 0;
   align-content: space-around;
@@ -54,4 +55,27 @@
   composes: taskAttribute;
   flex-grow: 14;
   overflow: hidden;
+}
+
+.selectedTaskPointer {
+  width: 38px;
+  height: 38px;
+  overflow: hidden;
+  box-shadow: 0 16px 10px -38px rgba(0,0,0,.5);
+  position: absolute;
+  right: -35px;
+  z-index: 100;
+  transform: rotate(270deg);
+}
+
+.selectedTaskPointer:after {
+  content: "";
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  background: $table-bg-accent;
+  transform: rotate(45deg);
+  top: 29px;
+  left: 12px;
+  box-shadow: -1px -1px 10px -2px rgba(0,0,0,.5);
 }

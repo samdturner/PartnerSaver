@@ -48,10 +48,17 @@ export function removeTask(task) {
   }
 }
 
-export function sortTasks(params) {
+export function updateFilter(name, value) {
+  return {
+    type: actionTypes.UPDATE_FILTER,
+    name,
+    value
+  }
+}
+
+export function getTasks(params) {
   return dispatch => {
     dispatch(setIsFetching());
-    dispatch(setSortType(params.selectedSortType));
     return(
       requestsManager
         .fetchTasks(params)

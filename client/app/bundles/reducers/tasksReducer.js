@@ -5,11 +5,16 @@ import * as actionTypes from '../constants/tasksConstants';
 
 export const $$initialState = Immutable.fromJS({
   $$tasks: [],
-  selectedSortType: 'deadline',
   isFetching: false,
   isSaving: false,
   fetchTasksError: false,
-  saveTaskError: false
+  saveTaskError: false,
+  $$params: {
+    $$filters: {
+      category: ['0', '1']
+    },
+    selectedSortType: 'deadline'
+  }
 });
 
 export default function tasksReducer($$state = $$initialState, action = null) {
@@ -39,9 +44,10 @@ export default function tasksReducer($$state = $$initialState, action = null) {
       });
 
     case actionTypes.SET_SORT_TYPE:
-      return $$state.merge({
-        selectedSortType: action.newSortType
-      });
+      return $$state.setIn([
+        '$$params',
+        'selectedSortType'
+      ], action.newSortType);
 
     case actionTypes.UPDATE_TASK:
       const $$updatedTask = Immutable.fromJS(action.task);
@@ -68,8 +74,19 @@ export default function tasksReducer($$state = $$initialState, action = null) {
         $$tasks: $$remainingTasks
       });
 
+    case actionTypes.UPDATE_FILTER:
+      return $$state.setIn([
+        '$$params',
+        '$$filters',
+        action.name
+      ], action.value);
+
     default: {
       return $$state;
     }
   }
+}
+
+export function getParams() {
+
 }
