@@ -17,7 +17,7 @@ export default class TaskListHeaders extends BaseComponent {
     location: PropTypes.shape({
       state: PropTypes.object
     }).isRequired,
-    setSortType: PropTypes.func.isRequired
+    sortTasks: PropTypes.func.isRequired
   };
 
   render() {
@@ -58,7 +58,7 @@ export default class TaskListHeaders extends BaseComponent {
   getClassName(sortType) {
     const { selectedSortType } = this.props;
     const descSortType = sortType + ' desc';
-    
+
     if(selectedSortType === sortType) {
       return css.sortArrowDesc;
     } else if(selectedSortType === descSortType) {
@@ -79,6 +79,6 @@ export default class TaskListHeaders extends BaseComponent {
       newSortType = sortType;
     }
 
-    this.props.setSortType(newSortType);
+    this.props.sortTasks(newSortType);
   }
 };

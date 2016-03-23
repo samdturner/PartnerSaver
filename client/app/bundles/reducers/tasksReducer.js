@@ -1,6 +1,8 @@
 import Immutable from 'immutable';
 import redux from 'redux';
 
+import moment from 'moment';
+
 import * as actionTypes from '../constants/tasksConstants';
 
 export const $$initialState = Immutable.fromJS({
@@ -9,13 +11,45 @@ export const $$initialState = Immutable.fromJS({
   isSaving: false,
   fetchTasksError: false,
   saveTaskError: false,
-  $$params: {
-    $$filters: {
-      category: ['0', '1']
-    },
-    selectedSortType: 'deadline'
-  }
+  $$filters: {
+    $$category: new Immutable.Set([0, 1]),
+    $$months: new Immutable.Set([1, 2, 3])
+  },
+  selectedSortType: 'deadline'
 });
+
+var isCategoryIncluded = ($$task, $$category) => {
+  const category = $$task.get('category');
+
+  return $$category.has(parseInt(category));
+}
+
+var isMonthIncluded = ($$task, $$months) => {
+  const deadline = $$task.get('deadline');
+  const month = moment(deadline, 'YYYY-MM-DD').format('M');
+
+  return $$months.has(parseInt(month));
+}
+
+var isTaskVisible = ($$task, $$filters) => {
+  let isIncluded = true;
+
+  if(!isMonthIncluded($$task, $$filters.get('$$months'))) {
+    isIncluded = false;
+  }
+
+  if(!isCategoryIncluded($$task, $$filters.get('$$category'))) {
+    isIncluded = false;
+  }
+
+  return $$task.set('isIncluded', isIncluded);
+}
+
+var setVisibleTasks = function($$tasks, $$filters) {
+  return $$tasks.map(function($$task) {
+    return isTaskVisible($$task, $$filters)
+  })
+}
 
 export default function tasksReducer($$state = $$initialState, action = null) {
   const { type, tasks, task, error } = action;
@@ -33,28 +67,27 @@ export default function tasksReducer($$state = $$initialState, action = null) {
 
     case actionTypes.FETCH_TASKS_SUCCESS:
       return $$state.merge({
-        $$tasks: Immutable.fromJS(action.tasks),
-        isFetching: false
+          $$tasks: Immutable.fromJS(action.tasks),
+          isFetching: false
       });
 
     case actionTypes.FETCH_TASKS_FAILURE:
-      return $$state.merge({
-        isFetching: false,
-        fetchTasksError: true
-      });
+      return $$state.merge(
+        {
+          isFetching: false,
+          fetchTasksError: true
+        }
+      );
 
     case actionTypes.SET_SORT_TYPE:
-      return $$state.setIn([
-        '$$params',
-        'selectedSortType'
-      ], action.newSortType);
+      return $$state.set('selectedSortType', action.newSortType);
 
     case actionTypes.UPDATE_TASK:
       const $$updatedTask = Immutable.fromJS(action.task);
       const updatedTaskId = $$updatedTask.get('id');
       const $$updatedTasks = $$state.get('$$tasks').map(function($$task) {
         if(updatedTaskId === $$task.get('id')) {
-          return $$updatedTask;
+          return isTaskVisible($$updatedTask, $$state.get('$$filters'));
         }
 
         return $$task;
@@ -74,12 +107,25 @@ export default function tasksReducer($$state = $$initialState, action = null) {
         $$tasks: $$remainingTasks
       });
 
-    case actionTypes.UPDATE_FILTER:
-      return $$state.setIn([
-        '$$params',
-        '$$filters',
-        action.name
-      ], action.value);
+    case actionTypes.SET_FILTER:
+      const $$currentFilterType = $$state.getIn(['$$filters', action.name]);
+
+      let $$newFilterType;
+      if($$currentFilterType.has(action.value)) {
+        $$newFilterType = $$currentFilterType.delete(action.value);
+      } else {
+        $$newFilterType = $$currentFilterType.add(action.value);
+      }
+
+      return $$state.setIn(['$$filters', action.name], $$newFilterType);
+
+    case actionTypes.SET_VISIBLE_TASKS:
+      const $$newTasks = setVisibleTasks($$state.get('$$tasks'), $$state.get('$$filters'));
+
+      return $$state.merge({
+        $$tasks: $$newTasks,
+      });
+
 
     default: {
       return $$state;

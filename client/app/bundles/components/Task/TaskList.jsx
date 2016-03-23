@@ -20,7 +20,7 @@ export default class TaskList extends BaseComponent {
     location: PropTypes.shape({
       state: PropTypes.object
     }).isRequired,
-    setSortType: PropTypes.func.isRequired,
+    sortTasks: PropTypes.func.isRequired,
     $$selectedTask: ImmutablePropTypes.map,
     selectTask: PropTypes.func.isRequired,
     updateTask: PropTypes.func.isRequired,
@@ -28,15 +28,15 @@ export default class TaskList extends BaseComponent {
   };
 
   render() {
-    const { $$store, location, setSortType } = this.props;
-    const selectedSortType = $$store.getIn(['$$params', 'selectedSortType']);
+    const { $$store, location, sortTasks } = this.props;
+    const selectedSortType = $$store.get('selectedSortType');
 
     return (
       <div>
         <ul className={this.getTaskListCss()}>
           <TaskListHeaders selectedSortType={selectedSortType}
                           location={location}
-                          setSortType={setSortType}
+                          sortTasks={sortTasks}
           />
           {this.getTasks()}
         </ul>
@@ -50,15 +50,17 @@ export default class TaskList extends BaseComponent {
 
     return(
       $$tasks.map($$task => {
-        return(
-          <TaskItem $$task={$$task}
-                    $$selectedTask={$$selectedTask}
-                    selectTask={selectTask}
-                    key={"taskItem" + $$task.get('id')}
-                    updateTask={this.props.updateTask}
-                    putTask={this.props.putTask}
-          />
-        )
+        if($$task.get('isIncluded')) {
+          return(
+            <TaskItem $$task={$$task}
+                      $$selectedTask={$$selectedTask}
+                      selectTask={selectTask}
+                      key={"taskItem" + $$task.get('id')}
+                      updateTask={this.props.updateTask}
+                      putTask={this.props.putTask}
+            />
+          )
+        }
       })
     )
   }

@@ -48,11 +48,31 @@ export function removeTask(task) {
   }
 }
 
-export function updateFilter(name, value) {
+export function setFilter(name, value) {
   return {
-    type: actionTypes.UPDATE_FILTER,
+    type: actionTypes.SET_FILTER,
     name,
     value
+  }
+}
+
+export function setVisibleTasks() {
+  return {
+    type: actionTypes.SET_VISIBLE_TASKS,
+  }
+}
+
+export function sortTasks(newSortType) {
+  return dispatch => {
+    dispatch(setIsFetching());
+    dispatch(setSortType(newSortType));
+    return(
+      requestsManager
+        .fetchTasks({ selectedSortType: newSortType })
+        .then(res => dispatch(fetchTasksSuccess(res.data)))
+        .then(res => dispatch(setVisibleTasks()))
+        .catch(res => dispatch(fetchTasksFailure(res.data)))
+    )
   }
 }
 
@@ -63,6 +83,7 @@ export function getTasks(params) {
       requestsManager
         .fetchTasks(params)
         .then(res => dispatch(fetchTasksSuccess(res.data)))
+        .then(res => dispatch(setVisibleTasks()))
         .catch(res => dispatch(fetchTasksFailure(res.data)))
     )
   }
@@ -74,6 +95,7 @@ export function putTask(task) {
       requestsManager
         .updateTask(task)
         .then(res => dispatch(updateTask(res.data)))
+        .then(res => dispatch(setVisibleTasks()))
     )
   }
 }
@@ -86,5 +108,12 @@ export function deleteTask(task) {
         .deleteTask(task)
         .then(res => dispatch(removeTask(res.data)))
     )
+  }
+}
+
+export function updateFilter(name, value) {
+  return dispatch => {
+    dispatch(setFilter(name, value));
+    dispatch(setVisibleTasks())
   }
 }

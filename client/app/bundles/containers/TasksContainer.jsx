@@ -28,14 +28,13 @@ export default class TasksContainer extends BaseComponent {
     _.bindAll(this,
       'getTaskWindow',
       'getSelectedTask',
-      'setSortType',
+      'sortTasks',
       'selectTask',
       'closeTaskWindow',
       'updateTask',
       'putTask',
       'deleteTask',
-      'updateFilter',
-      'getFetchParams'
+      'updateFilter'
     );
     this.state = { selectedTaskId: null };
   }
@@ -48,6 +47,11 @@ export default class TasksContainer extends BaseComponent {
     }).isRequired
   };
 
+  componentWillMount() {
+    const { taskActions } = this.props;
+    taskActions.setVisibleTasks();
+  }
+
   render() {
     const { $$store, location } = this.props;
 
@@ -55,13 +59,14 @@ export default class TasksContainer extends BaseComponent {
       <div>
         <div className={`${css.tasksFiltersContainer} clearfix`}>
           <TaskFilters
+                  $$filters={$$store.get('$$filters')}
                   updateFilter={this.updateFilter}
           />
         </div>
         <div className={`${css.tasksContainer} clearfix`}>
           <TaskList $$store={$$store}
                     location={location}
-                    setSortType={this.setSortType}
+                    sortTasks={this.sortTasks}
                     $$selectedTask={this.getSelectedTask()}
                     selectTask={this.selectTask}
                     updateTask={this.updateTask}
@@ -71,19 +76,6 @@ export default class TasksContainer extends BaseComponent {
         </div>
       </div>
     );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { $$store, taskActions } = this.props;
-    const $$params = $$store.get('$$params');
-
-    const $$nextParams = nextProps.$$store.get('$$params');
-
-    debugger;
-
-    if($$params !== $$nextParams) {
-      taskActions.getTasks(this.getFetchParams($$nextParams));
-    }
   }
 
   getTaskWindow() {
@@ -112,9 +104,9 @@ export default class TasksContainer extends BaseComponent {
     });
   }
 
-  setSortType(newSortType) {
+  sortTasks(newSortType) {
     const { taskActions } = this.props;
-    taskActions.setSortType(newSortType);
+    taskActions.sortTasks(newSortType);
   }
 
   selectTask(taskId) {
@@ -146,14 +138,6 @@ export default class TasksContainer extends BaseComponent {
   updateFilter(name, value) {
     const { taskActions } = this.props;
     taskActions.updateFilter(name, value);
-  }
-
-  getFetchParams($$nextParams) {
-    const $$filters = $$nextParams.get('$$filters');
-
-    return $$nextParams.set('filters', $$filters)
-                       .delete('$$filters')
-                       .toJS();
   }
 }
 
