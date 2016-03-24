@@ -8,10 +8,6 @@ import css from './StatusSelector.scss';
 import Icon from 'react-fa'
 
 export default class extends BaseComponent {
-  constructor(props, context) {
-    super(props, context);
-  }
-
   static propTypes = {
     $$task: ImmutablePropTypes.map.isRequired,
     onSelect: PropTypes.func.isRequired

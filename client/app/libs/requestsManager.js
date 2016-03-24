@@ -1,7 +1,6 @@
 import request from 'axios';
 import metaTagsManager from './metaTagsManager';
 
-const TASKS_GET_URL = 'api/tasks';
 const TASKS_URL = 'api/tasks';
 
 export default {
@@ -9,7 +8,16 @@ export default {
   fetchTasks(params) {
     return request({
       method: 'GET',
-      url: TASKS_GET_URL,
+      url: TASKS_URL,
+      params: params,
+      responseType: 'json'
+    });
+  },
+
+  postTask(params) {
+    return request({
+      method: 'POST',
+      url: TASKS_URL,
       params: params,
       responseType: 'json'
     });

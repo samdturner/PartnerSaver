@@ -62,6 +62,21 @@ export function setVisibleTasks() {
   }
 }
 
+export function setSelectedTaskId(taskId) {
+  return {
+    type: actionTypes.SET_SELECTED_TASK_ID,
+    selectedTaskId: taskId
+  }
+}
+
+
+export function createNewTask(newTask) {
+  return {
+    type: actionTypes.CREATE_NEW_TASK,
+    newTask: newTask
+  }
+}
+
 export function sortTasks(newSortType) {
   return dispatch => {
     dispatch(setIsFetching());
@@ -115,5 +130,17 @@ export function updateFilter(name, value) {
   return dispatch => {
     dispatch(setFilter(name, value));
     dispatch(setVisibleTasks())
+  }
+}
+
+
+export function postTask(task) {
+  return dispatch => {
+    return(
+      requestsManager
+        .postTask(task)
+        .then(res => dispatch(createNewTask(res.data)))
+        .then(() => dispatch(setVisibleTasks()))
+    )
   }
 }

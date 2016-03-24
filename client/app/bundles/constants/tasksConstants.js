@@ -10,3 +10,6 @@ export const REMOVE_TASK = 'REMOVE_TASK';
 export const SET_FILTER = 'SET_FILTER';
 
 export const SET_VISIBLE_TASKS = 'SET_VISIBLE_TASKS';
+export const CREATE_NEW_TASK = 'CREATE_NEW_TASK';
+
+export const SET_SELECTED_TASK_ID = 'SET_SELECTED_TASK_ID';

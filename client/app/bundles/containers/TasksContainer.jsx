@@ -8,6 +8,7 @@ import * as tasksActionCreators from '../actions/tasksActionCreators';
 import TaskFilters from '../components/Task/TaskFilters';
 import TaskList from '../components/Task/TaskList';
 import TaskEditor from '../components/Task/TaskEditor';
+import NewTaskButton from '../components/Task/NewTaskButton';
 import BaseComponent from 'libs/components/BaseComponent';
 
 import css from './TasksContainer.scss';
@@ -34,9 +35,9 @@ export default class TasksContainer extends BaseComponent {
       'updateTask',
       'putTask',
       'deleteTask',
-      'updateFilter'
+      'updateFilter',
+      'postTask'
     );
-    this.state = { selectedTaskId: null };
   }
 
   static propTypes = {
@@ -64,6 +65,7 @@ export default class TasksContainer extends BaseComponent {
           />
         </div>
         <div className={`${css.tasksContainer} clearfix`}>
+          <NewTaskButton postTask={this.postTask} />
           <TaskList $$store={$$store}
                     location={location}
                     sortTasks={this.sortTasks}
@@ -93,7 +95,9 @@ export default class TasksContainer extends BaseComponent {
   }
 
   getSelectedTask() {
-    const { selectedTaskId } = this.state;
+    const { $$store } = this.props;
+    const selectedTaskId = $$store.get('selectedTaskId');
+
     if(!selectedTaskId) {
       return null;
     }
@@ -110,11 +114,13 @@ export default class TasksContainer extends BaseComponent {
   }
 
   selectTask(taskId) {
-    this.setState({ selectedTaskId: taskId });
+    const { taskActions } = this.props;
+    taskActions.setSelectedTaskId(taskId);
   }
 
   closeTaskWindow() {
-    this.setState({ selectedTaskId: null });
+    const { taskActions } = this.props;
+    taskActions.setSelectedTaskId(null);
   }
 
   updateTask($$task) {
@@ -138,6 +144,11 @@ export default class TasksContainer extends BaseComponent {
   updateFilter(name, value) {
     const { taskActions } = this.props;
     taskActions.updateFilter(name, value);
+  }
+
+  postTask(event) {
+    const { taskActions } = this.props;
+    taskActions.postTask({});
   }
 }
 

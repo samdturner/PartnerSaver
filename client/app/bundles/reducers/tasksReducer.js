@@ -15,7 +15,8 @@ export const $$initialState = Immutable.fromJS({
     $$category: new Immutable.Set([0, 1]),
     $$months: new Immutable.Set([1, 2, 3])
   },
-  selectedSortType: 'deadline'
+  selectedSortType: 'deadline',
+  selectedTaskId: null
 });
 
 var isCategoryIncluded = ($$task, $$category) => {
@@ -120,12 +121,20 @@ export default function tasksReducer($$state = $$initialState, action = null) {
       return $$state.setIn(['$$filters', action.name], $$newFilterType);
 
     case actionTypes.SET_VISIBLE_TASKS:
-      const $$newTasks = setVisibleTasks($$state.get('$$tasks'), $$state.get('$$filters'));
+      let $$newTasks = setVisibleTasks($$state.get('$$tasks'), $$state.get('$$filters'));
 
       return $$state.merge({
         $$tasks: $$newTasks,
       });
 
+    case actionTypes.CREATE_NEW_TASK:
+      const $$newTask = Immutable.fromJS(action.newTask);
+      const $$newTaskList = $$state.get('$$tasks').unshift($$newTask);
+
+      return $$state.merge({
+        $$tasks: $$newTaskList,
+        selectedTaskId: $$newTask.get('id')
+      });
 
     default: {
       return $$state;

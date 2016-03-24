@@ -13,7 +13,7 @@ class Api::TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      render 'tasks/index.json'
+      render 'tasks/_task.json', locals: { task: @task }
     else
       render json: @task.errors.full_messages, status: :unprocessable_entity
     end
