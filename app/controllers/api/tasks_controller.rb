@@ -48,6 +48,7 @@ class Api::TasksController < ApplicationController
                 :title,
                 :description,
                 :deadline,
+                :category,
                 :status,
                 :selectedSortType
                 )

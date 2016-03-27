@@ -6,12 +6,12 @@
   }
 
   div.datepicker__current-month {
-    color: #2C3E50;
+    color: $brand-primary;
     font-family: Lato;
   }
 
   a.datepicker__navigation--previous {
-    border-right-color: #2C3E50;
+    border-right-color: $brand-primary;
 
     &:hover {
       border-right-color: #1a252f;
@@ -19,7 +19,7 @@
   }
 
   a.datepicker__navigation--next {
-    border-left-color: #2C3E50;
+    border-left-color: $brand-primary;
 
     &:hover {
       border-left-color: #1a252f;

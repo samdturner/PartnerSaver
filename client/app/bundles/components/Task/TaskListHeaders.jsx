@@ -44,10 +44,12 @@ export default class TaskListHeaders extends BaseComponent {
         <div className={css.placeholderHeader}></div>
         {headerAttrs.map((header, idx) => {
           return (
-            <div className={`${header.className} ${this.getClassName(header.sortType)}`}
-                 onClick={this.handleSortClick.bind(this, header.sortType)}
+            <div className={header.className}
                  key={idx}>
-              {header.label}
+              <span onClick={this.handleSortClick.bind(this, header.sortType)}
+                    className={this.getClassName(header.sortType)}>
+                {header.label}
+              </span>
             </div>
           )
         })}
