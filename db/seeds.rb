@@ -6,7 +6,32 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Partner.delete_all
 Task.delete_all
+
+partner_ids = []
+
+5.times do
+  name = Faker::Company.name
+  note = Faker::Lorem.sentence(2, true, 4)
+
+  statusRandom = rand(0..1)
+  relationship_status = 0
+  if statusRandom > 0.6
+    relationship_status = 2
+  elsif statusRandom > 0.3
+    relationship_status = 1
+  end
+
+  Partner.create!(
+    name: name,
+    note: note,
+    relationship_status: relationship_status,
+    is_deleted: false
+  )
+
+  partner_ids.push(Partner.last.id)
+end
 
 10.times do
   title = Faker::Lorem.sentence(3, false, 4)
@@ -23,11 +48,14 @@ Task.delete_all
     status = 1
   end
 
+  partnerId = partner_ids[rand(0..4)]
+
   Task.create!(
     title: title,
     description: description,
     deadline: deadline,
     category: category,
-    status: status
+    status: status,
+    partner_id: partnerId
   )
 end
