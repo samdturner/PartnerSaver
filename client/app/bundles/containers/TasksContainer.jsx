@@ -36,7 +36,8 @@ export default class TasksContainer extends BaseComponent {
       'putTask',
       'deleteTask',
       'updateFilter',
-      'postTask'
+      'postTask',
+      'keywordSearch'
     );
   }
 
@@ -62,6 +63,7 @@ export default class TasksContainer extends BaseComponent {
           <TaskFilters
                   $$filters={$$store.get('$$filters')}
                   updateFilter={this.updateFilter}
+                  keywordSearch={this.keywordSearch}
           />
         </div>
         <div className={`${css.tasksContainer} clearfix`}>
@@ -109,8 +111,14 @@ export default class TasksContainer extends BaseComponent {
   }
 
   sortTasks(newSortType) {
-    const { taskActions } = this.props;
-    taskActions.sortTasks(newSortType);
+    const { taskActions, $$store } = this.props;
+
+    const params = {
+      keywordSearchTerm: $$store.get('keywordSearchTerm'),
+      selectedSortType: newSortType
+    };
+
+    taskActions.sortTasks(params);
   }
 
   selectTask(taskId) {
@@ -149,6 +157,17 @@ export default class TasksContainer extends BaseComponent {
   postTask(event) {
     const { taskActions } = this.props;
     taskActions.postTask({});
+  }
+
+  keywordSearch(keywordSearchTerm) {
+    const { taskActions, $$store } = this.props;
+
+    const params = {
+      keywordSearchTerm,
+      selectedSortType: $$store.get('selectedSortType')
+    };
+
+    taskActions.fetchTasksByKeyword(params);
   }
 }
 

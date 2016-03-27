@@ -1,4 +1,8 @@
+require 'common_substring'
+
 class Task < ActiveRecord::Base
+  include CommonSubstring
+
   validates :title, :length => { :maximum => 500 }
   validates :description, :length => { :maximum => 2000 }
   #validate :deadline_cannot_be_in_the_past
@@ -36,5 +40,9 @@ class Task < ActiveRecord::Base
     self.deadline ||= Date.today + 7
     self.category ||= 0
     self.status ||= 0
+  end
+
+  def contains_substr?(substr)
+   substr_match?(substr, self.title) || substr_match?(substr, self.description)
   end
 end

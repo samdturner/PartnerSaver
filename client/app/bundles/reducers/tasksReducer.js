@@ -16,7 +16,8 @@ export const $$initialState = Immutable.fromJS({
     $$months: new Immutable.Set([1, 2, 3])
   },
   selectedSortType: 'deadline',
-  selectedTaskId: null
+  selectedTaskId: null,
+  keywordSearchTerm: ''
 });
 
 var isCategoryIncluded = ($$task, $$category) => {
@@ -128,12 +129,23 @@ export default function tasksReducer($$state = $$initialState, action = null) {
       });
 
     case actionTypes.CREATE_NEW_TASK:
-      const $$newTask = Immutable.fromJS(action.newTask);
+      let $$newTask = Immutable.fromJS(action.newTask);
+      $$newTask = $$newTask.set('isIncluded', true);
       const $$newTaskList = $$state.get('$$tasks').unshift($$newTask);
 
       return $$state.merge({
         $$tasks: $$newTaskList,
         selectedTaskId: $$newTask.get('id')
+      });
+
+    case actionTypes.SET_SELECTED_TASK_ID:
+      return $$state.merge({
+        selectedTaskId: action.selectedTaskId
+      });
+
+    case actionTypes.SET_KEYWORD_SEARCH_TERM:
+      return $$state.merge({
+        keywordSearchTerm: action.keywordSearchTerm
       });
 
     default: {

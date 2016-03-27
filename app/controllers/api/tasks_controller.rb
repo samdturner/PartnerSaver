@@ -1,12 +1,14 @@
 class Api::TasksController < ApplicationController
   def index
-    selectedSortType = params[:selectedSortType]
-    if selectedSortType == ""
-      selectedSortType = "deadline"
-    end
+    selectedSortType = params[:selectedSortType] || "deadline"
 
     @tasks = Task.all
                  .order(selectedSortType)
+
+    if !params[:keywordSearchTerm].blank?
+      @tasks = @tasks.select { |task| task.contains_substr?(params[:keywordSearchTerm]) }
+    end
+
     render 'tasks/index.json'
   end
 

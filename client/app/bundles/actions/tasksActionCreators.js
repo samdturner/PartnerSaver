@@ -69,21 +69,27 @@ export function setSelectedTaskId(taskId) {
   }
 }
 
-
 export function createNewTask(newTask) {
   return {
     type: actionTypes.CREATE_NEW_TASK,
-    newTask: newTask
+    newTask
   }
 }
 
-export function sortTasks(newSortType) {
+export function setKeywordSearchTerm(keywordSearchTerm) {
+  return {
+    type: actionTypes.SET_KEYWORD_SEARCH_TERM,
+    keywordSearchTerm
+  }
+}
+
+export function sortTasks(params) {
   return dispatch => {
     dispatch(setIsFetching());
-    dispatch(setSortType(newSortType));
+    dispatch(setSortType(params.selectedSortType));
     return(
       requestsManager
-        .fetchTasks({ selectedSortType: newSortType })
+        .fetchTasks(params)
         .then(res => dispatch(fetchTasksSuccess(res.data)))
         .then(res => dispatch(setVisibleTasks()))
         .catch(res => dispatch(fetchTasksFailure(res.data)))
@@ -140,7 +146,21 @@ export function postTask(task) {
       requestsManager
         .postTask(task)
         .then(res => dispatch(createNewTask(res.data)))
-        .then(() => dispatch(setVisibleTasks()))
+    )
+  }
+}
+
+export function fetchTasksByKeyword(params) {
+  debugger;
+  return dispatch => {
+    dispatch(setIsFetching());
+    dispatch(setKeywordSearchTerm(params.keywordSearchTerm));
+    return(
+      requestsManager
+        .fetchTasks(params)
+        .then(res => dispatch(fetchTasksSuccess(res.data)))
+        .then(res => dispatch(setVisibleTasks()))
+        .catch(res => dispatch(fetchTasksFailure(res.data)))
     )
   }
 }

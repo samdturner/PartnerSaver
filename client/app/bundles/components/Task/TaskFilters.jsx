@@ -12,22 +12,40 @@ export default class extends BaseComponent {
     _.bindAll(this,
       'getMonthFilter',
       'getTaskTypeFilters',
-      'getBtnClassName'
+      'getBtnClassName',
+      'keywordSearch'
     );
   }
 
   static propTypes = {
     $$filters : ImmutablePropTypes.map.isRequired,
-    updateFilter: PropTypes.func.isRequired
+    updateFilter: PropTypes.func.isRequired,
+    keywordSearch: PropTypes.func.isRequired
   };
 
   render() {
     return(
       <div className={css.tasksFiltersContainer}>
+        {this.getTaskSearchBar()}
         {this.getTaskTypeFilters()}
         {this.getMonthFilter()}
       </div>
     )
+  }
+
+  getTaskSearchBar() {
+    return(
+      <input
+          type="text"
+          className={`${css.searchBar} form-control`}
+          onChange={this.keywordSearch}
+          placeholder="Search..."
+      />
+    )
+  }
+
+  keywordSearch(event) {
+    this.props.keywordSearch(event.target.value);
   }
 
   getMonthFilter() {
@@ -71,19 +89,24 @@ export default class extends BaseComponent {
 
   getTaskTypeFilters() {
     return(
-      <div className="btn-group btn-group-justified">
-        <a
-         className={this.getBtnClassName(0)}
-         name="category"
-         onClick={this.props.updateFilter.bind(this, "$$category", 0)}>
-           Deliverables
-        </a>
-        <a
-         className={this.getBtnClassName(1)}
-         name="category"
-         onClick={this.props.updateFilter.bind(this, "$$category", 1)}>
-           Rewards
-        </a>
+      <div>
+        <span className={css.taskTypeFilterHeader}>
+          Refine by
+        </span>
+        <div className="btn-group btn-group-justified">
+          <a
+           className={this.getBtnClassName(0)}
+           name="category"
+           onClick={this.props.updateFilter.bind(this, "$$category", 0)}>
+             Deliverables
+          </a>
+          <a
+           className={this.getBtnClassName(1)}
+           name="category"
+           onClick={this.props.updateFilter.bind(this, "$$category", 1)}>
+             Rewards
+          </a>
+        </div>
       </div>
     )
   }

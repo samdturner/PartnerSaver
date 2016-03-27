@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import BaseComponent from 'libs/components/BaseComponent';
 import css from './TaskEditor.scss';
+import '../Util/Datepicker.scss';
 import Icon from 'react-fa'
 
 import DatePicker from 'react-datepicker';
@@ -21,6 +22,7 @@ export default class extends BaseComponent {
       'getPartnerSelector',
       'getDeadlineSelector',
       'getCategoryToggle',
+      'showDatePicker',
       'getTaskTitleInput',
       'getTaskDescriptionInput',
       'handleUpdateDate',
@@ -122,10 +124,17 @@ export default class extends BaseComponent {
               selected={dateObj}
               onChange={this.handleUpdateDate}
               minDate={moment()}
+              ref="datePicker"
           />
         </span>
       </div>
     )
+  }
+
+  showDatePicker(event) {
+    debugger;
+    event.stopPropagation();
+    this.refs.datePicker.setOpen(true);
   }
 
   getCategoryToggle() {
