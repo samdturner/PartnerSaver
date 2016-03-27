@@ -3,5 +3,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :tasks, only: [:index, :create, :update, :destroy]
+    resources :partners, only: [:index, :create, :update, :destroy]
   end
 end
