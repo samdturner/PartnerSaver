@@ -1,5 +1,8 @@
 <%= react_component('App',
-                    render(template: "/tasks/index.json.jbuilder"),
+                    props: {
+                      tasks: render(template: "/tasks/index.json.jbuilder"),
+                      partners: render(template: "/partners/index.json.jbuilder")
+                    },
                     generator_function: true,
                     prerender: false,
                     raise_on_prerender_error: true) %>

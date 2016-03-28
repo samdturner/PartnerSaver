@@ -1,0 +1,13 @@
+.partnerList {
+  composes: taskList from "../Task/TaskList.scss";
+}
+
+.partnerListCompact {
+  composes: partnerList;
+  width: 62%;
+}
+
+.partnerListExpanded {
+  composes: partnerList;
+  width: 100%;
+}

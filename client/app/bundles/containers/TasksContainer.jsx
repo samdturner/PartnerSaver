@@ -14,7 +14,7 @@ import BaseComponent from 'libs/components/BaseComponent';
 import css from './TasksContainer.scss';
 
 function mapStateToProps(state, ownProps) {
-  return { $$store: state.$$store }
+  return { $$tasksStore: state.$$tasksStore }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
@@ -26,6 +26,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 export default class TasksContainer extends BaseComponent {
   constructor(props, context) {
     super(props, context);
+    debugger
     _.bindAll(this,
       'getTaskWindow',
       'getSelectedTask',
@@ -42,7 +43,7 @@ export default class TasksContainer extends BaseComponent {
   }
 
   static propTypes = {
-    $$store: ImmutablePropTypes.map.isRequired,
+    $$tasksStore: ImmutablePropTypes.map.isRequired,
     taskActions: PropTypes.object.isRequired,
     location: PropTypes.shape({
       state: PropTypes.object,
@@ -55,20 +56,22 @@ export default class TasksContainer extends BaseComponent {
   }
 
   render() {
-    const { $$store, location } = this.props;
+    const { $$tasksStore, location } = this.props;
+
+    debugger;
 
     return (
       <div>
         <div className={`${css.tasksFiltersContainer} clearfix`}>
           <TaskFilters
-                  $$filters={$$store.get('$$filters')}
+                  $$filters={$$tasksStore.get('$$filters')}
                   updateFilter={this.updateFilter}
                   keywordSearch={this.keywordSearch}
           />
         </div>
         <div className={`${css.tasksContainer} clearfix`}>
           <NewTaskButton postTask={this.postTask} />
-          <TaskList $$store={$$store}
+          <TaskList $$tasksStore={$$tasksStore}
                     location={location}
                     sortTasks={this.sortTasks}
                     $$selectedTask={this.getSelectedTask()}
@@ -97,24 +100,24 @@ export default class TasksContainer extends BaseComponent {
   }
 
   getSelectedTask() {
-    const { $$store } = this.props;
-    const selectedTaskId = $$store.get('selectedTaskId');
+    const { $$tasksStore } = this.props;
+    const selectedTaskId = $$tasksStore.get('selectedTaskId');
 
     if(!selectedTaskId) {
       return null;
     }
 
-    const $$tasks = this.props.$$store.get('$$tasks');
+    const $$tasks = this.props.$$tasksStore.get('$$tasks');
     return $$tasks.find(function($$task) {
       return selectedTaskId === $$task.get('id');
     });
   }
 
   sortTasks(newSortType) {
-    const { taskActions, $$store } = this.props;
+    const { taskActions, $$tasksStore } = this.props;
 
     const params = {
-      keywordSearchTerm: $$store.get('keywordSearchTerm'),
+      keywordSearchTerm: $$tasksStore.get('keywordSearchTerm'),
       selectedSortType: newSortType
     };
 
@@ -160,11 +163,11 @@ export default class TasksContainer extends BaseComponent {
   }
 
   keywordSearch(keywordSearchTerm) {
-    const { taskActions, $$store } = this.props;
+    const { taskActions, $$tasksStore } = this.props;
 
     const params = {
       keywordSearchTerm,
-      selectedSortType: $$store.get('selectedSortType')
+      selectedSortType: $$tasksStore.get('selectedSortType')
     };
 
     taskActions.fetchTasksByKeyword(params);

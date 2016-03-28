@@ -1,0 +1,29 @@
+.partnerRow {
+  composes: taskRow from "../Task/TaskItem.scss";
+}
+
+.partnerAttribute {
+  composes: taskAttribute from "../Task/TaskItem.scss";
+}
+
+.partnerName {
+  composes: partnerAttribute;
+  flex: none;
+  width: 60px;
+}
+
+.partnerRelationshipStatus {
+  composes: partnerAttribute;
+  flex: none;
+  width: 75px;
+}
+
+.partnerNote {
+  composes: partnerAttribute;
+  flex-grow: 14;
+  overflow: hidden;
+}
+
+.selectedPartnerPointer {
+  composes: selectedTaskPointer from "../Task/TaskItem.scss";
+}

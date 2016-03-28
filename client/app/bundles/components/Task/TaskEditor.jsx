@@ -132,7 +132,6 @@ export default class extends BaseComponent {
   }
 
   showDatePicker(event) {
-    debugger;
     event.stopPropagation();
     this.refs.datePicker.setOpen(true);
   }

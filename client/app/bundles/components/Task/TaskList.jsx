@@ -16,7 +16,7 @@ export default class TaskList extends BaseComponent {
   }
 
   static propTypes = {
-    $$store: ImmutablePropTypes.map.isRequired,
+    $$tasksStore: ImmutablePropTypes.map.isRequired,
     location: PropTypes.shape({
       state: PropTypes.object
     }).isRequired,
@@ -28,8 +28,10 @@ export default class TaskList extends BaseComponent {
   };
 
   render() {
-    const { $$store, location, sortTasks } = this.props;
-    const selectedSortType = $$store.get('selectedSortType');
+    const { $$tasksStore, location, sortTasks } = this.props;
+    const selectedSortType = $$tasksStore.get('selectedSortType');
+
+    debugger;
 
     return (
       <div>
@@ -45,7 +47,7 @@ export default class TaskList extends BaseComponent {
   }
 
   getTasks() {
-    const $$tasks = this.props.$$store.get('$$tasks');
+    const $$tasks = this.props.$$tasksStore.get('$$tasks');
     const { $$selectedTask, selectTask } = this.props;
 
     return(

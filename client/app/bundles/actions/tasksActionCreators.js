@@ -151,7 +151,6 @@ export function postTask(task) {
 }
 
 export function fetchTasksByKeyword(params) {
-  debugger;
   return dispatch => {
     dispatch(setIsFetching());
     dispatch(setKeywordSearchTerm(params.keywordSearchTerm));

@@ -2,15 +2,22 @@ import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import loggerMiddleware from 'libs/middlewares/loggerMiddleware';
 import reducers from '../reducers';
-import { initalStates } from '../reducers';
+import { initalStates } from '../reducers/index.js';
+
+import Immutable from 'immutable';
 
 export default props => {
-  const initialTasks = props;
-  const { $$tasksState } = initalStates;
+  const { tasks, partners } = props.props;
+  let { $$tasksState, $$partnersState } = initalStates;
+
+  $$tasksState = $$tasksState.set('$$tasks', Immutable.fromJS(JSON.parse(tasks)));
+  $$partnersState = $$partnersState.set('$$partners', Immutable.fromJS(JSON.parse(partners)));
+
+  debugger;
+
   const initialState = {
-    $$store: $$tasksState.merge({
-      $$tasks: initialTasks,
-    }),
+    $$tasksStore: $$tasksState,
+    $$partnersStore: $$partnersState
   };
 
   const reducer = combineReducers(reducers);

@@ -2,6 +2,7 @@ import request from 'axios';
 import metaTagsManager from './metaTagsManager';
 
 const TASKS_URL = 'api/tasks';
+const PARTNERS_URL = 'api/tasks';
 
 export default {
 
@@ -38,6 +39,15 @@ export default {
     return request({
       method: 'DELETE',
       url: deleteUrl,
+      params: params,
+      responseType: 'json'
+    });
+  },
+
+  fetchPartners(params) {
+    return request({
+      method: 'GET',
+      url: PARTNERS_URL,
       params: params,
       responseType: 'json'
     });

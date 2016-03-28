@@ -153,7 +153,3 @@ export default function tasksReducer($$state = $$initialState, action = null) {
     }
   }
 }
-
-export function getParams() {
-
-}
