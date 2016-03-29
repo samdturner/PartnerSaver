@@ -51,7 +51,7 @@ export default class extends BaseComponent {
   getEditorContent() {
     return(
       <ReactCSSTransitionGroup
-                        transitionName="new-task-wrapper"
+                        transitionName="new-item-wrapper"
                         transitionEnterTimeout={300}
                         transitionLeaveTimeout={300}>
         {this.getEditor()}
@@ -66,7 +66,7 @@ export default class extends BaseComponent {
 
     return(
       <div className={css.newTaskWrapper}
-           key="new-task-wrapper">
+           key="new-item-wrapper">
         <div key="new-task-container"
              className={css.newTaskContainer}>
           <div className={css.header}>

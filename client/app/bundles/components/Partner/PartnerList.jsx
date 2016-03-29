@@ -10,7 +10,7 @@ import PartnerItem from './PartnerItem';
 export default class PartnerList extends BaseComponent {
   constructor(props, context) {
     super(props, context);
-    _.bindAll(this, 'getPartners', 'getPartnerListCss');
+    _.bindAll(this, 'getPartnerListCss');
   }
 
   static propTypes = {
@@ -18,32 +18,36 @@ export default class PartnerList extends BaseComponent {
     location: PropTypes.shape({
       state: PropTypes.object
     }).isRequired,
-    $$selectedPartner: ImmutablePropTypes.map,
+    $$selectedPartner: ImmutablePropTypes.map.isRequired,
     selectPartner: PropTypes.func.isRequired,
     updatePartner: PropTypes.func.isRequired,
     putPartner: PropTypes.func.isRequired
   };
 
   render() {
-    const { $$partnersStore, location, $$selectedPartner, selectTask } = this.props;
+    const { $$partnersStore,
+            location,
+            selectPartner,
+            updatePartner,
+            putPartner } = this.props;
+
     const $$partners = $$partnersStore.get('$$partners');
+
+    debugger;
 
     return (
       <div>
         <ul className={this.getPartnerListCss()}>
           {$$partners.map($$partner => {
-            if($$partner.get('isIncluded')) {
-              return(
-                <PartnerItem
-                          $$partner={$$partner}
-                          $$selectedPartner={$$selectedPartner}
-                          selectPartner={selectPartner}
-                          key={"partnerItem" + $$partner.get('id')}
-                          updatePartner={this.props.updatePartner}
-                          putPartner={this.props.putPartner}
-                />
-              )
-            }
+            return(
+              <PartnerItem
+                      $$partner={$$partner}
+                      selectPartner={selectPartner}
+                      updatePartner={updatePartner}
+                      putPartner={putPartner}
+                      key={"partnerItem" + $$partner.get('id')}
+              />
+            )
           })}
         </ul>
       </div>

@@ -4,10 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 
-import * as tasksActionCreators from '../actions/tasksActionCreators';
+import * as partnersActionCreators from '../actions/partnersActionCreators';
 import PartnerList from '../components/Partner/PartnerList';
-import NewPartnerButton from '../components/Partner/NewPartnerButton';
+import PartnerEditor from '../components/Partner/PartnerEditor';
+// import NewPartnerButton from '../components/Partner/NewPartnerButton';
 import BaseComponent from 'libs/components/BaseComponent';
+
+import css from './PartnersContainer.scss';
 
 function mapStateToProps(state, ownProps) {
   return { $$partnersStore: state.$$partnersStore }
@@ -15,7 +18,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    taskActions: bindActionCreators(tasksActionCreators, dispatch)
+    partnerActions: bindActionCreators(partnersActionCreators, dispatch)
   };
 }
 
@@ -23,7 +26,11 @@ export default class PartnersContainer extends BaseComponent {
   constructor(props, context) {
     super(props, context);
     _.bindAll(this,
-      'getTaskWindow'
+      'selectPartner',
+      'updatePartner',
+      'putPartner',
+      'closePartnerWindow',
+      'deletePartner'
     );
   }
 
@@ -40,32 +47,74 @@ export default class PartnersContainer extends BaseComponent {
 
     return (
       <div>
-        <div className={`${css.tasksContainer} clearfix`}>
-          <PartnerList $$partnersStore={$$partnersStore}
-                        location={location}
-                        $$selectedPartner={this.getSelectedTask()}
-                        selectPartner={this.selectPartner}
-                        updatePartner={this.updatePartner}
-                        putPartner={this.putPartner}
+        <div className={`${css.partnersContainer} clearfix`}>
+          <PartnerList
+                  $$partnersStore={$$partnersStore}
+                  location={location}
+                  $$selectedPartner={this.getSelectedPartner()}
+                  selectPartner={this.selectPartner}
+                  updatePartner={this.updatePartner}
+                  putPartner={this.putPartner}
           />
+          {this.getPartnerWindow()}
         </div>
       </div>
     );
   }
 
-  // getTaskWindow() {
-  //   const $$selectedPartner = this.getSelectedTask();
-  //
-  //   return(
-  //     <TaskEditor $$selectedPartner={$$selectedPartner}
-  //                 closeTaskWindow={this.closeTaskWindow}
-  //                 updatePartner={this.updatePartner}
-  //                 putPartner={this.putPartner}
-  //                 deleteTask={this.deleteTask}
-  //                 key="taskEditor"
-  //     />
-  //   )
-  // }
+  selectPartner(partnerId) {
+    const { partnerActions } = this.props;
+    partnerActions.setSelectedPartnerId(partnerId);
+  }
+
+  updatePartner() {
+    return;
+  }
+
+  putPartner() {
+    return;
+  }
+
+  getSelectedPartner() {
+    const { $$partnersStore } = this.props;
+    const selectedPartnerId = $$partnersStore.get('selectedPartnerId');
+
+    if(!selectedPartnerId) {
+      return null;
+    }
+
+    const $$partners = this.props.$$partnersStore.get('$$partners');
+    return $$partners.find(function($$partner) {
+      return selectedPartnerId === $$partner.get('id');
+    });
+  }
+
+  getPartnerWindow() {
+    const $$selectedPartner = this.getSelectedPartner();
+
+    return(
+      <PartnerEditor
+                $$selectedPartner={$$selectedPartner}
+                closePartnerWindow={this.closePartnerWindow}
+                updatePartner={this.updatePartner}
+                putPartner={this.putPartner}
+                deletePartner={this.deletePartner}
+                key="partnerEditor"
+      />
+    )
+  }
+
+  closePartnerWindow() {
+    const { partnerActions } = this.props;
+    partnerActions.setSelectedPartnerId(null);
+  }
+
+  deletePartner($$partner) {
+    debugger;
+    const { partnerActions } = this.props;
+    const partner = $$partner.toJS();
+    partnerActions.deletePartner(partner);
+  }
 }
 
 export default connect(

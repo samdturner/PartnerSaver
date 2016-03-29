@@ -6,8 +6,6 @@ import _ from 'lodash';
 import BaseComponent from 'libs/components/BaseComponent';
 import css from './PartnerItem.scss';
 
-import StatusSelector from './StatusSelector';
-
 export default class extends BaseComponent {
   constructor(props, context) {
     super(props, context);
@@ -21,13 +19,22 @@ export default class extends BaseComponent {
 
   static propTypes = {
     $$partner: ImmutablePropTypes.map.isRequired,
-    $$selectedPartner: ImmutablePropTypes.map,
+    selectPartner: PropTypes.func.isRequired,
     updatePartner: PropTypes.func.isRequired,
     putPartner: PropTypes.func.isRequired
   };
 
   render() {
     const { $$partner } = this.props;
+
+    const relationshipStatusArr = [
+      'Clusterfuck',
+      'Needs Improvement',
+      'Best Friends'
+    ];
+
+    let relationshipStatusIdx = $$partner.get('relationship_status');
+    let relationshipStatus = relationshipStatusArr[relationshipStatusIdx];
 
     return(
       <li className={css.partnerRow}
@@ -36,7 +43,7 @@ export default class extends BaseComponent {
           <span>{$$partner.get('name')}</span>
         </div>
         <div className={css.partnerRelationshipStatus}>
-          <span>{$$partner.get('relationship_status')}</span>
+          <span>{relationshipStatus}</span>
         </div>
         <div className={css.partnerNote}>
           <span>{$$partner.get('note')}</span>

@@ -8,5 +8,6 @@ class PagesController < ApplicationController
 
     def set_tasks
       @tasks = Task.all.order(:deadline)
+      @partners = Partner.all
     end
 end

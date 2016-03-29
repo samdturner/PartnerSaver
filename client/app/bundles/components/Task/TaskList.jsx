@@ -31,8 +31,6 @@ export default class TaskList extends BaseComponent {
     const { $$tasksStore, location, sortTasks } = this.props;
     const selectedSortType = $$tasksStore.get('selectedSortType');
 
-    debugger;
-
     return (
       <div>
         <ul className={this.getTaskListCss()}>

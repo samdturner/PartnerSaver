@@ -1,5 +1,5 @@
 :global {
-  div.new-task-wrapper-enter {
+  div.new-item-wrapper-enter {
     overflow: hidden;
     right: -35%;
 
@@ -8,7 +8,7 @@
     }
   }
 
-  div.new-task-wrapper-enter.new-task-wrapper-enter-active {
+  div.new-item-wrapper-enter.new-item-wrapper-enter-active {
     overflow: hidden;
     right: 0px;
     transition: all 0.3s linear;
@@ -19,7 +19,7 @@
     }
   }
 
-  div.new-task-wrapper-leave {
+  div.new-item-wrapper-leave {
     overflow: hidden;
     right: 0px;
 
@@ -28,7 +28,7 @@
     }
   }
 
-  div.new-task-wrapper-leave.new-task-wrapper-leave-active {
+  div.new-item-wrapper-leave.new-item-wrapper-leave-active {
     overflow: hidden;
     right: -35%;
     transition: all 0.3s linear;

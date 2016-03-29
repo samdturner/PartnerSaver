@@ -1,0 +1,68 @@
+.newPartnerWrapper {
+  composes: newTaskWrapper from "../Task/TaskEditor.scss";
+}
+
+.newPartnerContainer {
+  composes: newTaskContainer from "../Task/TaskEditor.scss";
+}
+
+.header {
+  composes: header from "../Task/TaskEditor.scss";
+}
+
+.iconSelectorContainer {
+  @include icon-container-dropdown;
+  display: inline-block;
+
+  .iconContainer {
+    @include icon-circle($gray-light);
+    margin-right: 10px;
+
+    .icon {
+      @include icon-circle-font($gray-light, 18px);
+    }
+  }
+
+  .iconLabel {
+    @include icon-label($gray-light);
+  }
+}
+
+.iconSelectorContainer:hover {
+  cursor: pointer;
+
+  .iconContainer {
+    @include icon-circle($brand-info);
+
+    .icon {
+      @include icon-circle-font($brand-info, 18px);
+    }
+  }
+
+  .iconLabel {
+    @include icon-label($brand-info);
+  }
+}
+
+.partnerSelectorContainer {
+  composes: iconSelectorContainer;
+  margin-right: 20px;
+}
+
+.secondHeader {
+  margin-bottom: 15px;
+}
+
+.deletePartnerBtn {
+  float: right;
+  font-weight: 300;
+}
+
+.thirdHeader {
+  margin-bottom: 15px;
+}
+
+.partnerNotes {
+  color: $gray;
+  font-size: 12px;
+}

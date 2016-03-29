@@ -9,15 +9,8 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= react_component('Header',
-                    {},
-                    generator_function: true,
-                    prerender: false,
-                    raise_on_prerender_error: true) %>
 
-<div class="container">
-  <%= yield %>
-</div>
+<%= yield %>
 
 </body>
 </html>

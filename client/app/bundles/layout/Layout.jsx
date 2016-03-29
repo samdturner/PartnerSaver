@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { IndexLink, Link } from 'react-router';
+import Header from '../components/Header';
 
 import './Layout.scss';
 
@@ -11,9 +12,14 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-      <section>
-        {this.props.children}
-      </section>
+      <div>
+        <Header />
+        <div className="container">
+          <section>
+            {this.props.children}
+          </section>
+        </div>
+      </div>
     );
   }
 }

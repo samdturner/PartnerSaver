@@ -9,13 +9,15 @@
 .partnerName {
   composes: partnerAttribute;
   flex: none;
-  width: 60px;
+  width: 150px;
+  overflow: hidden;
 }
 
 .partnerRelationshipStatus {
   composes: partnerAttribute;
   flex: none;
-  width: 75px;
+  width: 100px;
+  overflow: ellipsis;
 }
 
 .partnerNote {

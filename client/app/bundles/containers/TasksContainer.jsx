@@ -25,8 +25,8 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 export default class TasksContainer extends BaseComponent {
   constructor(props, context) {
+    debugger;
     super(props, context);
-    debugger
     _.bindAll(this,
       'getTaskWindow',
       'getSelectedTask',
@@ -57,8 +57,6 @@ export default class TasksContainer extends BaseComponent {
 
   render() {
     const { $$tasksStore, location } = this.props;
-
-    debugger;
 
     return (
       <div>
@@ -173,6 +171,10 @@ export default class TasksContainer extends BaseComponent {
     taskActions.fetchTasksByKeyword(params);
   }
 }
+
+TasksContainer.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
 
 export default connect(
   mapStateToProps,

@@ -1,8 +1,8 @@
-import React from 'react';
-import Header from '../components/Header';
-
-export default (props, location) => {
-  return (
-    <Header />
-  );
-};
+// import React from 'react';
+// import Header from '../components/Header';
+//
+// export default (props, location) => {
+//   return (
+//     <Header />
+//   );
+// };

@@ -13,8 +13,6 @@ export default props => {
   $$tasksState = $$tasksState.set('$$tasks', Immutable.fromJS(JSON.parse(tasks)));
   $$partnersState = $$partnersState.set('$$partners', Immutable.fromJS(JSON.parse(partners)));
 
-  debugger;
-
   const initialState = {
     $$tasksStore: $$tasksState,
     $$partnersStore: $$partnersState

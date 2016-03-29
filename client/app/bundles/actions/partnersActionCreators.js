@@ -8,12 +8,36 @@ export function fetchPartnersSuccess(partners) {
   }
 }
 
+export function setSelectedPartnerId(partnerId) {
+  return {
+    type: actionTypes.SET_SELECTED_PARTNER_ID,
+    selectedPartnerId: partnerId
+  }
+}
+
+export function removePartner(partner) {
+  return {
+    type: actionTypes.REMOVE_PARTNER,
+    partner
+  }
+}
+
 export function getPartners(params) {
   return dispatch => {
     return(
       requestsManager
         .fetchPartners(params)
         .then(res => dispatch(fetchPartnersSuccess(res.data)))
+    )
+  }
+}
+
+export function deletePartner(partner) {
+  return dispatch => {
+    dispatch(removePartner(partner));
+    return(
+      requestsManager
+        .deletePartner(partner)
     )
   }
 }

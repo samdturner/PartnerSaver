@@ -2,7 +2,7 @@ import request from 'axios';
 import metaTagsManager from './metaTagsManager';
 
 const TASKS_URL = 'api/tasks';
-const PARTNERS_URL = 'api/tasks';
+const PARTNERS_URL = 'api/partners';
 
 export default {
 
@@ -25,20 +25,20 @@ export default {
   },
 
   updateTask(params) {
-    const putUrl = TASKS_URL + "/" + params.id;
+    const taskPutUrl = TASKS_URL + "/" + params.id;
     return request({
       method: 'PUT',
-      url: putUrl,
+      url: taskPutUrl,
       params: params,
       responseType: 'json'
     });
   },
 
   deleteTask(params) {
-    const deleteUrl = TASKS_URL + "/" + params.id;
+    const taskDeleteUrl = TASKS_URL + "/" + params.id;
     return request({
       method: 'DELETE',
-      url: deleteUrl,
+      url: taskDeleteUrl,
       params: params,
       responseType: 'json'
     });
@@ -51,6 +51,15 @@ export default {
       params: params,
       responseType: 'json'
     });
-  }
+  },
 
+  deletePartner(params) {
+    const partnerDeleteUrl = PARTNERS_URL + "/" + params.id;
+    return request({
+      method: 'DELETE',
+      url: partnerDeleteUrl,
+      params: params,
+      responseType: 'json'
+    });
+  }
 };
