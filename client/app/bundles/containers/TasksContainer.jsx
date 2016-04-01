@@ -25,7 +25,6 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 export default class TasksContainer extends BaseComponent {
   constructor(props, context) {
-    debugger;
     super(props, context);
     _.bindAll(this,
       'getTaskWindow',

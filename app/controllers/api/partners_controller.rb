@@ -8,7 +8,7 @@ class Api::PartnersController < ApplicationController
   def create
     @partner = Partner.new(partner_params)
     if @partner.save
-      render 'partners_partner.json.jbuilder', locals: { partner: @partner }
+      render 'partners/_partner.json.jbuilder', locals: { partner: @partner }
     else
       render json: @partner.errors.full_messages, status: :unprocessable_entity
     end
@@ -17,7 +17,7 @@ class Api::PartnersController < ApplicationController
   def update
     @partner = Partner.find_by(id: params[:id])
     if @partner.update_attributes(partner_params)
-      render 'partners_partner.json.jbuilder', locals: { partner: @partner }
+      render 'partners/_partner.json.jbuilder', locals: { partner: @partner }
     else
       render json: @partner.errors.full_messages, status: :unprocessable_entity
     end

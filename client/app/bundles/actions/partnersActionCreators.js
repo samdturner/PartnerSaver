@@ -22,6 +22,13 @@ export function removePartner(partner) {
   }
 }
 
+export function updatePartner(partner) {
+  return {
+    type: actionTypes.UPDATE_PARTNER,
+    partner
+  }
+}
+
 export function getPartners(params) {
   return dispatch => {
     return(
@@ -38,6 +45,16 @@ export function deletePartner(partner) {
     return(
       requestsManager
         .deletePartner(partner)
+    )
+  }
+}
+
+export function putPartner(partner) {
+  return dispatch => {
+    return(
+      requestsManager
+        .putPartner(partner)
+        .then(res => dispatch(updatePartner(res.data)))
     )
   }
 }

@@ -67,12 +67,16 @@ export default class PartnersContainer extends BaseComponent {
     partnerActions.setSelectedPartnerId(partnerId);
   }
 
-  updatePartner() {
-    return;
+  updatePartner($$partner) {
+    const { partnerActions } = this.props;
+    const partner = $$partner.toJS();
+    partnerActions.updatePartner(partner);
   }
 
-  putPartner() {
-    return;
+  putPartner($$partner) {
+    const { partnerActions } = this.props;
+    const partner = $$partner.toJS();
+    partnerActions.putPartner(partner);
   }
 
   getSelectedPartner() {
@@ -110,7 +114,6 @@ export default class PartnersContainer extends BaseComponent {
   }
 
   deletePartner($$partner) {
-    debugger;
     const { partnerActions } = this.props;
     const partner = $$partner.toJS();
     partnerActions.deletePartner(partner);

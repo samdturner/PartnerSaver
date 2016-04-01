@@ -61,5 +61,15 @@ export default {
       params: params,
       responseType: 'json'
     });
+  },
+
+  putPartner(params) {
+    const partnerPutUrl = PARTNERS_URL + "/" + params.id;
+    return request({
+      method: 'PUT',
+      url: partnerPutUrl,
+      params: params,
+      responseType: 'json'
+    });
   }
 };

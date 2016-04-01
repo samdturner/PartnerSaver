@@ -93,14 +93,14 @@ export default class extends BaseComponent {
   }
 
   getPartnerNameInput() {
-    const title = this.props.$$selectedPartner.get('title');
+    const name = this.props.$$selectedPartner.get('name');
 
     return(
       <input
           className="form-control"
-          value={title}
+          value={name}
           onChange={this.handleUpdateText}
-          name="title"
+          name="name"
           placeholder="Partner name"
           rows="3"
       />
@@ -108,23 +108,18 @@ export default class extends BaseComponent {
   }
 
   getPartnerNotesInput() {
-    const description = this.props.$$selectedPartner.get('description');
+    const note = this.props.$$selectedPartner.get('note');
 
     return(
       <textarea
             className={`${css.partnerNotes}` + " form-control"}
-            value={description}
+            value={note}
             onChange={this.handleUpdateText}
-            name="description"
+            name="note"
             placeholder="Notes"
             rows="3"
       ></textarea>
     )
-  }
-
-  handleUpdateDate(newDate) {
-    const newDateStr = newDate.format("YYYY-MM-DD");
-    this.updatePartner("deadline", newDateStr);
   }
 
   handleUpdateText(event) {

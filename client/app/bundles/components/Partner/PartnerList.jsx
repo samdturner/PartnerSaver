@@ -33,8 +33,6 @@ export default class PartnerList extends BaseComponent {
 
     const $$partners = $$partnersStore.get('$$partners');
 
-    debugger;
-
     return (
       <div>
         <ul className={this.getPartnerListCss()}>

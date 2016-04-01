@@ -34,6 +34,21 @@ export default function partnersReducer($$state = $$initialState, action = null)
         $$partners: $$remainingPartners
       });
 
+    case actionTypes.UPDATE_PARTNER:
+      const $$updatedPartner = Immutable.fromJS(action.partner);
+      const updatedPartnerId = $$updatedPartner.get('id');
+      const $$updatedPartners = $$state.get('$$partners').map(function($$partner) {
+        if(updatedPartnerId === $$partner.get('id')) {
+          return $$updatedPartner;
+        }
+
+        return $$partner;
+      });
+
+      return $$state.merge({
+        $$partners: $$updatedPartners
+      });
+
     default: {
       return $$state;
     }
