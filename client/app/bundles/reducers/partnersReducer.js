@@ -16,7 +16,7 @@ export default function partnersReducer($$state = $$initialState, action = null)
   switch(action.type) {
     case actionTypes.FETCH_PARTNERS_SUCCESS:
       return $$state.merge({
-        $$tasks: Immutable.fromJS(action.partners)
+        $$partners: Immutable.fromJS(action.partners)
       });
 
     case actionTypes.SET_SELECTED_PARTNER_ID:
@@ -47,6 +47,15 @@ export default function partnersReducer($$state = $$initialState, action = null)
 
       return $$state.merge({
         $$partners: $$updatedPartners
+      });
+
+    case actionTypes.CREATE_NEW_PARTNER:
+      let $$newPartner = Immutable.fromJS(action.newPartner);
+      const $$newPartnerList = $$state.get('$$partners').unshift($$newPartner);
+
+      return $$state.merge({
+        $$partners: $$newPartnerList,
+        selectedPartnerId: $$newPartner.get('id')
       });
 
     default: {

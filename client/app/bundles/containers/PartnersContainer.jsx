@@ -7,7 +7,7 @@ import _ from 'lodash';
 import * as partnersActionCreators from '../actions/partnersActionCreators';
 import PartnerList from '../components/Partner/PartnerList';
 import PartnerEditor from '../components/Partner/PartnerEditor';
-// import NewPartnerButton from '../components/Partner/NewPartnerButton';
+import NewPartnerButton from '../components/Partner/NewPartnerButton';
 import BaseComponent from 'libs/components/BaseComponent';
 
 import css from './PartnersContainer.scss';
@@ -30,7 +30,8 @@ export default class PartnersContainer extends BaseComponent {
       'updatePartner',
       'putPartner',
       'closePartnerWindow',
-      'deletePartner'
+      'deletePartner',
+      'postPartner'
     );
   }
 
@@ -48,6 +49,7 @@ export default class PartnersContainer extends BaseComponent {
     return (
       <div>
         <div className={`${css.partnersContainer} clearfix`}>
+          <NewPartnerButton postPartner={this.postPartner} />
           <PartnerList
                   $$partnersStore={$$partnersStore}
                   location={location}
@@ -117,6 +119,11 @@ export default class PartnersContainer extends BaseComponent {
     const { partnerActions } = this.props;
     const partner = $$partner.toJS();
     partnerActions.deletePartner(partner);
+  }
+
+  postPartner(event) {
+    const { partnerActions } = this.props;
+    partnerActions.postPartner({});
   }
 }
 

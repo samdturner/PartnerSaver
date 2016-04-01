@@ -53,6 +53,15 @@ export default {
     });
   },
 
+  postPartner(params) {
+    return request({
+      method: 'POST',
+      url: PARTNERS_URL,
+      params: params,
+      responseType: 'json'
+    });
+  },
+
   deletePartner(params) {
     const partnerDeleteUrl = PARTNERS_URL + "/" + params.id;
     return request({

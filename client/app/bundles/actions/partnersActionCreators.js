@@ -29,6 +29,13 @@ export function updatePartner(partner) {
   }
 }
 
+export function createNewPartner(newPartner) {
+  return {
+    type: actionTypes.CREATE_NEW_PARTNER,
+    newPartner
+  }
+}
+
 export function getPartners(params) {
   return dispatch => {
     return(
@@ -55,6 +62,16 @@ export function putPartner(partner) {
       requestsManager
         .putPartner(partner)
         .then(res => dispatch(updatePartner(res.data)))
+    )
+  }
+}
+
+export function postPartner(partner) {
+  return dispatch => {
+    return(
+      requestsManager
+        .postPartner(partner)
+        .then(res => dispatch(createNewPartner(res.data)))
     )
   }
 }
