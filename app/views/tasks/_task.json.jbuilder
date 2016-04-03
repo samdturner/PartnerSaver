@@ -5,5 +5,6 @@ json.extract! task, :id,
                     :category,
                     :status,
                     :is_overdue,
+                    :partner_id,
                     :created_at,
                     :updated_at

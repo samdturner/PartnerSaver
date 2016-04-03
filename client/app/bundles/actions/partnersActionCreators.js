@@ -3,7 +3,7 @@ import * as actionTypes from '../constants/partnersConstants';
 
 export function fetchPartnersSuccess(partners) {
   return {
-    type: actionTypes.FETCH_TASKS_SUCCESS,
+    type: actionTypes.FETCH_PARTNERS_SUCCESS,
     partners
   }
 }
@@ -33,6 +33,13 @@ export function createNewPartner(newPartner) {
   return {
     type: actionTypes.CREATE_NEW_PARTNER,
     newPartner
+  }
+}
+
+export function setSortType(newSortType) {
+  return {
+    type: actionTypes.SET_PARTNER_SORT_TYPE,
+    newSortType
   }
 }
 
@@ -72,6 +79,17 @@ export function postPartner(partner) {
       requestsManager
         .postPartner(partner)
         .then(res => dispatch(createNewPartner(res.data)))
+    )
+  }
+}
+
+export function sortPartners(params) {
+  return dispatch => {
+    dispatch(setSortType(params.selectedSortType));
+    return(
+      requestsManager
+        .fetchPartners(params)
+        .then(res => dispatch(fetchPartnersSuccess(res.data)))
     )
   }
 }

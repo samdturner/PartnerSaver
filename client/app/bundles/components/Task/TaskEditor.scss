@@ -1,7 +1,7 @@
 :global {
   div.new-item-wrapper-enter {
     overflow: hidden;
-    right: -35%;
+    right: -38%;
 
     > div {
       left: -100%;
@@ -10,7 +10,7 @@
 
   div.new-item-wrapper-enter.new-item-wrapper-enter-active {
     overflow: hidden;
-    right: 0px;
+    right: -25px;
     transition: all 0.3s linear;
 
     > div {
@@ -21,7 +21,7 @@
 
   div.new-item-wrapper-leave {
     overflow: hidden;
-    right: 0px;
+    right: -25px;
 
     > div {
       left: 0px;
@@ -30,7 +30,7 @@
 
   div.new-item-wrapper-leave.new-item-wrapper-leave-active {
     overflow: hidden;
-    right: -35%;
+    right: -38%;
     transition: all 0.3s linear;
 
     > div {
@@ -42,13 +42,13 @@
 
 .newTaskWrapper {
   position: absolute;
-  width: 35%;
+  width: 38%;
   height: 420px;
   float: right;
   border: 1px transparent;
   margin-top: 34px;
   padding: 6px 12px;
-  right: 0px;
+  right: -25px;
 }
 
 .newTaskContainer {

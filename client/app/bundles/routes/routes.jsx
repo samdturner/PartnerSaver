@@ -6,7 +6,8 @@ import PartnersContainer from '../containers/PartnersContainer';
 
 export default (
   <Route path="/" component={Layout}>
-    <IndexRoute
+    <Route
+      path="tasks"
       component={TasksContainer}
     />
     <Route

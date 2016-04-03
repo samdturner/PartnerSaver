@@ -9,14 +9,16 @@ export default class Header extends React.Component {
     return(
       <Navbar className={css.navbar}>
         <Navbar.Header>
-          <Navbar.Brand>
-            PartnerSaver
-          </Navbar.Brand>
+          <LinkContainer to={{ pathname: '/tasks' }}>
+            <Navbar.Brand>
+              PartnerSaver
+            </Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to={{ pathname: '/' }}>
+            <LinkContainer to={{ pathname: '/tasks' }}>
               <NavItem eventKey={1}>
                 Deliverables & Rewards
               </NavItem>

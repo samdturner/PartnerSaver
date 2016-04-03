@@ -14,7 +14,10 @@ import BaseComponent from 'libs/components/BaseComponent';
 import css from './TasksContainer.scss';
 
 function mapStateToProps(state, ownProps) {
-  return { $$tasksStore: state.$$tasksStore }
+  return {
+    $$tasksStore: state.$$tasksStore,
+    $$partnersStore: state.$$partnersStore
+  }
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
@@ -55,7 +58,8 @@ export default class TasksContainer extends BaseComponent {
   }
 
   render() {
-    const { $$tasksStore, location } = this.props;
+    const { $$tasksStore, $$partnersStore, location } = this.props;
+    const $$partners = $$partnersStore.get('$$partners');
 
     return (
       <div>
@@ -69,6 +73,7 @@ export default class TasksContainer extends BaseComponent {
         <div className={`${css.tasksContainer} clearfix`}>
           <NewTaskButton postTask={this.postTask} />
           <TaskList $$tasksStore={$$tasksStore}
+                    $$partners={$$partners}
                     location={location}
                     sortTasks={this.sortTasks}
                     $$selectedTask={this.getSelectedTask()}

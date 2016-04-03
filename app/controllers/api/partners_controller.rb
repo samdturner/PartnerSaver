@@ -1,6 +1,9 @@
 class Api::PartnersController < ApplicationController
   def index
+    selectedSortType = params[:selectedSortType] || "deadline"
+
     @partners = Partner.all
+                        .order(selectedSortType)
 
     render 'partners/index.json'
   end
@@ -41,7 +44,8 @@ class Api::PartnersController < ApplicationController
                 :name,
                 :note,
                 :relationship_status,
-                :is_deleted
+                :is_deleted,
+                :selectedSortType
                 )
     end
 end

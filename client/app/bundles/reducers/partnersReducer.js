@@ -7,7 +7,8 @@ import * as actionTypes from '../constants/partnersConstants';
 
 export const $$initialState = Immutable.fromJS({
   $$partners: [],
-  selectedPartnerId: null
+  selectedPartnerId: null,
+  selectedSortType: 'name'
 });
 
 export default function partnersReducer($$state = $$initialState, action = null) {
@@ -57,6 +58,9 @@ export default function partnersReducer($$state = $$initialState, action = null)
         $$partners: $$newPartnerList,
         selectedPartnerId: $$newPartner.get('id')
       });
+
+    case actionTypes.SET_PARTNER_SORT_TYPE:
+      return $$state.set('selectedSortType', action.newSortType);
 
     default: {
       return $$state;

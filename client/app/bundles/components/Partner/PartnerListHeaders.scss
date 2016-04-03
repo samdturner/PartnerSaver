@@ -1,0 +1,52 @@
+.partnerListHeaders {
+  composes: taskListHeaders from "../Task/TaskListHeaders.scss";
+}
+
+.partnerListHeader {
+  composes: taskListHeader from "../Task/TaskListHeaders.scss";
+}
+
+.nameHeader {
+  composes: partnerListHeader;
+  flex: none;
+  width: 150px;
+}
+
+.relationshipStatusHeader {
+  composes: partnerListHeader;
+  flex: none;
+  width: 150px;
+}
+
+.noteHeader {
+  composes: partnerListHeader;
+  flex-grow: 14;
+}
+
+.headerSelected {
+  text-decoration: underline;
+}
+
+.sortArrow {
+  composes: sortArrow from "../Task/TaskListHeaders.scss";
+}
+
+.sortArrowDesc {
+  composes: headerSelected;
+  composes: sortArrow;
+  &:after {
+    border-right: solid 2px $brand-primary;
+    border-bottom: solid 2px $brand-primary;
+    top: -2px;
+  }
+}
+
+.sortArrowAsc {
+  composes: headerSelected;
+  composes: sortArrow;
+  &:after {
+    border-left: solid 2px $brand-primary;
+    border-top: solid 2px $brand-primary;
+    top: 1px;
+  }
+}

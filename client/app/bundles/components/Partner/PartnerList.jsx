@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import _ from 'lodash';
 
 import BaseComponent from 'libs/components/BaseComponent';
+import PartnerListHeaders from './PartnerListHeaders';
 import css from './PartnerList.scss';
 import PartnerItem from './PartnerItem';
 
@@ -18,6 +19,7 @@ export default class PartnerList extends BaseComponent {
     location: PropTypes.shape({
       state: PropTypes.object
     }).isRequired,
+    sortPartners: PropTypes.func.isRequired,
     $$selectedPartner: ImmutablePropTypes.map.isRequired,
     selectPartner: PropTypes.func.isRequired,
     updatePartner: PropTypes.func.isRequired,
@@ -29,17 +31,26 @@ export default class PartnerList extends BaseComponent {
             location,
             selectPartner,
             updatePartner,
-            putPartner } = this.props;
+            putPartner,
+            sortPartners,
+            $$selectedPartner } = this.props;
 
     const $$partners = $$partnersStore.get('$$partners');
+    const selectedSortType = $$partnersStore.get('selectedSortType');
 
     return (
       <div>
         <ul className={this.getPartnerListCss()}>
+          <PartnerListHeaders
+                          selectedSortType={selectedSortType}
+                          location={location}
+                          sortPartners={sortPartners}
+          />
           {$$partners.map($$partner => {
             return(
               <PartnerItem
                       $$partner={$$partner}
+                      $$selectedPartner={$$selectedPartner}
                       selectPartner={selectPartner}
                       updatePartner={updatePartner}
                       putPartner={putPartner}

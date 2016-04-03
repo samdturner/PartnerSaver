@@ -21,7 +21,8 @@ export default class extends BaseComponent {
     $$partner: ImmutablePropTypes.map.isRequired,
     selectPartner: PropTypes.func.isRequired,
     updatePartner: PropTypes.func.isRequired,
-    putPartner: PropTypes.func.isRequired
+    putPartner: PropTypes.func.isRequired,
+    $$selectedPartner: ImmutablePropTypes.map.isRequired
   };
 
   render() {

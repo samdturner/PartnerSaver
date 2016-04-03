@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root "pages#tasks"
+  root to: redirect('/tasks')
+  get '/tasks', to: 'pages#tasks'
   get '/partners', to: 'pages#tasks'
 
   namespace :api do

@@ -12,6 +12,7 @@ export default class extends BaseComponent {
   constructor(props, context) {
     super(props, context);
     _.bindAll(this,
+      'getPartnerName',
       'handleItemClick',
       'getPointer',
       'getTaskItemCss',
@@ -22,6 +23,7 @@ export default class extends BaseComponent {
 
   static propTypes = {
     $$task: ImmutablePropTypes.map.isRequired,
+    $$partner: ImmutablePropTypes.map.isRequired,
     $$selectedTask: ImmutablePropTypes.map,
     updateTask: PropTypes.func.isRequired,
     putTask: PropTypes.func.isRequired
@@ -40,7 +42,7 @@ export default class extends BaseComponent {
           />
         </div>
         <div className={css.taskPartner}>
-          <span>Cenovus</span>
+          <span>{this.getPartnerName()}</span>
         </div>
         <div className={css.taskDeadline}>
           <span>{$$task.get('deadline')}</span>
@@ -51,6 +53,15 @@ export default class extends BaseComponent {
         {this.getPointer()}
       </li>
     )
+  }
+
+  getPartnerName() {
+    const { $$partner } = this.props;
+    if($$partner) {
+      return $$partner.get('name');
+    }
+
+    return "";
   }
 
   handleItemClick(event) {

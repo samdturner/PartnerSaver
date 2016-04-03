@@ -17,6 +17,7 @@ export default class TaskList extends BaseComponent {
 
   static propTypes = {
     $$tasksStore: ImmutablePropTypes.map.isRequired,
+    $$partners: ImmutablePropTypes.list.isRequired,
     location: PropTypes.shape({
       state: PropTypes.object
     }).isRequired,
@@ -46,13 +47,17 @@ export default class TaskList extends BaseComponent {
 
   getTasks() {
     const $$tasks = this.props.$$tasksStore.get('$$tasks');
-    const { $$selectedTask, selectTask } = this.props;
+    const { $$selectedTask, selectTask, $$partners } = this.props;
 
     return(
       $$tasks.map($$task => {
         if($$task.get('isIncluded')) {
+          let $$partner = $$partners.find(function($$partner) {
+            return $$partner.get('id') === $$task.get('partner_id');
+          })
           return(
             <TaskItem $$task={$$task}
+                      $$partner={$$partner}
                       $$selectedTask={$$selectedTask}
                       selectTask={selectTask}
                       key={"taskItem" + $$task.get('id')}

@@ -31,7 +31,8 @@ export default class PartnersContainer extends BaseComponent {
       'putPartner',
       'closePartnerWindow',
       'deletePartner',
-      'postPartner'
+      'postPartner',
+      'sortPartners'
     );
   }
 
@@ -57,6 +58,7 @@ export default class PartnersContainer extends BaseComponent {
                   selectPartner={this.selectPartner}
                   updatePartner={this.updatePartner}
                   putPartner={this.putPartner}
+                  sortPartners={this.sortPartners}
           />
           {this.getPartnerWindow()}
         </div>
@@ -108,6 +110,16 @@ export default class PartnersContainer extends BaseComponent {
                 key="partnerEditor"
       />
     )
+  }
+
+  sortPartners(newSortType) {
+    const { partnerActions, $$partnersStore } = this.props;
+
+    const params = {
+      selectedSortType: newSortType
+    };
+
+    partnerActions.sortPartners(params);
   }
 
   closePartnerWindow() {
