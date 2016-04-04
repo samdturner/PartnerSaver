@@ -13,6 +13,7 @@
 .iconSelectorContainer {
   @include icon-container-dropdown;
   display: inline-block;
+  position: relative;
 
   .iconContainer {
     @include icon-circle($gray-light);
@@ -44,7 +45,7 @@
   }
 }
 
-.partnerSelectorContainer {
+.relationshipSelectorContainer {
   composes: iconSelectorContainer;
   margin-right: 20px;
 }

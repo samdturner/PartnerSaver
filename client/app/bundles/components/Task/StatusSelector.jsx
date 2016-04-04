@@ -18,7 +18,7 @@ export default class extends BaseComponent {
     const statusOptions = [
       {
         statusLabel: "Incomplete",
-        icon: "times"
+        icon: "minus-circle"
       },
       {
         statusLabel: "In Progress",

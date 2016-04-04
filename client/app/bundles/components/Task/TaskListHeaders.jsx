@@ -23,7 +23,7 @@ export default class TaskListHeaders extends BaseComponent {
   render() {
     const headerAttrs = [
       {
-        sortType: 'partner',
+        sortType: 'partners.name',
         label: 'Partner',
         className: css.partnerHeader
       },

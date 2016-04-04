@@ -13,12 +13,19 @@ export const $$initialState = Immutable.fromJS({
   saveTaskError: false,
   $$filters: {
     $$category: new Immutable.Set([0, 1]),
-    $$months: new Immutable.Set([1, 2, 3])
+    $$months: new Immutable.Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+    $$statusTypes: new Immutable.Set([0, 1, 2])
   },
   selectedSortType: 'deadline',
   selectedTaskId: null,
   keywordSearchTerm: ''
 });
+
+var isStatusIncluded = ($$task, $$statusTypes) => {
+  const status = $$task.get('status');
+
+  return $$statusTypes.has(parseInt(status));
+}
 
 var isCategoryIncluded = ($$task, $$category) => {
   const category = $$task.get('category');
@@ -41,6 +48,10 @@ var isTaskVisible = ($$task, $$filters) => {
   }
 
   if(!isCategoryIncluded($$task, $$filters.get('$$category'))) {
+    isIncluded = false;
+  }
+
+  if(!isStatusIncluded($$task, $$filters.get('$$statusTypes'))) {
     isIncluded = false;
   }
 

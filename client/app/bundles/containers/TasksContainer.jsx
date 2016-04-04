@@ -89,9 +89,12 @@ export default class TasksContainer extends BaseComponent {
 
   getTaskWindow() {
     const $$selectedTask = this.getSelectedTask();
+    const { $$partnersStore } = this.props;
+    const $$partners = $$partnersStore.get('$$partners');
 
     return(
       <TaskEditor $$selectedTask={$$selectedTask}
+                  $$partners={$$partners}
                   closeTaskWindow={this.closeTaskWindow}
                   updateTask={this.updateTask}
                   putTask={this.putTask}

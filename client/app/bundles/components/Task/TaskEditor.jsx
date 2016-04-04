@@ -7,6 +7,7 @@ import BaseComponent from 'libs/components/BaseComponent';
 import css from './TaskEditor.scss';
 import '../Util/Datepicker.scss';
 import Icon from 'react-fa'
+import Dropdown from '../Util/Dropdown';
 
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
@@ -20,6 +21,8 @@ export default class extends BaseComponent {
     super(props, context);
     _.bindAll(this,
       'getPartnerSelector',
+      'handlePartnerSelect',
+      'getDropdownOptions',
       'getDeadlineSelector',
       'getCategoryToggle',
       'showDatePicker',
@@ -36,6 +39,7 @@ export default class extends BaseComponent {
 
   static propTypes = {
     $$selectedTask: ImmutablePropTypes.map.isRequired,
+    $$partners: ImmutablePropTypes.list.isRequired,
     closeTaskWindow: PropTypes.func.isRequired,
     updateTask: PropTypes.func.isRequired,
     putTask: PropTypes.func.isRequired,
@@ -98,12 +102,28 @@ export default class extends BaseComponent {
   }
 
   getPartnerSelector() {
+    const { $$partners, $$selectedTask } = this.props;
+    let $$selectedPartner = $$partners.find(function($$partner) {
+      return $$partner.get('id') === $$selectedTask.get('partner_id');
+    });
+
+    let partnerName = "+ Add a partner";
+    if($$selectedPartner) {
+      partnerName = $$selectedPartner.get('name');
+    }
+
     return(
       <div className={css.partnerSelectorContainer}>
         <div className={css.iconContainer}>
           <Icon name="briefcase" className={css.icon} />
         </div>
-        <span className={css.iconLabel}>Royal Bank of Canada</span>
+        <div className={css.iconLabelContainer}>
+          <span className={css.iconLabel}>{partnerName}</span>
+        </div>
+        <Dropdown
+              options={this.getDropdownOptions()}
+              onSelect={this.handlePartnerSelect}
+        />
       </div>
     )
   }
@@ -180,6 +200,29 @@ export default class extends BaseComponent {
             rows="3"
       ></textarea>
     )
+  }
+
+  getDropdownOptions() {
+    const { $$partners, $$selectedTask } = this.props;
+
+    let $$filteredPartners = $$partners.filter(function($$partner) {
+      return !!$$partner.get('name');
+    })
+
+    return $$filteredPartners.map(function($$partner) {
+      let newObject = {};
+      newObject.value = $$partner.get('id');
+      newObject.label = $$partner.get('name');
+      newObject.selected = $$partner.get('id') === $$selectedTask.get('partner_id');
+      return newObject;
+    })
+  }
+
+  handlePartnerSelect(partnerId) {
+    const { $$selectedTask } = this.props;
+    const $$updatedTask = $$selectedTask.set('partner_id', partnerId);
+    this.props.updateTask($$updatedTask);
+    this.props.putTask($$updatedTask);
   }
 
   getTaskDescriptionInput() {

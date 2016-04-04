@@ -11,7 +11,16 @@
 
   &:hover {
     cursor: pointer;
+    background-color: $gray-lighter;
   }
+}
+
+.taskRow.completed {
+  text-decoration: line-through;
+}
+
+.taskRow.selected {
+  background-color: $gray-lighter;
 }
 
 .taskItem {

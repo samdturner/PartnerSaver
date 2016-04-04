@@ -6,6 +6,7 @@ import _ from 'lodash';
 import BaseComponent from 'libs/components/BaseComponent';
 import css from './PartnerEditor.scss';
 import Icon from 'react-fa'
+import Dropdown from '../Util/Dropdown';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -14,6 +15,7 @@ export default class extends BaseComponent {
     super(props, context);
     _.bindAll(this,
       'getRelationshipSelector',
+      'handleRelationshipSelect',
       'getPartnerNameInput',
       'getPartnerNotesInput',
       'handleUpdateText',
@@ -22,6 +24,7 @@ export default class extends BaseComponent {
       'handleDeletePartner'
     );
     this.putPartner = _.debounce(this.putPartner, 200);
+    this.state = { isRelationshipSelectorOpen: false };
   }
 
   static propTypes = {
@@ -82,14 +85,51 @@ export default class extends BaseComponent {
   }
 
   getRelationshipSelector() {
+    const { $$selectedPartner } = this.props;
+    const relationshipStatusArr = [
+      'Clusterfuck',
+      'Needs Improvement',
+      'Best Friends'
+    ];
+
+    let relationshipStatusIdx = $$selectedPartner.get('relationship_status');
+    let relationshipStatus = relationshipStatusArr[relationshipStatusIdx];
+
     return(
-      <div className={css.partnerSelectorContainer}>
+      <div className={css.relationshipSelectorContainer}>
         <div className={css.iconContainer}>
-          <Icon name="briefcase" className={css.icon} />
+          <Icon name="heartbeat" className={css.icon} />
         </div>
-        <span className={css.iconLabel}>Royal Bank of Canada</span>
+        <span className={css.iconLabel}>{relationshipStatus}</span>
+        <Dropdown
+              options={this.getDropdownOptions()}
+              onSelect={this.handleRelationshipSelect}
+        />
       </div>
     )
+  }
+
+  getDropdownOptions() {
+    const { $$selectedPartner } = this.props;
+    let labels = ["Clusterfuck", "Needs Improvement", "Best Friends"];
+    let options = [];
+
+    options = labels.map(function(label, idx) {
+      let newObject = {};
+      newObject.value = idx;
+      newObject.label = label;
+      newObject.selected = idx === $$selectedPartner.get("relationship_status");
+      return newObject;
+    });
+
+    return options;
+  }
+
+  handleRelationshipSelect(statusId) {
+    const { $$selectedPartner } = this.props;
+    const $$updatedPartner = $$selectedPartner.set('relationship_status', statusId);
+    this.props.updatePartner($$updatedPartner);
+    this.props.putPartner($$updatedPartner);
   }
 
   getPartnerNameInput() {

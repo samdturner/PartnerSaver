@@ -12,6 +12,7 @@ export default class extends BaseComponent {
     _.bindAll(this,
       'getMonthFilter',
       'getTaskTypeFilters',
+      'getStatusFilter',
       'getBtnClassName',
       'keywordSearch'
     );
@@ -29,6 +30,7 @@ export default class extends BaseComponent {
         {this.getTaskSearchBar()}
         {this.getTaskTypeFilters()}
         {this.getMonthFilter()}
+        {this.getStatusFilter()}
       </div>
     )
   }
@@ -79,6 +81,36 @@ export default class extends BaseComponent {
                     onChange={this.props.updateFilter.bind(this, '$$months', value)}
                     checked={this.props.$$filters.get('$$months').has(value)}
                 /> {month}
+              </label>
+            </div>
+          )
+        }.bind(this))}
+      </div>
+    )
+  }
+
+  getStatusFilter() {
+    const statusTypes = [
+      "Incomplete",
+      "In Progress",
+      "Complete"
+    ];
+
+    return(
+      <div className={`${css.filterContainer} well well-sm`}>
+        <strong className={css.filterTitle}>
+          Status
+        </strong>
+        {statusTypes.map(function(statusType, idx) {
+          const value = idx;
+          return(
+            <div>
+              <label className={css.filterLabel}>
+                <input
+                    type="checkbox"
+                    onChange={this.props.updateFilter.bind(this, '$$statusTypes', value)}
+                    checked={this.props.$$filters.get('$$statusTypes').has(value)}
+                /> {statusType}
               </label>
             </div>
           )

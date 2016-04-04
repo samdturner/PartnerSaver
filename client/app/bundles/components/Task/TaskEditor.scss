@@ -72,6 +72,7 @@
 .iconSelectorContainer {
   @include icon-container-dropdown;
   display: inline-block;
+  position: relative;
 
   .iconContainer {
     @include icon-circle($gray-light);
@@ -103,6 +104,15 @@
   }
 }
 
+.iconLabelContainer {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 36px;
+  float: right;
+  line-height: 27px;
+}
+
 .partnerSelectorContainer {
   composes: iconSelectorContainer;
   margin-right: 20px;
@@ -110,6 +120,7 @@
 
 .deadlineSelectorContainer {
   composes: iconSelectorContainer;
+  margin-right: 200px;
 
   :global {
     .datepicker__input-container {

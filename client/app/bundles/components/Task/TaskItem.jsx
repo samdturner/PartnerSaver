@@ -82,8 +82,20 @@ export default class extends BaseComponent {
   }
 
   getTaskItemCss() {
+    const { $$selectedTask, $$task } = this.props;
+
+    if($$task.get('status') === 2) {
+      return `${css.taskItem} ${css.completed}`;
+    }
+
     var is_overdue = this.props.$$task.get('is_overdue');
-    return is_overdue ? css.taskItemOverdue : css.taskItem;
+    let taskItemCss = is_overdue ? css.taskItemOverdue : css.taskItem;
+
+    if($$task === $$selectedTask) {
+      return `${taskItemCss} ${css.selected}`;
+    }
+
+    return taskItemCss;
   }
 
   updateTask(name, value) {
