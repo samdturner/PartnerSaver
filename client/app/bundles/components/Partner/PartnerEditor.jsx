@@ -93,7 +93,10 @@ export default class extends BaseComponent {
     ];
 
     let relationshipStatusIdx = $$selectedPartner.get('relationship_status');
-    let relationshipStatus = relationshipStatusArr[relationshipStatusIdx];
+    let relationshipStatus = "+ Add Relationship Status"
+    if(relationshipStatusIdx !== null) {
+      relationshipStatus = relationshipStatusArr[relationshipStatusIdx];
+    }
 
     return(
       <div className={css.relationshipSelectorContainer}>
