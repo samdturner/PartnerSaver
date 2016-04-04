@@ -9,7 +9,7 @@ const config = require('./webpack.client.base.config');
 const devBuild = process.env.NODE_ENV !== 'production';
 
 config.output = {
-  filename: '[name]-bundle.[hash].js',
+  filename: '[name]-bundle.js',
   path: '../app/assets/webpack',
 };
 
@@ -51,16 +51,18 @@ config.module.loaders.push(
     test: /(node_modules).*(\.css$)/,
     loader: ExtractTextPlugin.extract(
       'style',
-      '!postcss'
+      'css',
+      'postcss'
     )
   },
   {
     test: /(node_modules).*(\.scss$)/,
     loader: ExtractTextPlugin.extract(
       'style',
-      '!postcss',
-      '!sass',
-      '!sass-resources'
+      'css',
+      'postcss',
+      'sass',
+      'sass-resources'
     )
   },
   {
@@ -70,7 +72,7 @@ config.module.loaders.push(
 );
 
 config.plugins.push(
-  new ExtractTextPlugin('[name]-bundle.[hash].css', { allChunks: true }),
+  new ExtractTextPlugin('[name]-bundle.css', { allChunks: true }),
   new webpack.optimize.DedupePlugin()
 );
 
