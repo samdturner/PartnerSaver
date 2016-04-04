@@ -68,7 +68,6 @@ export function putPartner(partner) {
     return(
       requestsManager
         .putPartner(partner)
-        .then(res => dispatch(updatePartner(res.data)))
     )
   }
 }

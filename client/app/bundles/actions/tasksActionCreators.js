@@ -115,7 +115,6 @@ export function putTask(task) {
     return(
       requestsManager
         .updateTask(task)
-        .then(res => dispatch(updateTask(res.data)))
         .then(res => dispatch(setVisibleTasks()))
     )
   }
