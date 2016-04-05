@@ -120,7 +120,8 @@
 
 .deadlineSelectorContainer {
   composes: iconSelectorContainer;
-  margin-right: 200px;
+  display: block;
+  width: 175px;
 
   :global {
     .datepicker__input-container {

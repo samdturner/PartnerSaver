@@ -10,6 +10,7 @@ import TaskList from '../components/Task/TaskList';
 import TaskEditor from '../components/Task/TaskEditor';
 import NewTaskButton from '../components/Task/NewTaskButton';
 import BaseComponent from 'libs/components/BaseComponent';
+import MediaQuery from 'react-responsive';
 
 import css from './TasksContainer.scss';
 
@@ -63,13 +64,15 @@ export default class TasksContainer extends BaseComponent {
 
     return (
       <div>
-        <div className={`${css.tasksFiltersContainer} clearfix`}>
-          <TaskFilters
-                  $$filters={$$tasksStore.get('$$filters')}
-                  updateFilter={this.updateFilter}
-                  keywordSearch={this.keywordSearch}
-          />
-        </div>
+        <MediaQuery minWidth={1400}>
+          <div className={`${css.tasksFiltersContainer} clearfix`}>
+            <TaskFilters
+                    $$filters={$$tasksStore.get('$$filters')}
+                    updateFilter={this.updateFilter}
+                    keywordSearch={this.keywordSearch}
+            />
+          </div>
+        </MediaQuery>
         <div className={`${css.tasksContainer} clearfix`}>
           <NewTaskButton postTask={this.postTask} />
           <TaskList $$tasksStore={$$tasksStore}

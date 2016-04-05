@@ -5,8 +5,14 @@
   position: relative;
 }
 
+@media(min-width: 1400px) {
+  .tasksContainer {
+    width: 80%;
+    position: relative;
+    float: right;
+  }
+}
+
 .tasksContainer {
-  width: 80%;
   position: relative;
-  float: right;
 }

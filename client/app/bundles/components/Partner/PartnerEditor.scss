@@ -22,10 +22,17 @@
     .icon {
       @include icon-circle-font($gray-light, 18px);
     }
+
+    span {
+      font-size: 18px !important;
+      line-height: 36px !important;
+    }
   }
 
   .iconLabel {
     @include icon-label($gray-light);
+    position: relative;
+    top: -3px;
   }
 }
 
