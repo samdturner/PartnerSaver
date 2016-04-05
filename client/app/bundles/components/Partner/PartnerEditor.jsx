@@ -136,12 +136,12 @@ export default class extends BaseComponent {
   }
 
   getPartnerNameInput() {
-    const name = this.props.$$selectedPartner.get('name');
+    let name = this.props.$$selectedPartner.get('name');
 
     return(
       <input
           className="form-control"
-          value={name}
+          value={name || ""}
           onChange={this.handleUpdateText}
           name="name"
           placeholder="Partner name"
@@ -151,16 +151,16 @@ export default class extends BaseComponent {
   }
 
   getPartnerNotesInput() {
-    const note = this.props.$$selectedPartner.get('note');
+    let note = this.props.$$selectedPartner.get('note');
 
     return(
       <textarea
             className={`${css.partnerNotes}` + " form-control"}
-            value={note}
+            value={note || ""}
             onChange={this.handleUpdateText}
             name="note"
             placeholder="Notes"
-            rows="3"
+            rows="5"
       ></textarea>
     )
   }
