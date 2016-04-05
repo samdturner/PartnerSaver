@@ -2,15 +2,20 @@ class Api::TasksController < ApplicationController
   def index
     selectedSortType = params[:selectedSortType] || "deadline"
 
+    hasJoined = false
     @tasks = Task.all
     if selectedSortType == "partners.name" || selectedSortType == "partners.name desc"
       @tasks = @tasks.joins('LEFT OUTER JOIN partners ON partners.id = tasks.partner_id')
                       .order(selectedSortType)
+      hasJoined = true
     elsif
       @tasks = @tasks.order(selectedSortType)
     end
 
     if !params[:keywordSearchTerm].blank?
+      if !hasJoined
+        @tasks = @tasks.joins('LEFT OUTER JOIN partners ON partners.id = tasks.partner_id')
+      end
       @tasks = @tasks.select { |task| task.contains_substr?(params[:keywordSearchTerm]) }
     end
 

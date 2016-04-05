@@ -45,6 +45,11 @@ class Task < ActiveRecord::Base
   end
 
   def contains_substr?(substr)
-   substr_match?(substr, self.title) || substr_match?(substr, self.description)
+   match = substr_match?(substr, self.title) \
+            || substr_match?(substr, self.description)
+
+   return match if match
+
+   return !self.partner.nil? && substr_match?(substr, self.partner.name)
   end
 end
