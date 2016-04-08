@@ -13,7 +13,7 @@ export const $$initialState = Immutable.fromJS({
   saveTaskError: false,
   $$filters: {
     $$category: new Immutable.Set([0, 1]),
-    $$months: new Immutable.Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+    $$months: new Immutable.Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
     $$statusTypes: new Immutable.Set([0, 1, 2])
   },
   selectedSortType: 'deadline',
@@ -35,7 +35,7 @@ var isCategoryIncluded = ($$task, $$category) => {
 
 var isMonthIncluded = ($$task, $$months) => {
   const deadline = $$task.get('deadline');
-  const month = moment(deadline, 'YYYY-MM-DD').format('M');
+  const month = moment(deadline, 'YYYY-MM-DD').format('M') - 1;
 
   return $$months.has(parseInt(month));
 }

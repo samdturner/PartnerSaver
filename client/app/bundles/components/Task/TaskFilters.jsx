@@ -4,6 +4,7 @@ import Immutable from 'immutable';
 import _ from 'lodash';
 
 import BaseComponent from 'libs/components/BaseComponent';
+import FilterPanel from '../Util/FilterPanel';
 import css from './TaskFilters.scss';
 
 export default class extends BaseComponent {
@@ -67,25 +68,13 @@ export default class extends BaseComponent {
     ];
 
     return(
-      <div className={`${css.filterContainer} well well-sm`}>
-        <strong className={css.filterTitle}>
-          Month Deadline
-        </strong>
-        {months.map(function(month, idx) {
-          const value = idx + 1;
-          return(
-            <div>
-              <label className={css.filterLabel}>
-                <input
-                    type="checkbox"
-                    onChange={this.props.updateFilter.bind(this, '$$months', value)}
-                    checked={this.props.$$filters.get('$$months').has(value)}
-                /> {month}
-              </label>
-            </div>
-          )
-        }.bind(this))}
-      </div>
+      <FilterPanel
+              options={months}
+              filterName='$$months'
+              filters={this.props.$$filters.get('$$months')}
+              header='Month Deadline'
+              updateFilter={this.props.updateFilter}
+      />
     )
   }
 
@@ -97,48 +86,34 @@ export default class extends BaseComponent {
     ];
 
     return(
-      <div className={`${css.filterContainer} well well-sm`}>
-        <strong className={css.filterTitle}>
-          Status
-        </strong>
-        {statusTypes.map(function(statusType, idx) {
-          const value = idx;
-          return(
-            <div>
-              <label className={css.filterLabel}>
-                <input
-                    type="checkbox"
-                    onChange={this.props.updateFilter.bind(this, '$$statusTypes', value)}
-                    checked={this.props.$$filters.get('$$statusTypes').has(value)}
-                /> {statusType}
-              </label>
-            </div>
-          )
-        }.bind(this))}
-      </div>
+      <FilterPanel
+              options={statusTypes}
+              filterName='$$statusTypes'
+              filters={this.props.$$filters.get('$$statusTypes')}
+              header='Status'
+              updateFilter={this.props.updateFilter}
+      />
     )
   }
 
   getTaskTypeFilters() {
+    const taskTypes = [
+      "Deliverable",
+      "Reward"
+    ];
+
     return(
       <div>
         <span className={css.taskTypeFilterHeader}>
-          Refine by
+          Filter by
         </span>
-        <div className="btn-group btn-group-justified">
-          <a
-           className={this.getBtnClassName(0)}
-           name="category"
-           onClick={this.props.updateFilter.bind(this, "$$category", 0)}>
-             Deliverables
-          </a>
-          <a
-           className={this.getBtnClassName(1)}
-           name="category"
-           onClick={this.props.updateFilter.bind(this, "$$category", 1)}>
-             Rewards
-          </a>
-        </div>
+        <FilterPanel
+                options={taskTypes}
+                filterName='$$category'
+                filters={this.props.$$filters.get('$$category')}
+                header='Task Type'
+                updateFilter={this.props.updateFilter}
+        />
       </div>
     )
   }

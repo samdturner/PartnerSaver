@@ -1,37 +1,35 @@
 import React, { PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import BaseComponent from 'libs/components/BaseComponent';
-import css from './Dropdown.scss';
-import Icon from 'react-fa'
+import css from './FilterPanel.scss';
 
 export default class extends BaseComponent {
   static propTypes = {
     options: PropTypes.array.isRequired,
-    onSelect: PropTypes.func.isRequired
+    filterName: PropTypes.string.isRequired,
+    filters: ImmutablePropTypes.set.isRequired,
+    header: PropTypes.string.isRequired,
+    updateFilter: PropTypes.func.isRequired,
   };
 
   render() {
-    const statusTypes = [
-      "Incomplete",
-      "In Progress",
-      "Complete"
-    ];
+    const { options, filterName, filters } = this.props;
 
     return(
       <div className={`${css.filterContainer} well well-sm`}>
         <strong className={css.filterTitle}>
-          Status
+          {this.props.header}
         </strong>
-        {statusTypes.map(function(statusType, idx) {
-          const value = idx;
+        {options.map(function(option, idx) {
           return(
             <div>
               <label className={css.filterLabel}>
                 <input
                     type="checkbox"
-                    onChange={this.props.updateFilter.bind(this, '$$statusTypes', value)}
-                    checked={this.props.$$filters.get('$$statusTypes').has(value)}
-                /> {statusType}
+                    onChange={this.props.updateFilter.bind(this, filterName, idx)}
+                    checked={filters.has(idx)}
+                /> {option}
               </label>
             </div>
           )

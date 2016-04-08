@@ -1,0 +1,20 @@
+.tasksFiltersContainer {
+  padding: 0px
+}
+
+.filterContainer {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow: scroll;
+  min-height: 150px;
+}
+
+.filterTitle {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.filterLabel {
+  font-weight: 400;
+  margin-bottom: 10px;
+}

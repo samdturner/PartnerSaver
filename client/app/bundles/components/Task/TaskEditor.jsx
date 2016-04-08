@@ -81,7 +81,7 @@ export default class extends BaseComponent {
           </div>
           <div className={`${css.secondHeader}` + " clearfix"}>
             {this.getCategoryToggle()}
-            <a className={`${css.deleteTaskBtn}` + " btn-xs btn-danger"}
+            <a className={`${css.deleteTaskBtn}` + " btn-xs btn-danger btn"}
                onClick={this.handleDeleteTask}>
               Delete
             </a>
