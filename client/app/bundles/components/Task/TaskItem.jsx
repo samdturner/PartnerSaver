@@ -6,7 +6,7 @@ import _ from 'lodash';
 import BaseComponent from 'libs/components/BaseComponent';
 import css from './TaskItem.scss';
 
-import StatusSelector from './StatusSelector';
+import Icon from 'react-fa';
 
 export default class extends BaseComponent {
   constructor(props, context) {
@@ -31,14 +31,30 @@ export default class extends BaseComponent {
 
   render() {
     const { $$task } = this.props;
+    const status = $$task.get('status');
+
+    const statusOptions = [
+      {
+        statusLabel: "Incomplete",
+        icon: "minus-circle"
+      },
+      {
+        statusLabel: "In Progress",
+        icon: "tasks"
+      },
+      {
+        statusLabel: "Complete",
+        icon: "check"
+      }
+    ];
 
     return(
       <li className={this.getTaskItemCss()}
           onClick={this.handleItemClick}>
         <div className={css.taskStatus}>
-          <StatusSelector
-                      $$task={this.props.$$task}
-                      onSelect={this.updateTask}
+          <Icon
+              name={statusOptions[status]["icon"]}
+              className={css.taskStatusIcon}
           />
         </div>
         <div className={css.taskPartner}>
@@ -49,6 +65,9 @@ export default class extends BaseComponent {
         </div>
         <div className={css.taskDescription}>
           <span>{$$task.get('title')}</span>
+        </div>
+        <div className={`text-muted ${css.taskEditBtn}`}>
+          <span>EDIT</span>
         </div>
         {this.getPointer()}
       </li>

@@ -8,10 +8,15 @@
   background-color: $table-bg-accent;
   font-size: 12px;
   z-index: 100;
+  padding-right: 35px;
 
   &:hover {
     cursor: pointer;
     background-color: $gray-lighter;
+
+    .taskEditBtn {
+      visibility: visible;
+    }
   }
 }
 
@@ -41,12 +46,19 @@
   > span {
     line-height: 35px;
   }
+
+  :global {
+    .fa {
+      font-size: 22px;
+    }
+  }
 }
 
 .taskStatus {
   composes: taskAttribute;
   flex: none;
   width: 36px;
+  text-align: center;
 }
 
 .taskPartner {
@@ -90,4 +102,17 @@
   top: 29px;
   left: 12px;
   box-shadow: -1px -1px 10px -2px rgba(0,0,0,.5);
+}
+
+.taskEditBtn {
+  visibility: hidden;
+  position: absolute;
+
+  span {
+    line-height: 34px;
+  }
+
+  &:hover {
+    color: $brand-primary;
+  }
 }

@@ -50,6 +50,9 @@ export default class extends BaseComponent {
           <span>{$$partner.get('note')}</span>
         </div>
         {this.getPointer()}
+        <div className={`text-muted ${css.partnerEditBtn}`}>
+          <span>EDIT</span>
+        </div>
       </li>
     )
   }

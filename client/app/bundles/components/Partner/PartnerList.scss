@@ -11,3 +11,7 @@
   composes: partnerList;
   width: 100%;
 }
+
+.partnerListContainer {
+  composes: taskListContainer from "../Task/TaskList.scss";
+}

@@ -29,3 +29,7 @@
 .selectedPartnerPointer {
   composes: selectedTaskPointer from "../Task/TaskItem.scss";
 }
+
+.partnerEditBtn {
+  composes: taskEditBtn from "../Task/TaskItem.scss";
+}

@@ -10,7 +10,7 @@
 
   div.new-item-wrapper-enter.new-item-wrapper-enter-active {
     overflow: hidden;
-    right: -25px;
+    right: 0px;
     transition: all 0.3s linear;
 
     > div {
@@ -21,7 +21,7 @@
 
   div.new-item-wrapper-leave {
     overflow: hidden;
-    right: -25px;
+    right: 0px;
 
     > div {
       left: 0px;
@@ -43,16 +43,16 @@
 .newTaskWrapper {
   position: absolute;
   width: 38%;
-  height: 420px;
+  height: 440px;
   float: right;
   border: 1px transparent;
   margin-top: 34px;
   padding: 6px 12px;
-  right: -25px;
+  right: 0px;
 }
 
 .newTaskContainer {
-  height: 420px;
+  height: 440px;
   width: 100%;
   position: absolute;
   right: 0;
@@ -79,7 +79,7 @@
     margin-right: 10px;
 
     .icon {
-      @include icon-circle-font($gray-light, 18px);
+      @include icon-circle-font(18px);
     }
   }
 
@@ -95,7 +95,7 @@
     @include icon-circle($brand-info);
 
     .icon {
-      @include icon-circle-font($brand-info, 18px);
+      @include icon-circle-font(18px);
     }
   }
 
@@ -151,6 +151,12 @@
 .deleteTaskBtn {
   float: right;
   font-weight: 300;
+}
+
+.doneTaskBtn {
+  float: right;
+  font-weight: 300;
+  margin-top: 35px;
 }
 
 .thirdHeader {

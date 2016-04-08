@@ -4,7 +4,7 @@
   z-index: 100;
 
   .taskStatusIcon {
-    @include icon-circle-font($gray-light, 18px);
+    @include icon-circle-font(18px);
   }
 }
 
@@ -13,7 +13,7 @@
   @include icon-circle($brand-info);
 
   .taskStatusIcon {
-    @include icon-circle-font($brand-info, 18px);
+    @include icon-circle-font(18px);
   }
 
   .categoriesContainer {

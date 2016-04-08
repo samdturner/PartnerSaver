@@ -79,6 +79,10 @@ export default class extends BaseComponent {
           <div>
             {this.getPartnerNotesInput()}
           </div>
+          <a className={`${css.donePartnerBtn}` + " btn btn-success"}
+             onClick={this.props.closePartnerWindow}>
+            Done
+          </a>
         </div>
       </div>
     )

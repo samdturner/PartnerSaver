@@ -14,3 +14,13 @@
   composes: taskList;
   width: 100%;
 }
+
+.taskListContainer {
+  max-height: 440px;
+  overflow: scroll;
+  padding-right: 22px;
+}
+
+.taskListContainer::-webkit-scrollbar {
+  display: none;
+}

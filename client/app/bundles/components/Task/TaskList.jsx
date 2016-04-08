@@ -39,7 +39,9 @@ export default class TaskList extends BaseComponent {
                           location={location}
                           sortTasks={sortTasks}
           />
-          {this.getTasks()}
+          <div className={css.taskListContainer}>
+            {this.getTasks()}
+          </div>
         </ul>
       </div>
     )

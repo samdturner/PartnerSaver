@@ -10,6 +10,10 @@
   composes: header from "../Task/TaskEditor.scss";
 }
 
+.donePartnerBtn {
+  composes: doneTaskBtn from "../Task/TaskEditor.scss";
+}
+
 .iconSelectorContainer {
   @include icon-container-dropdown;
   display: inline-block;
@@ -20,7 +24,7 @@
     margin-right: 10px;
 
     .icon {
-      @include icon-circle-font($gray-light, 18px);
+      @include icon-circle-font(18px);
     }
 
     span {
@@ -43,7 +47,7 @@
     @include icon-circle($brand-info);
 
     .icon {
-      @include icon-circle-font($brand-info, 18px);
+      @include icon-circle-font(18px);
     }
   }
 

@@ -16,4 +16,15 @@
     z-index: 10;
   }
 
+  .fa-minus-circle {
+    color: $brand-danger;
+  }
+
+  .fa-tasks {
+    color: $brand-warning;
+  }
+
+  .fa-check {
+    color: $brand-success;
+  }
 }

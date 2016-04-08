@@ -46,18 +46,20 @@ export default class PartnerList extends BaseComponent {
                           location={location}
                           sortPartners={sortPartners}
           />
-          {$$partners.map($$partner => {
-            return(
-              <PartnerItem
-                      $$partner={$$partner}
-                      $$selectedPartner={$$selectedPartner}
-                      selectPartner={selectPartner}
-                      updatePartner={updatePartner}
-                      putPartner={putPartner}
-                      key={"partnerItem" + $$partner.get('id')}
-              />
-            )
-          })}
+          <div className={css.partnerListContainer}>
+            {$$partners.map($$partner => {
+              return(
+                <PartnerItem
+                        $$partner={$$partner}
+                        $$selectedPartner={$$selectedPartner}
+                        selectPartner={selectPartner}
+                        updatePartner={updatePartner}
+                        putPartner={putPartner}
+                        key={"partnerItem" + $$partner.get('id')}
+                />
+              )
+            })}
+          </div>
         </ul>
       </div>
     )

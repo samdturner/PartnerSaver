@@ -22,8 +22,7 @@
   text-align: center;
 }
 
-@mixin icon-circle-font($fontColor, $size) {
-  color: $fontColor;
+@mixin icon-circle-font($size) {
   font-size: $size;
   line-height: 34px;
 }
