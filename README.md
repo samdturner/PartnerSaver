@@ -23,7 +23,7 @@ Credit: Thank you you to my amazing client, AIESEC Canada, for giving me permiss
 - [Redux](https://github.com/reactjs/redux)
 - [Webpack](https://github.com/webpack/docs/wiki)
 - [npm](https://www.npmjs.com/)
-- [ES2015](https://www.npmjs.com/)
+- [ES2015](https://babeljs.io/docs/learn-es2015/)
 - [Rails](https://rubygems.org/gems/rails/versions/4.2.6)
 - [react-router](https://github.com/reactjs/react-router)
 - [Sass modules (using webpack's css loader)](https://github.com/webpack/css-loader)
