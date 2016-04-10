@@ -97,7 +97,7 @@ At scale, CSS becomes less maintainable because of the following problems.
 3. Dead code elimination
 4. Non-deterministic resolution
 
-By configuring webpack to apply a module loader to sass files, we can locally scope css and eliminate these scaling problems.  PartnerSaver follows the rule of creating one .scss file per react component rule.  This keeps the code base well organized and scalable.
+By configuring webpack to apply a module loader to sass files, we can locally scope css and eliminate these scaling problems.
 
 ```
 # client/webpack.client.base.config.js
@@ -135,7 +135,7 @@ CSS that is needed across the app can be exported to the global scope.
   
 ```
 
-Locally scoped CSS classes can be reused by other components.  The below item shows how a .partnerRow sass class inherits from the .taskRow class.
+PartnerSaver follows the rule of creating one .scss file per react component.  This keeps the code base well organized and scalable.  Locally scoped CSS classes can be reused by other components.  The below item shows how a .partnerRow sass class inherits from the .taskRow class.
 
 ```
 # client/app/bundles/components/Partner/PartnerItem.scss
