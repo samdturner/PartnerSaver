@@ -36,7 +36,7 @@ Credit: Thank you you to my amazing client, AIESEC Canada, for giving me permiss
 
 
 ## Technical Highlights
-- Implemented actions creators that used axios, a promise based HTTP client.  This allowed me to chain success / error functions together while keeping the code readable and maintainable
+- Implemented action creators using axios, a promise based HTTP client.  This allowed me to chain success / error functions together while keeping the code readable and maintainable
 - Configured webpack's css-loader to enable locally scoped css by default.  This configuration solves css problems that occur at scale: 1) Global collisions; 2) Overqualified Selectors; 3) Dead Code Elimination; 4) Non-deterministic resolution
 - Implemented the KMP substring search algorithm to increase efficiency of searching for notes
 - Used the react development pattern of container components and view components in order to separate concerns of logic and view.
@@ -97,7 +97,7 @@ At scale, CSS becomes less maintainable because of the following problems.
 3. Dead Code Elimination
 4. Non-deterministic resolution
 
-By configuring webpack to apply a module loader to sass files, we can locally scope css and eliminate these scaling problems.
+By configuring webpack to apply a module loader to sass files, we can locally scope css and eliminate these scaling problems.  PartnerSaver follows the rule of creating one .scss file per react component rule.  This keeps the code base well organized and scalable.
 
 ```
 # client/webpack.client.base.config.js
@@ -115,3 +115,34 @@ config.module.loaders.push({
 })
 
 ```
+
+CSS that is needed across the app can be exported to the global scope.
+
+```
+# client/app/bundles/components/Util/Datepicker.scss
+
+:global {
+  div.datepicker {
+    background-color: #ECF0F1;
+    border: 0px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2)
+  }
+
+  div.datepicker__current-month {
+    color: $brand-primary;
+    font-family: Lato;
+  }
+  
+```
+
+Locally scoped CSS classes can be reused by other components.  The below item shows how a .partnerRow sass class inherits from the .taskRow class.
+
+```
+# client/app/bundles/components/Partner/PartnerItem.scss
+
+.partnerRow {
+  composes: taskRow from "../Task/TaskItem.scss";
+}
+  
+```
+
