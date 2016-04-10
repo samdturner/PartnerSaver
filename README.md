@@ -5,14 +5,14 @@
 [weburl]: http://partnersaver27.herokuapp.com/tasks
 
 ## Concept
-PartnerSaver is an app built for AIESEC Canada to help them organize their commitments to their donors. Each year, the non-profit depends on millions of dollars in corporate donations to operate.  PartnerSaver allows AIESEC Canada easily manage their commitments to donors and maintain these important relationships.
+PartnerSaver is an app built for [AIESEC Canada](http://aiesec.ca/) to help them organize their commitments to their donors. Each year, this non-profit organizations depends on millions of dollars in corporate donations to operate.  PartnerSaver allows AIESEC Canada easily manage their commitments to donors and maintain these important relationships.
 
-Credit: Thank you you to my amazing client, AIESEC Canada, for giving me permission to open source the project and share my work with community.  Also thank-you to the Shaka Code team for the webpack-rails starter pack.  https://github.com/shakacode/react-webpack-rails-tutorial
+Credit: Thank you you to my amazing client, AIESEC Canada, for giving me permission to open source the project and share my work with community.  Also thank-you to the Shaka Code team for the webpack-rails [starter pack](https://github.com/shakacode/react-webpack-rails-tutorial).
 
 
 ## Key Features
+- Create tasks that can be linked to a donor
 - Tasks are automatically saved on keystroke
-- Create tasks and partners
 - Easily filter tasks by type, status and deadline
 - Search for tasks based on any string in the task
 - Sort tasks by partner name, deadline, or title
