@@ -92,10 +92,10 @@ export function sortTasks(params) {
 ## Configured webpack's css and sass loaders to create css modules
 At scale, CSS becomes less maintainable because of the following problems.
 
-1) Global collisions
-2) Overqualified Selectors
-3) Dead Code Elimination
-4) Non-deterministic resolution
+1. Global collisions
+2. Overqualified Selectors
+3. Dead Code Elimination
+4. Non-deterministic resolution
 
 By configuring webpack to apply a module loader to sass files, we can locally scope css and eliminate these scaling problems.
 
