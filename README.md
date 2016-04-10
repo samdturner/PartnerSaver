@@ -37,7 +37,7 @@ Credit: Thank you you to my amazing client, AIESEC Canada, for giving me permiss
 
 ## Technical Highlights
 - Implemented action creators using axios, a promise based HTTP client.  This allowed me to chain success / error functions together while keeping the code readable and maintainable
-- Configured webpack's css-loader to enable locally scoped css by default.  This configuration solves css problems that occur at scale: 1) Global collisions; 2) Overqualified Selectors; 3) Dead Code Elimination; 4) Non-deterministic resolution
+- Configured webpack's css-loader to enable locally scoped css by default.  This configuration solves css problems that occur at scale: 1) Global collisions; 2) Overqualified selectors; 3) Dead code elimination; 4) Non-deterministic resolution
 - Implemented the KMP substring search algorithm to increase efficiency of searching for notes
 - Used the react development pattern of container components and view components in order to separate concerns of logic and view.
 - Automatically saves a task when a user begins typing.  Implemented a debounce function to solve the problem of overloading the server.
@@ -93,8 +93,8 @@ export function sortTasks(params) {
 At scale, CSS becomes less maintainable because of the following problems.
 
 1. Global collisions
-2. Overqualified Selectors
-3. Dead Code Elimination
+2. Overqualified selectors
+3. Dead code elimination
 4. Non-deterministic resolution
 
 By configuring webpack to apply a module loader to sass files, we can locally scope css and eliminate these scaling problems.  PartnerSaver follows the rule of creating one .scss file per react component rule.  This keeps the code base well organized and scalable.
