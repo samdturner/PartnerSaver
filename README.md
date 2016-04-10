@@ -37,7 +37,7 @@ Credit: Thank you you to my amazing client, AIESEC Canada, for giving me permiss
 
 ## Technical Highlights
 - Implemented action creators using axios, a promise based HTTP client.  This allowed me to chain success / error functions together while keeping the code readable and maintainable
-- Configured webpack's css-loader to enable locally scoped css by default.  This configuration solves css problems that occur at scale: 1) Global collisions; 2) Overqualified selectors; 3) Dead code elimination; 4) Non-deterministic resolution
+- Configured webpack's css-loader to enable locally scoped css by default.  This configuration solves css problems that occur at scale.
 - Implemented the KMP substring search algorithm to increase efficiency of searching for notes
 - Used the react development pattern of container components and view components in order to separate concerns of logic and view.
 - Automatically saves a task when a user begins typing.  Implemented a debounce function to solve the problem of overloading the server.
